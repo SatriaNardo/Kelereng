@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro; // WAJIB: Ditambahkan untuk menggunakan TextMeshPro UI
 
 public class ArenaManager : MonoBehaviour
 {
@@ -8,12 +9,28 @@ public class ArenaManager : MonoBehaviour
 
     [Header("Game Settings")]
     public float circleRadius = 5f;
-    public int currentAmmo = 4;
     public Transform arenaCenter;
+    public int maxTurns = 10; // Maximum rounds allowed
+
+    [Header("Ammunition")]
+    public int currentAmmo = 4;
+    public int enemyAmmo = 4; 
+
+    [Header("UI Canvas Connections")]
+    public TMP_Text playerAmmoText; // Drag your Player Ammo Text here
+    public TMP_Text enemyAmmoText;  // Drag your Enemy Ammo Text here
+    public TMP_Text turnText;       // Drag your Turn Counter Text here
 
     [Header("State Tracking")]
     public List<Rigidbody2D> allMarblesInArena = new List<Rigidbody2D>();
-    private bool isTurnActive = false;
+    public bool IsTurnActive { get; private set; } = false;
+    public bool IsPlayerTurn { get; private set; } = true; 
+
+    [Header("UI Connector")]
+    public UIFightInventory uiFightInventory;
+    
+    private int currentTurnCount = 1; // Starts at turn 1
+    private Rigidbody2D activeGacoan; 
 
     private void Awake()
     {
@@ -22,43 +39,56 @@ public class ArenaManager : MonoBehaviour
 
     private void Start()
     {
-        // Cari semua kelereng di arena saat game dimulai
-        GameObject[] targets = GameObject.FindGameObjectsWithTag("TargetMarble");
-        foreach (GameObject target in targets)
-        {
-            if (target.TryGetComponent<Rigidbody2D>(out var rb))
-            {
-                allMarblesInArena.Add(rb);
-            }
-        }
+        currentAmmo = ProgressionManager.Instance.BASE_AMMO;
         UpdateAmmoUI();
     }
 
-    public void OnMarbleFlicked()
+
+    public void OnMapGenerated()
     {
-        currentAmmo--;
-        isTurnActive = true;
+        UpdateAmmoUI();
+    }
+
+    public void OnMarbleFlicked(Rigidbody2D gacoanRb, bool isPlayer)
+    {
+        IsTurnActive = true;
+        activeGacoan = gacoanRb; 
+
+        if (isPlayer) currentAmmo--;
+        else enemyAmmo--;
+
         UpdateAmmoUI();
         StartCoroutine(WaitForAllMarblesToStop());
     }
 
-    public void AddAmmoFromOutsider()
+    public void AddAmmoFromOutsider(MarbleElementSO savedElement)
     {
-        currentAmmo++;
+        if (IsPlayerTurn)
+        {
+            currentAmmo++;
+            // SINKRONISASI: Masukkan kembali elemen kelereng ini ke antrean paling belakang
+            ProgressionManager.Instance.AddAmmoToChamber(savedElement);
+            Debug.Log("Player scored! Ammo re-added to list. Current Ammo: " + currentAmmo);
+        }
+        else
+        {
+            enemyAmmo++;
+            // (Optional) Jika musuh punya sistem list elemen sendiri, bisa dimasukkan di sini
+            Debug.Log("Enemy scored! Enemy Ammo: " + enemyAmmo);
+        }
         UpdateAmmoUI();
-        Debug.Log("Kelereng keluar! Amunisi bertambah. Total: " + currentAmmo);
     }
 
     private IEnumerator WaitForAllMarblesToStop()
     {
-        yield return new WaitForSeconds(0.5f); // Jeda awal sebelum memeriksa kecepatan
+        yield return new WaitForSeconds(0.5f); 
 
-        while (isTurnActive)
+        while (IsTurnActive)
         {
             bool anyMarbleMoving = false;
             foreach (Rigidbody2D rb in allMarblesInArena)
             {
-                if (rb != null && rb.linearVelocity.magnitude > 0.05f)
+                if (rb != null && rb.linearVelocity.magnitude > 0.1f) 
                 {
                     anyMarbleMoving = true;
                     break;
@@ -67,7 +97,7 @@ public class ArenaManager : MonoBehaviour
 
             if (!anyMarbleMoving)
             {
-                isTurnActive = false;
+                IsTurnActive = false;
                 EndTurnEvaluation();
             }
             yield return new WaitForSeconds(0.1f);
@@ -76,29 +106,156 @@ public class ArenaManager : MonoBehaviour
 
     private void EndTurnEvaluation()
     {
-        Debug.Log("Giliran selesai. Sisa Amunisi: " + currentAmmo);
+        if (activeGacoan != null)
+        {
+            float distance = Vector2.Distance(activeGacoan.transform.position, arenaCenter.position);
+
+            if (distance > circleRadius)
+            {
+                MarbleElementHandler handler = activeGacoan.GetComponent<MarbleElementHandler>();
+                MarbleElementSO savedElement = handler != null ? handler.activeElement : null;
+
+                AddAmmoFromOutsider(savedElement);
+                allMarblesInArena.Remove(activeGacoan);
+                StartCoroutine(AnimateGacoanToPocket(activeGacoan.gameObject));
+            }
+            else
+            {
+                activeGacoan.gameObject.tag = "TargetMarble";
+                if (activeGacoan.gameObject.GetComponent<TargetMarble>() == null)
+                {
+                    activeGacoan.gameObject.AddComponent<TargetMarble>();
+                }
+            }
+            activeGacoan = null; 
+        }
+
+        // Quick check: If all marbles in the center are cleared, end early
         if (allMarblesInArena.Count == 0)
         {
-            Debug.Log("Menang! Semua kelereng bersih.");
+            DetermineWinner("All marbles cleared!");
+            return;
         }
-        else if (currentAmmo <= 0)
+
+        SwitchTurns();
+    }
+
+    private void SwitchTurns()
+    {
+        IsPlayerTurn = !IsPlayerTurn;
+
+        // If it switches back to the Player, a new full round has started
+        if (IsPlayerTurn)
         {
-            Debug.Log("Game Over! Kehabisan amunisi.");
+            currentTurnCount++;
+            
+            // Check if turn limit exceeded
+            if (currentTurnCount > maxTurns)
+            {
+                DetermineWinner("Turn limit reached!");
+                return;
+            }
+        }
+
+        // Turn skipping safety checks
+        if (IsPlayerTurn && currentAmmo <= 0) IsPlayerTurn = false; 
+        if (!IsPlayerTurn && enemyAmmo <= 0) IsPlayerTurn = true;  
+
+        // Check if both run out of ammo completely before turn 10
+        if (currentAmmo <= 0 && enemyAmmo <= 0)
+        {
+            DetermineWinner("Both players out of ammunition!");
+            return;
+        }
+
+        UpdateAmmoUI(); // Update UI to reflect turn count change
+        Debug.Log(IsPlayerTurn ? "--- PLAYER TURN ---" : "--- ENEMY TURN ---");
+
+        if (!IsPlayerTurn)
+        {
+            EnemyLauncher.Instance.RequestAIShot();
         }
     }
 
+    private void DetermineWinner(string reason)
+    {
+        Debug.Log($"GAME OVER: {reason}");
+        
+        if (currentAmmo > enemyAmmo) 
+        {
+            // LOGIKA UTAMA: Hitung ekstra kelereng yang berhasil didapatkan
+            int extraMarbles = currentAmmo - ProgressionManager.Instance.BASE_AMMO;
+            
+            if (extraMarbles > 0)
+            {
+                Debug.Log($"Menang! Kamu membawa pulang {extraMarbles} kelereng ekstra sebagai mata uang.");
+                ProgressionManager.Instance.AddCurrency(extraMarbles);
+            }
+            else
+            {
+                Debug.Log("Menang! Tapi tidak ada kelereng ekstra yang dibawa pulang.");
+            }
+        }
+        else
+        {
+            Debug.Log("Kalah! Tidak mendapatkan kelereng tambahan.");
+        }
+
+        // Naikkan hitungan floor dan kembali ke Scene Peta setelah pertarungan selesai
+        ProgressionManager.Instance.currentFloor++;
+        StartCoroutine(ReturnToMapSceneDelay());
+    }
+
+    private IEnumerator ReturnToMapSceneDelay()
+    {
+        yield return new WaitForSeconds(2f);
+        // Pastikan nama scene peta kamu di Unity Build Settings sesuai dengan string ini
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MapScene"); 
+    }
+
+    private IEnumerator AnimateGacoanToPocket(GameObject gacoanObj)
+    {
+        if (gacoanObj == null) yield break;
+        yield return new WaitForSeconds(0.5f);
+
+        gacoanObj.GetComponent<Collider2D>().enabled = false;
+        Rigidbody2D rb = gacoanObj.GetComponent<Rigidbody2D>();
+        if (rb != null) rb.linearVelocity = Vector2.zero;
+
+        float timer = 0f;
+        Vector3 startScale = gacoanObj.transform.localScale;
+        while (timer < 0.3f)
+        {
+            timer += Time.deltaTime;
+            gacoanObj.transform.localScale = Vector3.Lerp(startScale, Vector3.zero, timer / 0.3f);
+            yield return null;
+        }
+        Destroy(gacoanObj);
+    }
+
+    // ==========================================
+    // UI CANVAS UPDATER
+    // ==========================================
     private void UpdateAmmoUI()
     {
-        // Hubungkan ke skrip UI kamu di sini nanti
-    }
+        if (playerAmmoText != null) 
+            playerAmmoText.text = currentAmmo.ToString();
 
-    // Menggambar batas lingkaran di Unity Editor untuk visualisasi dev
-    private void OnDrawGizmos()
-    {
-        if (arenaCenter != null)
+        if (enemyAmmoText != null) 
+            enemyAmmoText.text = enemyAmmo.ToString();
+
+        if (turnText != null) 
         {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(arenaCenter.position, circleRadius);
+            // Menampilkan angka giliran saat ini saja (misal: 1, 2, 3...)
+            int displayTurn = Mathf.Min(currentTurnCount, maxTurns);
+            turnText.text = displayTurn.ToString();
+        }
+    }
+    public void OnTurnSwapped()
+    {
+        if (uiFightInventory != null)
+        {
+            uiFightInventory.RefreshAvailableElementsUI();
         }
     }
 }
