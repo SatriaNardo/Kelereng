@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 using TMPro;
 
 public class MapManager : MonoBehaviour
@@ -12,22 +13,17 @@ public class MapManager : MonoBehaviour
     public GameObject eventPanel; 
     public TMP_Text eventDescriptionText;
 
-    // ========================================================
-    // BARU: Slot untuk mengenalkan Asset Elemen ke Skrip
-    // ========================================================
     [Header("Testing Elements Assets")]
-    public MarbleElementSO fireElementAsset; // Tarik asset Fire ke sini di Inspector
-    public MarbleElementSO windElementAsset; // Tarik asset Wind ke sini di Inspector
+    public MarbleElementSO fireElementAsset; 
+    public MarbleElementSO windElementAsset; 
 
     [Header("Inventory UI Connection")]
     public UIInventoryManager uiInventoryManager;
+
+    private bool needsMapRefresh = false;
+
     private void Start()
     {
-        if (ProgressionManager.Instance != null)
-        {
-        }
-        
-        // 2. BARU: Perintahkan UI Inventory untuk membuild slot SEKARANG setelah data siap
         if (uiInventoryManager != null)
         {
             uiInventoryManager.BuildDynamicInventoryUI();
@@ -44,7 +40,6 @@ public class MapManager : MonoBehaviour
         if (floorText != null) floorText.text = "Floor: " + ProgressionManager.Instance.currentFloor;
     }
 
-    // Fungsi ini dipanggil saat pemain menekan tombol Node di layar HP
     public void OnNodeSelected(string nodeTypeString)
     {
         NodeType selectedType = (NodeType)System.Enum.Parse(typeof(NodeType), nodeTypeString, true);
@@ -72,12 +67,11 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    // --- LOGIKA SETIAP NODE ---
-
     private void LoadCombatScene()
     {
         SceneManager.LoadScene("FightScene");
     }
+    
     public void LoadShopScene()
     {
         SceneManager.LoadScene("ShopScene");
@@ -92,7 +86,8 @@ public class MapManager : MonoBehaviour
         
         Debug.Log($"Membuka peti harta! Mendapat {reward} mata uang kelereng.");
         ProgressionManager.Instance.currentFloor++;
-        UpdateMapUI();
+        
+        SceneManager.LoadScene("MapScene");
     }
 
     private void TriggerEventNode()
@@ -100,6 +95,7 @@ public class MapManager : MonoBehaviour
         if (eventPanel == null) return;
 
         eventPanel.SetActive(true);
+        needsMapRefresh = false; 
         
         if (Random.value > 0.5f)
         {
@@ -109,6 +105,8 @@ public class MapManager : MonoBehaviour
                 eventDescriptionText.text = $"Kamu menemukan kantong tua tergeletak di jalan. Di dalamnya berisi {eventReward} butir kelereng emas!";
                 ProgressionManager.Instance.AddCurrency(eventReward);
                 ProgressionManager.Instance.currentFloor++;
+                
+                needsMapRefresh = true; 
             }
             UpdateMapUI();
         }
@@ -122,5 +120,11 @@ public class MapManager : MonoBehaviour
     public void CloseEventPanel()
     {
         if (eventPanel != null) eventPanel.SetActive(false);
+
+        if (needsMapRefresh)
+        {
+            needsMapRefresh = false;
+            SceneManager.LoadScene("MapScene");
+        }
     }
 }

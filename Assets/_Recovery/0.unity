@@ -959,21 +959,21 @@ MonoBehaviour:
   - floorLabel: 1
     columns:
     - columnPosition: -1
-      roomType: 0
+      roomType: 4
     - columnPosition: 1
-      roomType: 0
+      roomType: 1
   - floorLabel: 2
     columns:
     - columnPosition: -1
-      roomType: 0
+      roomType: 1
     - columnPosition: 0
-      roomType: 0
+      roomType: 4
     - columnPosition: 1
       roomType: 0
   - floorLabel: 3
     columns:
     - columnPosition: 0
-      roomType: 3
+      roomType: 0
     - columnPosition: 1
       roomType: 0
   - floorLabel: 4
@@ -1007,7 +1007,6 @@ MonoBehaviour:
   fireElementAsset: {fileID: 11400000, guid: 835bc8f40cdfc4909bb4fe1da31c48d7, type: 2}
   windElementAsset: {fileID: 11400000, guid: 36edd8b7019bb469da53a8277c613c1f, type: 2}
   uiInventoryManager: {fileID: 1727905076}
-  mapNodeButtons: []
 --- !u!4 &1727905075
 Transform:
   m_ObjectHideFlags: 0
@@ -1496,8 +1495,6 @@ MonoBehaviour:
   pendingElementFromShop: {fileID: 0}
   currentEnergy: 0
   maxEnergyThisTurn: 1
-  isMapAlreadyGenerated: 0
-  savedMapNodes: []
 --- !u!4 &1936659484
 Transform:
   m_ObjectHideFlags: 0

@@ -1,6 +1,16 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+[System.Serializable]
+public class MapNodeBlueprint
+{
+    public string nodeTypeString; // Menyimpan tipe node dalam bentuk string agar aman
+    public int floorNumber;
+    public int columnNumber;
+    public Vector2 uiAnchoredPosition;
+    public List<int> incomingConnections = new List<int>();
+}
+
 public class ProgressionManager : MonoBehaviour
 {
     public static ProgressionManager Instance;
@@ -18,16 +28,17 @@ public class ProgressionManager : MonoBehaviour
     public CombinedElementSO cycloneFusionAsset;   // Tarik asset SO Cyclone ke sini di Inspector
     public CombinedElementSO explosionFusionAsset;
 
-    // BARU: Menyimpan data belanja sementara antar scene
+    // Menyimpan data belanja sementara antar scene
     [HideInInspector] public MarbleElementSO pendingElementFromShop = null;
-
-    // [Header("Event Pool")]
-    // public List<GameEventSO> masterEventPool = new List<GameEventSO>();
 
     [Header("Energy System")]
     public int currentEnergy = 0;
     public int maxEnergyThisTurn = 1; // Kapasitas maksimal yang meningkat per turn
 
+    [Header("Persistent Map Data")]
+    public bool isMapAlreadyGenerated = false;
+    // PUSAT PENYIMPANAN DATA PETA: Menyimpan seluruh cetak biru node pertualangan
+    public List<MapNodeBlueprint> savedMapNodes = new List<MapNodeBlueprint>();
 
     private void Awake()
     {
@@ -49,7 +60,6 @@ public class ProgressionManager : MonoBehaviour
         for (int i = 0; i < BASE_AMMO; i++) equippedChamber.Add(null);
     }
 
-// Masukkan fungsi ini di dalam ProgressionManager.cs
     public MarbleElementSO PopNextElement()
     {
         if (equippedChamber.Count == 0) return null;
@@ -92,26 +102,55 @@ public class ProgressionManager : MonoBehaviour
         }
     }
 
-    // Panggil ini setiap kali ronde pertempuran baru dimulai
+    // ========================================================
+    // PERBAIKAN: RESET ENERGI UNTUK AWAL MATCH (STARTING ENERGY)
+    // ========================================================
     public void ResetEnergyForNewMatch()
     {
         maxEnergyThisTurn = 1;
-        currentEnergy = maxEnergyThisTurn;
+        currentEnergy = maxEnergyThisTurn; // Memulai match baru dengan modal 1 Energi
+        Debug.Log($"⚡ Match Baru! Energi direset awal ke: {currentEnergy}/{maxEnergyThisTurn}");
     }
 
-    // Panggil ini di awal turn baru (oleh ArenaManager)
+    // ========================================================
+    // PERBAIKAN: REGENERASI BERTAHAP (+1 PER TURN) BUKAN REFILL PENUH
+    // ========================================================
     public void StartNewTurnEnergySetup()
     {
-        maxEnergyThisTurn++; // Kapasitas mana naik setiap turn (Maksimal bebas, misal batasi di 5)
+        // 1. Kapasitas maksimum naik bertahap setiap turn (Dibatasi maksimal di angka 5)
+        maxEnergyThisTurn++; 
         if (maxEnergyThisTurn > 5) maxEnergyThisTurn = 5;
 
-        currentEnergy = maxEnergyThisTurn; // Isi penuh kembali energi
-        Debug.Log($"⚡ Energy Refilled: {currentEnergy}/{maxEnergyThisTurn}");
+        // 2. Tambahkan pasokan +1 energi sebagai tabungan ronde baru
+        int energyRegenAmount = 1; 
+        currentEnergy += energyRegenAmount;
+
+        // 3. Jaga agar akumulasi energi sisa tidak bocor melampaui kapasitas maksimal saat ini
+        if (currentEnergy > maxEnergyThisTurn)
+        {
+            currentEnergy = maxEnergyThisTurn;
+        }
+
+        Debug.Log($"⚡ Turn Baru! [+{energyRegenAmount} Energi]. Total Energi saat ini: {currentEnergy}/{maxEnergyThisTurn}");
     }
 
     public void AddCurrency(int amount)
     {
         playerCurrency += amount;
         if (playerCurrency < 0) playerCurrency = 0; 
+    }
+
+    public void ResetProgressForNewGame()
+    {
+        currentFloor = 1;
+        currentColumn = 0;
+        playerCurrency = 10;
+        
+        // Bersihkan memori peta lama agar run baru mendapatkan acakan graf baru
+        savedMapNodes.Clear();
+        isMapAlreadyGenerated = false;
+        
+        ResetChamberToDefault();
+        Debug.Log("🧼 Seluruh struktur peta persisten telah direset bersih!");
     }
 }

@@ -170,7 +170,6 @@ MonoBehaviour:
   launchForceMultiplier: 5
   trajectoryLine: {fileID: 63652943}
   bottomScreenPercentage: 0.3
-  equippedElement: {fileID: 0}
 --- !u!120 &63652943
 LineRenderer:
   serializedVersion: 3
@@ -1082,7 +1081,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -947.2798}
+  m_AnchoredPosition: {x: 0, y: 640}
   m_SizeDelta: {x: 0, y: -1894.5596}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &719455113
@@ -1455,7 +1454,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 0.9600634, b: 0.6745283, a: 1}
@@ -1482,54 +1481,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1515292283
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1515292284}
-  - component: {fileID: 1515292285}
-  m_Layer: 0
-  m_Name: EnemyLauncher
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1515292284
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1515292283}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1515292285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1515292283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91c3d770c3e274993bdc2081674f75d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyLauncher
-  enemyMarblePrefab: {fileID: 189841511969755208, guid: ce68eadfef8c24439a642c00cd5c4724, type: 3}
-  enemyLaunchPoint: {fileID: 2009703193}
-  launchForceMultiplier: 5
-  aiDecisionDelay: 1.5
 --- !u!1 &1630951271
 GameObject:
   m_ObjectHideFlags: 0
@@ -1671,37 +1622,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2009703192
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2009703193}
-  m_Layer: 0
-  m_Name: EnemyLaunchPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2009703193
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2009703192}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2042489446
 GameObject:
   m_ObjectHideFlags: 0
@@ -1737,12 +1657,14 @@ MonoBehaviour:
   arenaCenter: {fileID: 1795493264}
   maxTurns: 10
   currentAmmo: 4
-  enemyAmmo: 4
   playerAmmoText: {fileID: 342451427}
-  enemyAmmoText: {fileID: 1203209318}
+  enemyHPText: {fileID: 0}
   turnText: {fileID: 336259571}
   allMarblesInArena: []
-  uiFightInventory: {fileID: 0}
+  uiFightInventory: {fileID: 2042489450}
+  activeEnemyData: {fileID: 11400000, guid: 1a693be7b3a1e4e53bf9a234c670c3ae, type: 2}
+  enemyHP: 100
+  baseDamagePerMarble: 10
 --- !u!4 &2042489448
 Transform:
   m_ObjectHideFlags: 0
@@ -1770,7 +1692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f90b79e35f7349518519e786121b42d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapGenerator
-  targetMarblePrefab: {fileID: 189841511969755208, guid: e1b5e570d237c4ba0b1fd70d42ccb610, type: 3}
+  targetMarblePrefab: {fileID: 189841511969755208, guid: f880f78cdc15048a8834215313dcd75c, type: 3}
   minMarbles: 20
   maxMarbles: 30
   marbleRadius: 0.2
@@ -1800,11 +1722,9 @@ SceneRoots:
   - {fileID: 1795493264}
   - {fileID: 63652941}
   - {fileID: 1877252414}
-  - {fileID: 2009703193}
   - {fileID: 340460026}
   - {fileID: 699337047}
   - {fileID: 1364095466}
-  - {fileID: 1515292284}
   - {fileID: 167474089}
   - {fileID: 736935372}
   - {fileID: 1630951274}

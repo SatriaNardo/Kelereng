@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections.Generic; // Diperlukan untuk memanipulasi List amunisi
+using System.Collections.Generic;
 
 public class MarbleLauncher : MonoBehaviour
 {
@@ -20,9 +20,6 @@ public class MarbleLauncher : MonoBehaviour
     private bool isDragging = false;
     private GameObject currentGacoan;
     private Rigidbody2D currentGacoanRb;
-
-    [Header("Equipped Element Data")]
-    public MarbleElementSO equippedElement;
 
     // ==========================================
     // UNITY LIFECYCLE
@@ -57,17 +54,11 @@ public class MarbleLauncher : MonoBehaviour
         Vector2 screenPosition = Pointer.current.position.ReadValue();
 
         if (Pointer.current.press.wasPressedThisFrame)
-        {
             TryStartDrag(screenPosition);
-        }
         else if (Pointer.current.press.isPressed && isDragging)
-        {
             ContinueDrag(screenPosition);
-        }
         else if (Pointer.current.press.wasReleasedThisFrame && isDragging)
-        {
             ReleaseAndFire(screenPosition);
-        }
     }
 
     // ==========================================
@@ -79,17 +70,14 @@ public class MarbleLauncher : MonoBehaviour
         if (screenPosition.y > Screen.height * bottomScreenPercentage) return;
         if (currentGacoan == null) return;
 
-        // ========================================================
-        // MODIFIKASI: KUNCI DRAG JIKA ENERGI TIDAK CUKUP
-        // ========================================================
         MarbleElementHandler handler = currentGacoan.GetComponent<MarbleElementHandler>();
         if (handler != null && handler.activeElement != null)
         {
             int cost = handler.activeElement.energyCost;
             if (ProgressionManager.Instance.currentEnergy < cost)
             {
-                Debug.LogWarning($"⚠️ Tembakan Terkunci! {handler.activeElement.elementName} butuh {cost} Energy (Milikmu: {ProgressionManager.Instance.currentEnergy}). Harap TUKAR KELERENG!");
-                return; // KELUAR! Menghalangi isDragging menjadi true agar ketapel tidak bisa ditarik
+                Debug.LogWarning($"⚠️ Tembakan Terkunci! Kurang Energi.");
+                return; 
             }
         }
 
@@ -149,24 +137,23 @@ public class MarbleLauncher : MonoBehaviour
     {
         if (gacoanPrefab == null || launchPoint == null) return;
 
-        // Mengintip elemen terdepan (Index 0) tanpa memotong antrean (Pop) terlebih dahulu
-        // Agar jika pemain tidak memiliki cukup energi, data peluru tidak hangus dan bisa ditukar
+        List<MarbleElementSO> chamber = ProgressionManager.Instance.equippedChamber;
         MarbleElementSO nextElement = null;
-        if (ProgressionManager.Instance.equippedChamber.Count > 0)
+
+        // PERBAIKAN MUTLAK: Peluru aktif di ketapel selalu mengambil data di Indeks 0 saku tas
+        if (chamber.Count > 0)
         {
-            nextElement = ProgressionManager.Instance.equippedChamber[0];
+            nextElement = chamber[0];
         }
 
         currentGacoan = Instantiate(gacoanPrefab, launchPoint.position, Quaternion.identity);
         currentGacoanRb = currentGacoan.GetComponent<Rigidbody2D>();
 
         MarbleElementHandler handler = currentGacoan.GetComponent<MarbleElementHandler>();
-        
         if (handler != null)
         {
             handler.activeElement = nextElement;
             
-            // Beri visual warna elemen asli sejak awal nangkring di ketapel
             SpriteRenderer sr = currentGacoan.GetComponent<SpriteRenderer>();
             if (sr != null)
             {
@@ -184,18 +171,13 @@ public class MarbleLauncher : MonoBehaviour
         currentGacoanRb.bodyType = RigidbodyType2D.Dynamic;
         ArenaManager.Instance.allMarblesInArena.Add(currentGacoanRb);
 
-        // ========================================================
-        // MODIFIKASI: EKSEKUSI PEMOTONGAN DATA SETELAH TEMBAKAN VALID
-        // ========================================================
         MarbleElementHandler handler = currentGacoan.GetComponent<MarbleElementHandler>();
         if (handler != null && handler.activeElement != null)
         {
-            // Potong energi global tepat saat peluru lepas dari genggaman
             ProgressionManager.Instance.currentEnergy -= handler.activeElement.energyCost;
-            Debug.Log($"⚡ Efek {handler.activeElement.elementName} Dilepas! Sisa Energi: {ProgressionManager.Instance.currentEnergy}");
         }
 
-        // Amunisi terdepan baru resmi dibuang dari antrean Chamber global setelah sukses meluncur
+        // Amunisi indeks 0 resmi dibuang dari antrean, saku otomatis bergeser maju rata kiri
         ProgressionManager.Instance.PopNextElement();
 
         Vector2 launchForce = -pullVector * launchForceMultiplier;
@@ -208,30 +190,30 @@ public class MarbleLauncher : MonoBehaviour
     }
 
     // ========================================================
-    // MODIFIKASI: FUNGSI TUKAR POSISI DARI SELEKSI UI CADANGAN
+    // PERBAIKAN LOGIKA SWAP ELEMEN CADANGAN SEJATI (LIST SWAP)
     // ========================================================
     public void ForceSwapActiveMarble(int targetIndexInChamber)
     {
-        // Jangan ijinkan menukar amunisi di tengah-tengah tarikan karet ketapel
         if (isDragging || currentGacoan == null) return;
 
         List<MarbleElementSO> chamber = ProgressionManager.Instance.equippedChamber;
         
-        // Proteksi batas indeks array peluru cadangan
+        // Pastikan indeks target aman di dalam batasan list saku cadangan
         if (targetIndexInChamber > 0 && targetIndexInChamber < chamber.Count)
         {
-            // Tukar posisi elemen pilihan (Index target) dengan elemen di ketapel (Index 0)
+            // Tukar isi objek data asli di dalam saku global tas pemain
+            // Menukar data Indeks 0 (ketapel saat ini) dengan Indeks Pilihan UI
             MarbleElementSO temp = chamber[0];
             chamber[0] = chamber[targetIndexInChamber];
             chamber[targetIndexInChamber] = temp;
 
-            // Hancurkan objek gacoan fisik lama yang sedang diam di ketapel
+            // Hancurkan kelereng polosan lama yang sedang diam standby di lapangan ketapel
             Destroy(currentGacoan);
             
-            // Instansiasi ulang gacoan baru yang memuat elemen hasil pertukaran
+            // Instansiasi ulang kelereng baru bermuatan data elemen hasil tukaran barumu
             PrepareNextShot();
             
-            Debug.Log($"🔄 Berhasil menukar peluru ketapel dengan elemen cadangan di indeks saku: {targetIndexInChamber}");
+            Debug.Log($"🔄 Swap Berhasil: Elemen ketapel ditukar dengan slot cadangan indeks ke-{targetIndexInChamber}!");
         }
     }
 }

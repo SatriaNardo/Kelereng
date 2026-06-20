@@ -1,10 +1,9 @@
 using UnityEngine;
-using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 
 public class ProceduralMapGenerator : MonoBehaviour
 {
-    // PERBAIKAN: Tambahkan Store ke dalam pilihan enum
     public enum NodeSelection { Random, Fight, Event, Treasure, Store, Boss }
 
     [System.Serializable]
@@ -46,7 +45,6 @@ public class ProceduralMapGenerator : MonoBehaviour
 
     [Header("Path Settings")]
     public float lineWidth = 6f;
-    [Tooltip("Nodes will only connect if their column distance is equal or less than this value.")]
     public int maxColumnConnectionDistance = 1; 
 
     [Header("Hand-Crafted Floor Layout Structure")]
@@ -67,24 +65,93 @@ public class ProceduralMapGenerator : MonoBehaviour
 
     public void GenerateMap()
     {
+        // Hancurkan sisa visual lama di layar sebelum merajut peta asli
         foreach (Transform child in mapContainer) Destroy(child.gameObject);
         nodesByFloor.Clear();
 
-        for (int i = 0; i < mapLayout.Count; i++)
-        {
-            int floorNumber = i + 1; 
-            FloorConfig floorData = mapLayout[i];
-            nodesByFloor[floorNumber] = new List<MapNode>();
+        var pm = ProgressionManager.Instance;
+        if (pm == null) return;
 
-            foreach (ColumnConfig colData in floorData.columns)
+        // =======================================================================
+        // KONDISI A: RUN PERMAINAN BARU (Belum Pernah Generate Peta)
+        // =======================================================================
+        if (!pm.isMapAlreadyGenerated)
+        {
+            pm.savedMapNodes.Clear();
+
+            // 1. Lahirkan struktur node sesuai rancangan mentah di Inspector
+            for (int i = 0; i < mapLayout.Count; i++)
             {
-                MapManager.NodeType finalType = DetermineFinalNodeType(colData.roomType);
-                SpawnNode(finalType, floorNumber, colData.columnPosition);
+                int floorNumber = i + 1; 
+                FloorConfig floorData = mapLayout[i];
+                nodesByFloor[floorNumber] = new List<MapNode>();
+
+                foreach (ColumnConfig colData in floorData.columns)
+                {
+                    MapManager.NodeType finalType = DetermineFinalNodeType(colData.roomType);
+                    SpawnNode(finalType, floorNumber, colData.columnPosition);
+                }
             }
+
+            // 2. Hubungkan jalur garis antar node (Mengisi incomingConnections secara otomatis)
+            DrawAllConnections();
+
+            // 3. KUNCI DATA: Simpan cetak biru node acak yang sah ini ke ProgressionManager
+            foreach (var floorList in nodesByFloor.Values)
+            {
+                foreach (MapNode node in floorList)
+                {
+                    MapNodeBlueprint bp = new MapNodeBlueprint();
+                    bp.nodeTypeString = node.nodeType.ToString();
+                    bp.floorNumber = node.floorNumber;
+                    bp.columnNumber = node.columnNumber;
+                    bp.uiAnchoredPosition = node.UIAnchoredPosition;
+                    bp.incomingConnections = new List<int>(node.incomingConnections);
+
+                    pm.savedMapNodes.Add(bp);
+                }
+            }
+
+            pm.isMapAlreadyGenerated = true;
+            Debug.Log("🎲 [PETA BARU] Susunan tipe ruangan sukses diacak dan dikunci abadi.");
+        }
+        // =======================================================================
+        // KONDISI B: KEMBALI DARI COMBAT / SHOP (Muat Peta yang Sama)
+        // =======================================================================
+        else
+        {
+            Debug.Log("💾 [LOAD PETA] Memulihkan susunan tipe node ruangan asli dari memori.");
+
+            // 1. Bangun ulang objek tombol murni berbasis memori blueprint yang tersimpan
+            foreach (MapNodeBlueprint bp in pm.savedMapNodes)
+            {
+                if (!nodesByFloor.ContainsKey(bp.floorNumber))
+                {
+                    nodesByFloor[bp.floorNumber] = new List<MapNode>();
+                }
+
+                GameObject newNodeObj = Instantiate(nodePrefab, mapContainer);
+                MapNode nodeScript = newNodeObj.GetComponent<MapNode>();
+                
+                MapManager.NodeType savedType = (MapManager.NodeType)System.Enum.Parse(typeof(MapManager.NodeType), bp.nodeTypeString);
+                
+                RectTransform rect = newNodeObj.GetComponent<RectTransform>();
+                if (rect != null) rect.anchoredPosition = bp.uiAnchoredPosition;
+
+                // Kosongkan jalur sementara, biar fungsi DrawAllConnections merajut jembatannya secara bersih
+                nodeScript.incomingConnections = new List<int>();
+                nodeScript.SetupNode(savedType, bp.floorNumber, bp.columnNumber, mapManager, bp.uiAnchoredPosition);
+                
+                nodesByFloor[bp.floorNumber].Add(nodeScript);
+            }
+
+            // 2. Gambar ulang jembatan garis visualnya secara presisi
+            DrawAllConnections();
         }
 
-        DrawAllConnections();
-
+        // =======================================================================
+        // EVALUASI AKHIR: Nyalakan/Matikan Interaktivitas Tombol Klik Peta
+        // =======================================================================
         foreach (var floorList in nodesByFloor.Values)
         {
             foreach (MapNode node in floorList)
@@ -94,7 +161,7 @@ public class ProceduralMapGenerator : MonoBehaviour
         }
     }
 
-    private void SpawnNode(MapManager.NodeType type, int floor, int columnOffset)
+    private MapNode SpawnNode(MapManager.NodeType type, int floor, int columnOffset)
     {
         GameObject newNodeObj = Instantiate(nodePrefab, mapContainer);
         MapNode nodeScript = newNodeObj.GetComponent<MapNode>();
@@ -117,13 +184,16 @@ public class ProceduralMapGenerator : MonoBehaviour
 
         nodeScript.SetupNode(type, floor, columnOffset, mapManager, finalAnchoredPos);
         nodesByFloor[floor].Add(nodeScript);
+
+        return nodeScript;
     }
 
     private void DrawAllConnections()
     {
         if (linePrefab == null) return;
 
-        for (int currentFloor = 1; currentFloor < mapLayout.Count; currentFloor++)
+        // Menggunakan hitungan total lantai dinamis berdasarkan isi Dictionary data riil
+        for (int currentFloor = 1; currentFloor < nodesByFloor.Count; currentFloor++)
         {
             int nextFloor = currentFloor + 1;
 
@@ -154,7 +224,10 @@ public class ProceduralMapGenerator : MonoBehaviour
                         CreateUILine(currNode.UIAnchoredPosition, nxtNode.UIAnchoredPosition);
                         establishedConnections.Add(new MapConnection(currNode.columnNumber, nxtNode.columnNumber));
 
-                        nxtNode.incomingConnections.Add(currNode.columnNumber);
+                        if (!nxtNode.incomingConnections.Contains(currNode.columnNumber))
+                        {
+                            nxtNode.incomingConnections.Add(currNode.columnNumber);
+                        }
                     }
                 }
             }
@@ -192,17 +265,15 @@ public class ProceduralMapGenerator : MonoBehaviour
 
     private MapManager.NodeType DetermineFinalNodeType(NodeSelection selection)
     {
-        // Jika di Inspector dipilih spesifik (bukan Random), gunakan pilihan itu langsung
         if (selection != NodeSelection.Random)
         {
             return (MapManager.NodeType)System.Enum.Parse(typeof(MapManager.NodeType), selection.ToString());
         }
 
-        // PERBAIKAN LOGIKA RANDOM: Memasukkan peluang kemunculan Toko (Store)
         float rand = Random.value;
-        if (rand < 0.45f) return MapManager.NodeType.Fight;    // 45% Peluang Bertarung
-        if (rand < 0.70f) return MapManager.NodeType.Event;    // 25% Peluang Event
-        if (rand < 0.85f) return MapManager.NodeType.Store;    // 15% Peluang Toko/Store
-        return MapManager.NodeType.Treasure;                   // 15% Peluang Harta Karun
+        if (rand < 0.45f) return MapManager.NodeType.Fight;    
+        if (rand < 0.70f) return MapManager.NodeType.Event;    
+        if (rand < 0.85f) return MapManager.NodeType.Store;    
+        return MapManager.NodeType.Treasure;                   
     }
 }

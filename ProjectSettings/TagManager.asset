@@ -5,7 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - TargetMarble
-  - Gacoan
+  - PlayerMarble
   layers:
   - Default
   - TransparentFX

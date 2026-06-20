@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 7914447764376461165}
   - component: {fileID: -1271406115441161138}
   - component: {fileID: -3602732921527586864}
-  - component: {fileID: 4380350169579588370}
+  - component: {fileID: 290670560919463425}
   m_Layer: 0
-  m_Name: TargetMarble
-  m_TagString: TargetMarble
+  m_Name: Gacoan
+  m_TagString: Gacoan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -4, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,8 +84,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 3955008839091464340, guid: f2e30ff2d770a418cba6bcedf289ca4a, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -110,7 +110,7 @@ Rigidbody2D:
   m_LinearDamping: 0.6
   m_AngularDamping: 0.6
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 8319fe7cf9f224304a6b39e4f4f97abb, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -156,8 +156,8 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
---- !u!114 &4380350169579588370
+  m_Radius: 0.13
+--- !u!114 &290670560919463425
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166,8 +166,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 189841511969755208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4d7d3d1deba745738116c1bdea95aa4, type: 3}
+  m_Script: {fileID: 11500000, guid: 33c41dbdbff614f4fa8c2311cdb29ac7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TargetMarble
-  delayBeforeShrink: 0.4
-  shrinkDuration: 0.3
+  m_EditorClassIdentifier: '::'
+  activeElement: {fileID: 0}

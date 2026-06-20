@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a5f4c6e52ee1437d9a2b2a799caa6e2, type: 3}
+  m_Name: Slime
+  m_EditorClassIdentifier: Assembly-CSharp::SlimeEnemySO
+  enemyName: Slime
+  enemyType: 0
+  baseHP: 100
+  enemySprite: {fileID: 3955008839091464340, guid: f2e30ff2d770a418cba6bcedf289ca4a, type: 3}
+  themeColor: {r: 1, g: 1, b: 1, a: 1}
+  gooPoolPrefab: {fileID: 1916739456777005738, guid: 055e6449359fc4f10b34a7301c4ca50e, type: 3}
+  spawnCountPerTurn: 2
