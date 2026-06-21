@@ -29,6 +29,8 @@ public class ArenaManager : MonoBehaviour
     public UIFightInventory uiFightInventory;
     
     [Header("Enemy SO Connection")]
+    public bool randomizeEnemyOnStart = true;
+    public List<EnemySO> enemyPool = new List<EnemySO>();
     public EnemySO activeEnemyData;
 
     [Header("Enemy Overlord Stats Dynamic")]
@@ -58,6 +60,8 @@ public class ArenaManager : MonoBehaviour
         isGameOver = false;
         currentTurnCount = 0; 
 
+        PickRandomEnemyForFight();
+
         // Initial Enemy HP Scaling
         if (activeEnemyData != null)
         {
@@ -76,6 +80,29 @@ public class ArenaManager : MonoBehaviour
         // Lock launcher and trigger enemy first action setup
         IsPlayerTurn = false; 
         Invoke("StartEnemyFirstTurn", 0.1f);
+    }
+
+    private void PickRandomEnemyForFight()
+    {
+        if (!randomizeEnemyOnStart) return;
+
+        List<EnemySO> validEnemies = new List<EnemySO>();
+        foreach (EnemySO enemy in enemyPool)
+        {
+            if (enemy != null)
+            {
+                validEnemies.Add(enemy);
+            }
+        }
+
+        if (validEnemies.Count == 0)
+        {
+            Debug.LogWarning("Enemy randomizer has no enemies assigned. Using activeEnemyData fallback.");
+            return;
+        }
+
+        activeEnemyData = validEnemies[Random.Range(0, validEnemies.Count)];
+        Debug.Log($"Random enemy selected: {activeEnemyData.enemyName}");
     }
 
     private void StartEnemyFirstTurn()

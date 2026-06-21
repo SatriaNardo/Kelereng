@@ -1662,7 +1662,11 @@ MonoBehaviour:
   turnText: {fileID: 336259571}
   allMarblesInArena: []
   uiFightInventory: {fileID: 2042489450}
-  activeEnemyData: {fileID: 11400000, guid: c862b06c823c477f992a16423cfbb942, type: 2}
+  randomizeEnemyOnStart: 1
+  enemyPool:
+  - {fileID: 11400000, guid: c862b06c823c477f992a16423cfbb942, type: 2}
+  - {fileID: 11400000, guid: 1a693be7b3a1e4e53bf9a234c670c3ae, type: 2}
+  activeEnemyData: {fileID: 0}
   enemyHP: 100
   baseDamagePerMarble: 10
 --- !u!4 &2042489448

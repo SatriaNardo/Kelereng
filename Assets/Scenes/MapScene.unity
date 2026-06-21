@@ -1002,10 +1002,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapManager
   currencyText: {fileID: 1264203500}
   floorText: {fileID: 1801959237}
-  eventPanel: {fileID: 0}
-  eventDescriptionText: {fileID: 0}
-  fireElementAsset: {fileID: 11400000, guid: 835bc8f40cdfc4909bb4fe1da31c48d7, type: 2}
-  windElementAsset: {fileID: 11400000, guid: 36edd8b7019bb469da53a8277c613c1f, type: 2}
+  possibleEvents:
+  - {fileID: 11400000, guid: 4c67cfd227744741b906d6a9b933be1e, type: 2}
+  - {fileID: 11400000, guid: 1846ed92593d4a6a93258130f1c66dc8, type: 2}
   uiInventoryManager: {fileID: 1727905076}
 --- !u!4 &1727905075
 Transform:
@@ -1493,6 +1492,13 @@ MonoBehaviour:
   cycloneFusionAsset: {fileID: 11400000, guid: 18236b8730fff414eb5f75236f0bdf8c, type: 2}
   explosionFusionAsset: {fileID: 11400000, guid: 90d9bc291621847bd8cb2a955b7dc8a6, type: 2}
   pendingElementFromShop: {fileID: 0}
+  selectedEventForEventScene: {fileID: 0}
+  hasPendingEventFightReward: 0
+  pendingEventFightReward:
+    currencyMin: 0
+    currencyMax: 0
+    removeAmmo: 0
+    randomElementRewards: []
   currentEnergy: 0
   maxEnergyThisTurn: 1
   isMapAlreadyGenerated: 0

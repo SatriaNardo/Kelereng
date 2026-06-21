@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cfd4f33bf814da2a8b5c07bbf7689ec, type: 3}
+  m_Name: Rescue Young Man
+  m_EditorClassIdentifier: Assembly-CSharp::GameEventSO
+  eventName: Rescue Young Man
+  conversationNodes:
+  - speakerName: 
+    bodyText: Di perjalananmu tiba-tiba kamu melihat seorang pemuda yang diserang para monster. Apa yang akan kamu lakukan?
+    choices:
+    - choiceText: Memberhentikan monster tersebut
+      action: 3
+      nextNodeIndex: -1
+      reward:
+        currencyMin: 3
+        currencyMax: 7
+        removeAmmo: 0
+        randomElementRewards:
+        - {fileID: 11400000, guid: 835bc8f40cdfc4909bb4fe1da31c48d7, type: 2}
+        - {fileID: 11400000, guid: 36edd8b7019bb469da53a8277c613c1f, type: 2}
+    - choiceText: Ignore
+      action: 1
+      nextNodeIndex: -1
+      reward:
+        currencyMin: 0
+        currencyMax: 0
+        removeAmmo: 0
+        randomElementRewards: []
+    - choiceText: 
+      action: 1
+      nextNodeIndex: -1
+      reward:
+        currencyMin: 0
+        currencyMax: 0
+        removeAmmo: 0
+        randomElementRewards: []

@@ -31,6 +31,11 @@ public class ProgressionManager : MonoBehaviour
     // Menyimpan data belanja sementara antar scene
     [HideInInspector] public MarbleElementSO pendingElementFromShop = null;
 
+    [Header("Event State")]
+    [HideInInspector] public GameEventSO selectedEventForEventScene = null;
+    [HideInInspector] public bool hasPendingEventFightReward = false;
+    [HideInInspector] public EventRewardData pendingEventFightReward = null;
+
     [Header("Energy System")]
     public int currentEnergy = 0;
     public int maxEnergyThisTurn = 1; // Kapasitas maksimal yang meningkat per turn
@@ -73,6 +78,98 @@ public class ProgressionManager : MonoBehaviour
     {
         equippedChamber.Add(element);
         Debug.Log($"📥 Kelereng baru masuk inventory! Total Antrean: {equippedChamber.Count}");
+    }
+
+    public bool TryRemoveAmmoFromChamber()
+    {
+        if (BASE_AMMO <= 1 || equippedChamber.Count <= 1)
+        {
+            Debug.LogWarning("Tidak bisa memberikan kelereng terakhir.");
+            return false;
+        }
+
+        BASE_AMMO--;
+
+        int removeIndex = equippedChamber.Count - 1;
+        for (int i = equippedChamber.Count - 1; i >= 0; i--)
+        {
+            if (equippedChamber[i] == null)
+            {
+                removeIndex = i;
+                break;
+            }
+        }
+
+        equippedChamber.RemoveAt(removeIndex);
+        Debug.Log($"Kelereng diberikan. Sisa kapasitas amunisi: {BASE_AMMO}");
+        return true;
+    }
+
+    public void GrantElementToChamber(MarbleElementSO element)
+    {
+        if (element == null || equippedChamber.Count == 0) return;
+
+        for (int i = 0; i < equippedChamber.Count; i++)
+        {
+            if (equippedChamber[i] == null)
+            {
+                equippedChamber[i] = element;
+                Debug.Log($"Hadiah elemen {element.elementName} masuk ke slot kosong {i + 1}.");
+                return;
+            }
+        }
+
+        int targetSlot = Random.Range(0, equippedChamber.Count);
+        LoadElementToSlot(targetSlot, element);
+    }
+
+    public bool ApplyEventReward(EventRewardData reward)
+    {
+        if (reward == null) return true;
+
+        if (reward.removeAmmo && !TryRemoveAmmoFromChamber())
+        {
+            return false;
+        }
+
+        if (reward.currencyMax > 0 || reward.currencyMin > 0)
+        {
+            int min = Mathf.Min(reward.currencyMin, reward.currencyMax);
+            int max = Mathf.Max(reward.currencyMin, reward.currencyMax);
+            AddCurrency(Random.Range(min, max + 1));
+        }
+
+        if (reward.randomElementRewards != null && reward.randomElementRewards.Count > 0)
+        {
+            List<MarbleElementSO> validElements = new List<MarbleElementSO>();
+            foreach (MarbleElementSO element in reward.randomElementRewards)
+            {
+                if (element != null) validElements.Add(element);
+            }
+
+            if (validElements.Count > 0)
+            {
+                GrantElementToChamber(validElements[Random.Range(0, validElements.Count)]);
+            }
+        }
+
+        return true;
+    }
+
+    public void SetPendingEventFightReward(EventRewardData reward)
+    {
+        hasPendingEventFightReward = reward != null;
+        pendingEventFightReward = reward;
+    }
+
+    public void ClaimPendingEventFightReward()
+    {
+        if (!hasPendingEventFightReward) return;
+
+        hasPendingEventFightReward = false;
+        selectedEventForEventScene = null;
+        ApplyEventReward(pendingEventFightReward);
+        pendingEventFightReward = null;
     }
 
     public void LoadElementToSlot(int slotIndex, MarbleElementSO newElement)
@@ -149,6 +246,9 @@ public class ProgressionManager : MonoBehaviour
         // Bersihkan memori peta lama agar run baru mendapatkan acakan graf baru
         savedMapNodes.Clear();
         isMapAlreadyGenerated = false;
+        selectedEventForEventScene = null;
+        hasPendingEventFightReward = false;
+        pendingEventFightReward = null;
         
         ResetChamberToDefault();
         Debug.Log("🧼 Seluruh struktur peta persisten telah direset bersih!");

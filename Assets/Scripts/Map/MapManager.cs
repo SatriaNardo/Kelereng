@@ -10,20 +10,20 @@ public class MapManager : MonoBehaviour
     [Header("UI Display")]
     public TMP_Text currencyText;
     public TMP_Text floorText;
-    public GameObject eventPanel; 
-    public TMP_Text eventDescriptionText;
 
-    [Header("Testing Elements Assets")]
-    public MarbleElementSO fireElementAsset; 
-    public MarbleElementSO windElementAsset; 
+    [Header("Event Pool")]
+    public List<GameEventSO> possibleEvents = new List<GameEventSO>();
 
     [Header("Inventory UI Connection")]
     public UIInventoryManager uiInventoryManager;
 
-    private bool needsMapRefresh = false;
-
     private void Start()
     {
+        if (ProgressionManager.Instance != null)
+        {
+            ProgressionManager.Instance.ClaimPendingEventFightReward();
+        }
+
         if (uiInventoryManager != null)
         {
             uiInventoryManager.BuildDynamicInventoryUI();
@@ -92,39 +92,24 @@ public class MapManager : MonoBehaviour
 
     private void TriggerEventNode()
     {
-        if (eventPanel == null) return;
+        if (ProgressionManager.Instance == null) return;
 
-        eventPanel.SetActive(true);
-        needsMapRefresh = false; 
-        
-        if (Random.value > 0.5f)
+        List<GameEventSO> validEvents = new List<GameEventSO>();
+        foreach (GameEventSO gameEvent in possibleEvents)
         {
-            if (ProgressionManager.Instance != null)
+            if (gameEvent != null)
             {
-                int eventReward = Random.Range(2, 6);
-                eventDescriptionText.text = $"Kamu menemukan kantong tua tergeletak di jalan. Di dalamnya berisi {eventReward} butir kelereng emas!";
-                ProgressionManager.Instance.AddCurrency(eventReward);
-                ProgressionManager.Instance.currentFloor++;
-                
-                needsMapRefresh = true; 
+                validEvents.Add(gameEvent);
             }
-            UpdateMapUI();
         }
-        else
-        {
-            eventDescriptionText.text = "Sesosok bayangan misterius menghadang jalanmu dan menantangmu bertaruh gacoan! Bersiaplah bertarung!";
-            Invoke("LoadCombatScene", 2.5f);
-        }
-    }
 
-    public void CloseEventPanel()
-    {
-        if (eventPanel != null) eventPanel.SetActive(false);
-
-        if (needsMapRefresh)
+        if (validEvents.Count == 0)
         {
-            needsMapRefresh = false;
-            SceneManager.LoadScene("MapScene");
+            Debug.LogWarning("No possible events assigned to MapManager.");
+            return;
         }
+
+        ProgressionManager.Instance.selectedEventForEventScene = validEvents[Random.Range(0, validEvents.Count)];
+        SceneManager.LoadScene("EventScene");
     }
 }
