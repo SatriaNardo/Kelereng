@@ -959,7 +959,7 @@ MonoBehaviour:
   - floorLabel: 1
     columns:
     - columnPosition: -1
-      roomType: 0
+      roomType: 4
     - columnPosition: 1
       roomType: 0
   - floorLabel: 2
@@ -967,7 +967,7 @@ MonoBehaviour:
     - columnPosition: -1
       roomType: 0
     - columnPosition: 0
-      roomType: 0
+      roomType: 1
     - columnPosition: 1
       roomType: 0
   - floorLabel: 3
@@ -1007,7 +1007,6 @@ MonoBehaviour:
   fireElementAsset: {fileID: 11400000, guid: 835bc8f40cdfc4909bb4fe1da31c48d7, type: 2}
   windElementAsset: {fileID: 11400000, guid: 36edd8b7019bb469da53a8277c613c1f, type: 2}
   uiInventoryManager: {fileID: 1727905076}
-  mapNodeButtons: []
 --- !u!4 &1727905075
 Transform:
   m_ObjectHideFlags: 0

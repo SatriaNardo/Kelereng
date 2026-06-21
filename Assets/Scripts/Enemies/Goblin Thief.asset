@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b36d6da7d17e4dffb3bb6cb3b508b97f, type: 3}
+  m_Name: Goblin Thief
+  m_EditorClassIdentifier: Assembly-CSharp::GoblinThiefEnemySO
+  enemyName: Goblin Thief
+  enemyType: 0
+  baseHP: 85
+  enemySprite: {fileID: 0}
+  themeColor: {r: 0.25, g: 0.22, b: 0.18, a: 1}
+  smokeBombPrefab: {fileID: 9180261011422194471, guid: ca59c04c7dc424d9caa54a1226585b2c, type: 3}
+  spawnCountPerTurn: 2
+  smokeRadius: 1.6
+  smokeOpacity: 1
+  smokeSortingOrder: 100

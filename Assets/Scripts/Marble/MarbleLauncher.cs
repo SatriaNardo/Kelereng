@@ -6,6 +6,7 @@ public class MarbleLauncher : MonoBehaviour
 {
     [Header("Launcher Settings")]
     public GameObject gacoanPrefab;
+    [Tooltip("Titik standby awal kelereng sebelum layar disentuh.")]
     public Transform launchPoint;        
     public float maxDragDistance = 2.5f;
     public float launchForceMultiplier = 15f;
@@ -17,6 +18,7 @@ public class MarbleLauncher : MonoBehaviour
 
     // --- Private State Variables ---
     private Vector2 dragStartPos;
+    private Vector2 launchOriginPos;
     private bool isDragging = false;
     private GameObject currentGacoan;
     private Rigidbody2D currentGacoanRb;
@@ -67,6 +69,7 @@ public class MarbleLauncher : MonoBehaviour
 
     private void TryStartDrag(Vector2 screenPosition)
     {
+        // Batasi sentuhan awal hanya boleh di area bawah layar
         if (screenPosition.y > Screen.height * bottomScreenPercentage) return;
         if (currentGacoan == null) return;
 
@@ -82,10 +85,15 @@ public class MarbleLauncher : MonoBehaviour
         }
 
         dragStartPos = Camera.main.ScreenToWorldPoint(screenPosition);
-        isDragging = true;
+        launchOriginPos = dragStartPos;
+        currentGacoan.transform.position = launchOriginPos;
         
+        isDragging = true;
         trajectoryLine.enabled = true;
-        trajectoryLine.SetPosition(0, launchPoint.position);
+        
+        // Garis bidik selalu dimulai dari posisi kelereng, bukan posisi jari.
+        trajectoryLine.SetPosition(0, launchOriginPos);
+        trajectoryLine.SetPosition(1, launchOriginPos);
     }
 
     private void ContinueDrag(Vector2 screenPosition)
@@ -100,8 +108,10 @@ public class MarbleLauncher : MonoBehaviour
             pullVector = pullVector.normalized * maxDragDistance;
         }
 
+        // Kelereng tetap diam; hanya garis bidik yang memanjang mengikuti tarikan jari.
         Vector2 launchDirection = -pullVector;
-        trajectoryLine.SetPosition(1, (Vector2)launchPoint.position + launchDirection);
+        trajectoryLine.SetPosition(0, launchOriginPos);
+        trajectoryLine.SetPosition(1, launchOriginPos + launchDirection);
     }
 
     private void ReleaseAndFire(Vector2 screenPosition)
@@ -125,7 +135,8 @@ public class MarbleLauncher : MonoBehaviour
         }
         else
         {
-            currentGacoan.transform.position = launchPoint.position;
+            // Jika tarikan terlalu pendek (cancel shot), kelereng tetap di titik awal tembakan.
+            currentGacoan.transform.position = launchOriginPos;
         }
     }
 
@@ -140,12 +151,12 @@ public class MarbleLauncher : MonoBehaviour
         List<MarbleElementSO> chamber = ProgressionManager.Instance.equippedChamber;
         MarbleElementSO nextElement = null;
 
-        // PERBAIKAN MUTLAK: Peluru aktif di ketapel selalu mengambil data di Indeks 0 saku tas
         if (chamber.Count > 0)
         {
             nextElement = chamber[0];
         }
 
+        // Spawn awal ditaruh di launchPoint (bisa kamu sembunyikan offscreen/di belakang jika mau)
         currentGacoan = Instantiate(gacoanPrefab, launchPoint.position, Quaternion.identity);
         currentGacoanRb = currentGacoan.GetComponent<Rigidbody2D>();
 
@@ -177,7 +188,6 @@ public class MarbleLauncher : MonoBehaviour
             ProgressionManager.Instance.currentEnergy -= handler.activeElement.energyCost;
         }
 
-        // Amunisi indeks 0 resmi dibuang dari antrean, saku otomatis bergeser maju rata kiri
         ProgressionManager.Instance.PopNextElement();
 
         Vector2 launchForce = -pullVector * launchForceMultiplier;
@@ -189,31 +199,23 @@ public class MarbleLauncher : MonoBehaviour
         currentGacoanRb = null;
     }
 
-    // ========================================================
-    // PERBAIKAN LOGIKA SWAP ELEMEN CADANGAN SEJATI (LIST SWAP)
-    // ========================================================
     public void ForceSwapActiveMarble(int targetIndexInChamber)
     {
         if (isDragging || currentGacoan == null) return;
 
         List<MarbleElementSO> chamber = ProgressionManager.Instance.equippedChamber;
         
-        // Pastikan indeks target aman di dalam batasan list saku cadangan
         if (targetIndexInChamber > 0 && targetIndexInChamber < chamber.Count)
         {
-            // Tukar isi objek data asli di dalam saku global tas pemain
-            // Menukar data Indeks 0 (ketapel saat ini) dengan Indeks Pilihan UI
+            // Swap item antrean tas
             MarbleElementSO temp = chamber[0];
             chamber[0] = chamber[targetIndexInChamber];
             chamber[targetIndexInChamber] = temp;
 
-            // Hancurkan kelereng polosan lama yang sedang diam standby di lapangan ketapel
             Destroy(currentGacoan);
-            
-            // Instansiasi ulang kelereng baru bermuatan data elemen hasil tukaran barumu
             PrepareNextShot();
             
-            Debug.Log($"🔄 Swap Berhasil: Elemen ketapel ditukar dengan slot cadangan indeks ke-{targetIndexInChamber}!");
+            Debug.Log($"🔄 Swap Berhasil! Elemen ketapel ditukar dengan slot cadangan indeks ke-{targetIndexInChamber}!");
         }
     }
 }

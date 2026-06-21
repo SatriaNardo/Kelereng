@@ -37,6 +37,7 @@ public class ArenaManager : MonoBehaviour
 
     private int currentTurnCount = 0; 
     private Rigidbody2D activeGacoan; 
+    private bool activeGacoanHitTarget = false;
     private bool isGameOver = false;
 
     private void Awake()
@@ -102,12 +103,26 @@ public class ArenaManager : MonoBehaviour
 
         IsTurnActive = true;
         activeGacoan = gacoanRb; 
+        activeGacoanHitTarget = false;
         activeGacoan.gameObject.tag = "PlayerMarble";
+
+        if (activeGacoan.gameObject.GetComponent<PlayerMarbleHitTracker>() == null)
+        {
+            activeGacoan.gameObject.AddComponent<PlayerMarbleHitTracker>();
+        }
 
         if (isPlayer) currentAmmo--;
 
         UpdateAmmoUI();
         StartCoroutine(WaitForAllMarblesToStop());
+    }
+
+    public void RegisterPlayerMarbleHitTarget(Rigidbody2D playerMarbleRb)
+    {
+        if (playerMarbleRb == activeGacoan)
+        {
+            activeGacoanHitTarget = true;
+        }
     }
 
     public void OnMarbleExited(GameObject marbleObj)
@@ -122,8 +137,18 @@ public class ArenaManager : MonoBehaviour
 
         if (marbleObj.CompareTag("PlayerMarble"))
         {
-            currentAmmo++; 
-            Debug.Log($"🟢 Player Marble kembali ke saku! Amunisi: {currentAmmo}");
+            MarbleElementHandler handler = marbleObj.GetComponent<MarbleElementHandler>();
+            MarbleElementSO returnedElement = handler != null ? handler.activeElement : null;
+
+            currentAmmo++;
+
+            if (ProgressionManager.Instance != null)
+            {
+                ProgressionManager.Instance.AddAmmoToChamber(returnedElement);
+            }
+
+            string elementName = returnedElement != null ? returnedElement.elementName : "Polos";
+            Debug.Log($"🟢 Player Marble kembali ke saku sebagai {elementName}! Amunisi: {currentAmmo}");
         }
         else if (marbleObj.CompareTag("TargetMarble"))
         {
@@ -177,7 +202,17 @@ public class ArenaManager : MonoBehaviour
 
             if (distance > circleRadius)
             {
-                OnMarbleExited(activeGacoan.gameObject);
+                if (activeGacoanHitTarget)
+                {
+                    OnMarbleExited(activeGacoan.gameObject);
+                }
+                else
+                {
+                    allMarblesInArena.Remove(activeGacoan);
+                    UpdateAmmoUI();
+                    Debug.Log("⚫ Player Marble keluar tanpa mengenai target. Amunisi hilang.");
+                }
+
                 StartCoroutine(AnimateGacoanToPocket(activeGacoan.gameObject));
             }
             else
