@@ -40,6 +40,7 @@ public class ArenaManager : MonoBehaviour
     private int currentTurnCount = 0; 
     private Rigidbody2D activeGacoan; 
     private bool activeGacoanHitTarget = false;
+    private bool skipNextEnemyTurn = false;
     private bool isGameOver = false;
 
     private void Awake()
@@ -149,6 +150,38 @@ public class ArenaManager : MonoBehaviour
         if (playerMarbleRb == activeGacoan)
         {
             activeGacoanHitTarget = true;
+        }
+    }
+
+    public void RequestSkipNextEnemyTurn()
+    {
+        skipNextEnemyTurn = true;
+        Debug.Log("Enemy next turn will be skipped.");
+    }
+
+    public void ClearEnemyHazards()
+    {
+        GooPool[] activeGooPools = Object.FindObjectsByType<GooPool>(FindObjectsSortMode.None);
+        foreach (GooPool gooPool in activeGooPools)
+        {
+            Destroy(gooPool.gameObject);
+        }
+
+        SmokeBomb[] activeSmokeBombs = Object.FindObjectsByType<SmokeBomb>(FindObjectsSortMode.None);
+        foreach (SmokeBomb smokeBomb in activeSmokeBombs)
+        {
+            Destroy(smokeBomb.gameObject);
+        }
+
+        Debug.Log($"Cleared enemy hazards. Goo: {activeGooPools.Length}, Smoke: {activeSmokeBombs.Length}");
+    }
+
+    public void ClearIceTrails()
+    {
+        IceTrailSpot[] activeIceSpots = Object.FindObjectsByType<IceTrailSpot>(FindObjectsSortMode.None);
+        foreach (IceTrailSpot iceSpot in activeIceSpots)
+        {
+            Destroy(iceSpot.gameObject);
         }
     }
 
@@ -281,6 +314,7 @@ public class ArenaManager : MonoBehaviour
         if (IsPlayerTurn)
         {
             currentTurnCount++; 
+            ClearIceTrails();
 
             if (ProgressionManager.Instance != null)
             {
@@ -309,6 +343,15 @@ public class ArenaManager : MonoBehaviour
         else
         {
             Debug.Log("--- GILIRAN MUSUH DIMULAI ---");
+
+            if (skipNextEnemyTurn)
+            {
+                skipNextEnemyTurn = false;
+                ClearEnemyHazards();
+                Debug.Log("Dust effect skipped the enemy turn.");
+                StartCoroutine(EnemyTurnEndDelay());
+                return;
+            }
             
             if (activeEnemyData != null)
             {

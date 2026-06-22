@@ -1488,9 +1488,23 @@ MonoBehaviour:
   BASE_AMMO: 4
   currentFloor: 1
   currentColumn: 0
-  equippedChamber: []
+  equippedChamber:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   cycloneFusionAsset: {fileID: 11400000, guid: 18236b8730fff414eb5f75236f0bdf8c, type: 2}
   explosionFusionAsset: {fileID: 11400000, guid: 90d9bc291621847bd8cb2a955b7dc8a6, type: 2}
+  floodFusionAsset: {fileID: 11400000, guid: d03bec96659b451eb2a5f57cf009651d, type: 2}
+  quakeFusionAsset: {fileID: 11400000, guid: 3aec884ea9f14b6aad352b7343c0c2fe, type: 2}
+  iceFusionAsset: {fileID: 11400000, guid: 5cb8d0bc98fd4c86a6d688eb8b91f25f, type: 2}
+  blazeFusionAsset: {fileID: 11400000, guid: 9ce1a927c021446c9ef825ea10754a79, type: 2}
+  dustFusionAsset: {fileID: 11400000, guid: a3ce77de04a948a28983bff3450f71ce, type: 2}
+  steamFusionAsset: {fileID: 11400000, guid: c7206631b7874648b4c579089a25c951, type: 2}
+  lavaFusionAsset: {fileID: 11400000, guid: 1731c418b8a8497fbba25aafc418cf6c, type: 2}
   pendingElementFromShop: {fileID: 0}
   selectedEventForEventScene: {fileID: 0}
   hasPendingEventFightReward: 0

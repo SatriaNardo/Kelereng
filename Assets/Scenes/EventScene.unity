@@ -242,8 +242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34b1d8c9b95547b3a1ba961c8b189c19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EventManager
-  speakerText: {fileID: 1344507587}
-  bodyText: {fileID: 992487823}
+  speakerText: {fileID: 992487823}
+  bodyText: {fileID: 1344507587}
   choiceButtons:
   - {fileID: 2100469501}
   - {fileID: 1365867731}
@@ -681,8 +681,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -283, y: 858}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -141.2876, y: 858}
+  m_SizeDelta: {x: 483.4248, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &992487823
 MonoBehaviour:
@@ -818,8 +818,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 41, y: 372}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 6.7484, y: 347.08582}
+  m_SizeDelta: {x: 821.4887, y: 383.8284}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1344507587
 MonoBehaviour:

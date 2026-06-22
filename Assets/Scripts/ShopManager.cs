@@ -14,6 +14,8 @@ public class ShopManager : MonoBehaviour
     public int priceMaxAmmo = 1;
     public int priceFireElement = 1;
     public int priceWindElement = 1;
+    public int priceWaterElement = 1;
+    public int priceEarthElement = 1;
     public int priceRefreshShop = 5; // BARU: Biaya untuk me-refresh toko
 
     [Header("UI Buttons References")]
@@ -21,10 +23,14 @@ public class ShopManager : MonoBehaviour
     public Button maxAmmoButton;
     public Button fireElementButton;
     public Button windElementButton;
+    public Button waterElementButton;
+    public Button earthElementButton;
 
     [Header("ScriptableObject Asset References")]
     public MarbleElementSO fireElementAsset;
     public MarbleElementSO windElementAsset;
+    public MarbleElementSO waterElementAsset;
+    public MarbleElementSO earthElementAsset;
 
     [Header("UI Inventory Connector")]
     public UIInventoryManager uiInventoryManager;
@@ -33,6 +39,8 @@ public class ShopManager : MonoBehaviour
     private bool isMaxAmmoAvailable = true;
     private bool isFireElementAvailable = true;
     private bool isWindElementAvailable = true;
+    private bool isWaterElementAvailable = true;
+    private bool isEarthElementAvailable = true;
 
     private void Start()
     {
@@ -67,6 +75,8 @@ public class ShopManager : MonoBehaviour
         SetButtonState(maxAmmoButton, isMaxAmmoAvailable, $"Buy Max Ammo ({priceMaxAmmo})");
         SetButtonState(fireElementButton, isFireElementAvailable, $"Buy Fire ({priceFireElement})");
         SetButtonState(windElementButton, isWindElementAvailable, $"Buy Wind ({priceWindElement})");
+        SetButtonState(waterElementButton, isWaterElementAvailable, $"Buy Water ({priceWaterElement})");
+        SetButtonState(earthElementButton, isEarthElementAvailable, $"Buy Earth ({priceEarthElement})");
     }
 
     private void SetButtonState(Button btn, bool isAvailable, string originalText)
@@ -118,10 +128,32 @@ public class ShopManager : MonoBehaviour
         }
     }
 
+    public void BuyWaterElement()
+    {
+        if (isWaterElementAvailable)
+        {
+            TryOpenInfusionMode(waterElementAsset, priceWaterElement, out isWaterElementAvailable);
+        }
+    }
+
+    public void BuyEarthElement()
+    {
+        if (isEarthElementAvailable)
+        {
+            TryOpenInfusionMode(earthElementAsset, priceEarthElement, out isEarthElementAvailable);
+        }
+    }
+
     private void TryOpenInfusionMode(MarbleElementSO element, int price, out bool availabilityFlag)
     {
         // Default flag di-set true jika gagal beli di blok pengecekan uang bawah
         availabilityFlag = true; 
+
+        if (element == null)
+        {
+            Debug.LogWarning("Element asset is not assigned in ShopManager.");
+            return;
+        }
 
         if (ProgressionManager.Instance.playerCurrency >= price)
         {
@@ -159,7 +191,7 @@ public class ShopManager : MonoBehaviour
     }
 
     // BARU: Fungsi untuk merestok ulang seluruh item di toko menggunakan koin kelereng
-public void RefreshShopButton()
+    public void RefreshShopButton()
     {
         // 1. Cek apakah koin pemain mencukupi untuk biaya refresh saat ini
         if (ProgressionManager.Instance.playerCurrency >= priceRefreshShop)
@@ -171,6 +203,8 @@ public void RefreshShopButton()
             isMaxAmmoAvailable = true;
             isFireElementAvailable = true;
             isWindElementAvailable = true;
+            isWaterElementAvailable = true;
+            isEarthElementAvailable = true;
 
             Debug.Log($"🔄 Toko di-restock! Biaya sebelumnya: {priceRefreshShop}");
 

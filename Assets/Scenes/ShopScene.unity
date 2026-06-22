@@ -1574,12 +1574,18 @@ MonoBehaviour:
   priceMaxAmmo: 15
   priceFireElement: 10
   priceWindElement: 10
+  priceWaterElement: 1
+  priceEarthElement: 1
   priceRefreshShop: 5
   maxAmmoButton: {fileID: 446863307}
   fireElementButton: {fileID: 1234225642}
   windElementButton: {fileID: 999991125}
+  waterElementButton: {fileID: 0}
+  earthElementButton: {fileID: 0}
   fireElementAsset: {fileID: 11400000, guid: 835bc8f40cdfc4909bb4fe1da31c48d7, type: 2}
   windElementAsset: {fileID: 11400000, guid: 36edd8b7019bb469da53a8277c613c1f, type: 2}
+  waterElementAsset: {fileID: 11400000, guid: 628b9bf4788842b1a4563d94ecc55fae, type: 2}
+  earthElementAsset: {fileID: 11400000, guid: 2eab0a1e33334e6a8003bb95c8c1ebe3, type: 2}
   uiInventoryManager: {fileID: 1367773279}
 --- !u!4 &1367773278
 Transform:

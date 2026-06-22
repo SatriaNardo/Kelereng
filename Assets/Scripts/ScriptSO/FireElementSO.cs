@@ -4,18 +4,15 @@ using UnityEngine;
 public class FireElementSO : MarbleElementSO
 {
     [Header("Fire Settings")]
-    public float extraKnockbackForce = 15f;
+    public float launchSpeedMultiplier = 1.35f;
+
+    public override float GetLaunchForceMultiplier(float baseMultiplier)
+    {
+        return baseMultiplier * launchSpeedMultiplier;
+    }
 
     public override void OnClash(Rigidbody2D attacker, Rigidbody2D victim, Vector2 collisionPoint)
     {
-        if (victim == null) return;
-
-        // Calculate direct impact push direction
-        Vector2 forceDirection = (victim.position - attacker.position).normalized;
-
-        // Apply massive direct momentum impulse
-        victim.AddForce(forceDirection * extraKnockbackForce, ForceMode2D.Impulse);
-        
-        Debug.Log("🔥 Fire Extra Knockback triggered!");
+        Debug.Log("Fire launch speed boost was already applied on shoot.");
     }
 }

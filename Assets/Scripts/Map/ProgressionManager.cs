@@ -27,6 +27,13 @@ public class ProgressionManager : MonoBehaviour
     [Header("Fusion Asset Templates")]
     public CombinedElementSO cycloneFusionAsset;   // Tarik asset SO Cyclone ke sini di Inspector
     public CombinedElementSO explosionFusionAsset;
+    public CombinedElementSO floodFusionAsset;
+    public CombinedElementSO quakeFusionAsset;
+    public CombinedElementSO iceFusionAsset;
+    public CombinedElementSO blazeFusionAsset;
+    public CombinedElementSO dustFusionAsset;
+    public CombinedElementSO steamFusionAsset;
+    public CombinedElementSO lavaFusionAsset;
 
     // Menyimpan data belanja sementara antar scene
     [HideInInspector] public MarbleElementSO pendingElementFromShop = null;
@@ -178,25 +185,42 @@ public class ProgressionManager : MonoBehaviour
 
         MarbleElementSO currentElement = equippedChamber[slotIndex];
 
-        // LOGIKA EVOLUSI KOMBINASI:
-        // 1. Jika slot target sudah punya elemen WIND, dan kamu memasukkan WIND lagi -> Ubah jadi CYCLONE
-        if (currentElement != null && currentElement.elementName == "Wind" && newElement != null && newElement.elementName == "Wind")
+        CombinedElementSO fusionResult = GetFusionResult(currentElement, newElement);
+        if (fusionResult != null)
         {
-            equippedChamber[slotIndex] = cycloneFusionAsset;
-            Debug.Log($"🧬 EVOLUTION! Slot {slotIndex} berevolusi menjadi 🌪️ Cyclone!");
+            equippedChamber[slotIndex] = fusionResult;
+            Debug.Log($"🧬 EVOLUTION! Slot {slotIndex} berevolusi menjadi {fusionResult.elementName}!");
         }
-        // 2. Jika slot target sudah punya elemen FIRE, dan kamu memasukkan FIRE lagi -> Ubah jadi EXPLOSION
-        else if (currentElement != null && currentElement.elementName == "Fire" && newElement != null && newElement.elementName == "Fire")
-        {
-            equippedChamber[slotIndex] = explosionFusionAsset;
-            Debug.Log($"🧬 EVOLUTION! Slot {slotIndex} berevolusi menjadi 💥 Explosion!");
-        }
-        // 3. Jika slot kosong atau elemennya berbeda, lakukan infusi/timpa normal seperti biasa
         else
         {
             equippedChamber[slotIndex] = newElement;
             Debug.Log($"🔮 Slot {slotIndex} diisi elemen: {(newElement != null ? newElement.elementName : "Polos")}");
         }
+    }
+
+    private CombinedElementSO GetFusionResult(MarbleElementSO currentElement, MarbleElementSO newElement)
+    {
+        if (currentElement == null || newElement == null) return null;
+
+        string first = currentElement.elementName;
+        string second = newElement.elementName;
+
+        if (IsFusionPair(first, second, "Wind", "Wind")) return cycloneFusionAsset;
+        if (IsFusionPair(first, second, "Fire", "Fire")) return explosionFusionAsset;
+        if (IsFusionPair(first, second, "Water", "Water")) return floodFusionAsset;
+        if (IsFusionPair(first, second, "Earth", "Earth")) return quakeFusionAsset;
+        if (IsFusionPair(first, second, "Water", "Wind")) return iceFusionAsset;
+        if (IsFusionPair(first, second, "Fire", "Wind")) return blazeFusionAsset;
+        if (IsFusionPair(first, second, "Earth", "Wind")) return dustFusionAsset;
+        if (IsFusionPair(first, second, "Water", "Fire")) return steamFusionAsset;
+        if (IsFusionPair(first, second, "Earth", "Fire")) return lavaFusionAsset;
+
+        return null;
+    }
+
+    private bool IsFusionPair(string first, string second, string elementA, string elementB)
+    {
+        return (first == elementA && second == elementB) || (first == elementB && second == elementA);
     }
 
     // ========================================================

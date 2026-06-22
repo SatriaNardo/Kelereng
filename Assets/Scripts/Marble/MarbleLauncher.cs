@@ -183,14 +183,25 @@ public class MarbleLauncher : MonoBehaviour
         ArenaManager.Instance.allMarblesInArena.Add(currentGacoanRb);
 
         MarbleElementHandler handler = currentGacoan.GetComponent<MarbleElementHandler>();
+        MarbleElementSO activeElement = null;
         if (handler != null && handler.activeElement != null)
         {
-            ProgressionManager.Instance.currentEnergy -= handler.activeElement.energyCost;
+            activeElement = handler.activeElement;
+            ProgressionManager.Instance.currentEnergy -= activeElement.energyCost;
         }
 
         ProgressionManager.Instance.PopNextElement();
 
-        Vector2 launchForce = -pullVector * launchForceMultiplier;
+        float finalLaunchForceMultiplier = activeElement != null
+            ? activeElement.GetLaunchForceMultiplier(launchForceMultiplier)
+            : launchForceMultiplier;
+
+        Vector2 launchForce = -pullVector * finalLaunchForceMultiplier;
+        if (activeElement != null)
+        {
+            activeElement.OnLaunch(currentGacoanRb);
+        }
+
         currentGacoanRb.AddForce(launchForce, ForceMode2D.Impulse);
 
         ArenaManager.Instance.OnMarbleFlicked(currentGacoanRb, true);

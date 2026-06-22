@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FireElementSO
   elementName: Fire
   elementColor: {r: 1, g: 0.30561107, b: 0, a: 1}
-  extraKnockbackForce: 5
+  energyCost: 1
+  launchSpeedMultiplier: 1.5

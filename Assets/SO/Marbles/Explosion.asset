@@ -16,7 +16,25 @@ MonoBehaviour:
   elementColor: {r: 1, g: 0.7646351, b: 0.1273585, a: 1}
   energyCost: 2
   fusionType: 1
-  cycloneRadius: 1.8
-  cycloneForce: 18
+  cycloneRadius: 0.5
+  cycloneForce: 5
   explosionRadius: 1
-  explosionForce: 8
+  explosionForce: 3
+  quakeChainCount: 5
+  quakeLaunchForce: 1
+  quakeSmallAoeRadius: 0.65
+  quakeSmallAoeForce: 1
+  quakeSearchRadius: 6
+  iceTrailSpotSpacing: 0.25
+  iceTrailSpotSize: 0.45
+  blazeChainCount: 6
+  blazeChainForce: 5
+  blazeSearchRadius: 7
+  steamChainCount: 6
+  steamChainForce: 8
+  steamSearchRadius: 7
+  steamMassMultiplier: 0.5
+  steamBuffDuration: 8
+  lavaLaunchMultiplier: 1.2
+  lavaClashForce: 5
+  lavaPreserveSpeedMultiplier: 0.95
