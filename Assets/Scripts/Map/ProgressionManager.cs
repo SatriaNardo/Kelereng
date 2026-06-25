@@ -14,12 +14,22 @@ public class MapNodeBlueprint
 public class ProgressionManager : MonoBehaviour
 {
     public static ProgressionManager Instance;
+    public static MarbleElementSO PendingStartingElement;
+    public static int PendingWorldMapIndex = -1;
+    public static WorldMapConfigSO PendingWorldMapConfig;
 
     [Header("Player Global Progress")]
+    public int startingCurrency = 10;
+    public int startingBaseAmmo = 4;
     public int playerCurrency = 10;      
     public int BASE_AMMO = 4;     
     public int currentFloor = 1;
     public int currentColumn = 0;
+    public int currentWorldMapIndex = 0;
+    public int highestUnlockedWorldMapIndex = 0;
+    public int totalWorldMapNodes = 6;
+    public int currentPathMapFloorCount = 0;
+    public WorldMapConfigSO selectedWorldMapConfig = null;
 
     [Header("Elemental Inventory System")]
     public List<MarbleElementSO> equippedChamber = new List<MarbleElementSO>();
@@ -59,6 +69,8 @@ public class ProgressionManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             ResetChamberToDefault();
+            ApplyPendingStartingElement();
+            ApplyPendingWorldMapSelection();
         }
         else
         {
@@ -265,7 +277,12 @@ public class ProgressionManager : MonoBehaviour
     {
         currentFloor = 1;
         currentColumn = 0;
-        playerCurrency = 10;
+        currentWorldMapIndex = 0;
+        highestUnlockedWorldMapIndex = 0;
+        currentPathMapFloorCount = 0;
+        selectedWorldMapConfig = null;
+        playerCurrency = startingCurrency;
+        BASE_AMMO = startingBaseAmmo;
         
         // Bersihkan memori peta lama agar run baru mendapatkan acakan graf baru
         savedMapNodes.Clear();
@@ -276,5 +293,72 @@ public class ProgressionManager : MonoBehaviour
         
         ResetChamberToDefault();
         Debug.Log("🧼 Seluruh struktur peta persisten telah direset bersih!");
+    }
+
+    public void StartWorldMapNode(int worldMapIndex, WorldMapConfigSO worldMapConfig = null)
+    {
+        currentWorldMapIndex = worldMapIndex;
+        selectedWorldMapConfig = worldMapConfig;
+        currentFloor = 1;
+        currentColumn = 0;
+        currentPathMapFloorCount = 0;
+        savedMapNodes.Clear();
+        isMapAlreadyGenerated = false;
+    }
+
+    public void CompleteCurrentWorldMapNode()
+    {
+        if (currentWorldMapIndex >= highestUnlockedWorldMapIndex && highestUnlockedWorldMapIndex < totalWorldMapNodes - 1)
+        {
+            highestUnlockedWorldMapIndex++;
+        }
+
+        currentFloor = 1;
+        currentColumn = 0;
+        currentPathMapFloorCount = 0;
+        selectedWorldMapConfig = null;
+        savedMapNodes.Clear();
+        isMapAlreadyGenerated = false;
+    }
+
+    public void StartNewRunWithStartingElement(MarbleElementSO startingElement)
+    {
+        ResetProgressForNewGame();
+        PendingStartingElement = null;
+
+        if (startingElement != null && equippedChamber.Count > 0)
+        {
+            equippedChamber[0] = startingElement;
+            Debug.Log($"Starting marble selected: {startingElement.elementName}");
+        }
+    }
+
+    public static void SetPendingStartingElement(MarbleElementSO startingElement)
+    {
+        PendingStartingElement = startingElement;
+    }
+
+    public static void SetPendingWorldMapNode(int worldMapIndex, WorldMapConfigSO worldMapConfig)
+    {
+        PendingWorldMapIndex = worldMapIndex;
+        PendingWorldMapConfig = worldMapConfig;
+    }
+
+    private void ApplyPendingStartingElement()
+    {
+        if (PendingStartingElement == null || equippedChamber.Count == 0) return;
+
+        equippedChamber[0] = PendingStartingElement;
+        Debug.Log($"Starting marble applied: {PendingStartingElement.elementName}");
+        PendingStartingElement = null;
+    }
+
+    private void ApplyPendingWorldMapSelection()
+    {
+        if (PendingWorldMapIndex < 0) return;
+
+        StartWorldMapNode(PendingWorldMapIndex, PendingWorldMapConfig);
+        PendingWorldMapIndex = -1;
+        PendingWorldMapConfig = null;
     }
 }

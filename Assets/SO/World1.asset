@@ -1,0 +1,120 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99ad292e9cf354f65af0c6e0a93856b1, type: 3}
+  m_Name: World1
+  m_EditorClassIdentifier: Assembly-CSharp::WorldMapConfigSO
+  mapName: World1
+  mapLayout:
+  - floorLabel: 1
+    columns:
+    - columnPosition: -1
+      roomType: 1
+    - columnPosition: 0
+      roomType: 1
+    - columnPosition: 1
+      roomType: 1
+  - floorLabel: 2
+    columns:
+    - columnPosition: -2
+      roomType: 0
+    - columnPosition: -1
+      roomType: 0
+    - columnPosition: 0
+      roomType: 0
+    - columnPosition: 1
+      roomType: 0
+    - columnPosition: 2
+      roomType: 0
+  - floorLabel: 3
+    columns:
+    - columnPosition: -2
+      roomType: 0
+    - columnPosition: -1
+      roomType: 0
+    - columnPosition: 0
+      roomType: 0
+    - columnPosition: 1
+      roomType: 0
+    - columnPosition: 2
+      roomType: 0
+  - floorLabel: 4
+    columns:
+    - columnPosition: -2
+      roomType: 0
+    - columnPosition: -1
+      roomType: 0
+    - columnPosition: 0
+      roomType: 0
+    - columnPosition: 1
+      roomType: 0
+    - columnPosition: 2
+      roomType: 0
+  - floorLabel: 5
+    columns:
+    - columnPosition: -2
+      roomType: 0
+    - columnPosition: -1
+      roomType: 0
+    - columnPosition: 0
+      roomType: 0
+    - columnPosition: 1
+      roomType: 0
+    - columnPosition: 2
+      roomType: 0
+  - floorLabel: 6
+    columns:
+    - columnPosition: 0
+      roomType: 2
+  - floorLabel: 7
+    columns:
+    - columnPosition: -2
+      roomType: 0
+    - columnPosition: -1
+      roomType: 0
+    - columnPosition: 0
+      roomType: 0
+    - columnPosition: 1
+      roomType: 0
+    - columnPosition: 2
+      roomType: 0
+  - floorLabel: 8
+    columns:
+    - columnPosition: -2
+      roomType: 0
+    - columnPosition: -1
+      roomType: 0
+    - columnPosition: 0
+      roomType: 0
+    - columnPosition: 1
+      roomType: 0
+    - columnPosition: 2
+      roomType: 0
+  - floorLabel: 9
+    columns:
+    - columnPosition: -2
+      roomType: 0
+    - columnPosition: -1
+      roomType: 0
+    - columnPosition: 0
+      roomType: 0
+    - columnPosition: 1
+      roomType: 0
+    - columnPosition: 2
+      roomType: 0
+  - floorLabel: 10
+    columns:
+    - columnPosition: 0
+      roomType: 5
+  randomizeNodeCountPerFloor: 1
+  minNodesPerFloor: 2
+  maxNodesPerFloor: 4
+  keepSingleNodeFloors: 1

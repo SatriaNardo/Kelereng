@@ -9,7 +9,6 @@ public class MapManager : MonoBehaviour
 
     [Header("UI Display")]
     public TMP_Text currencyText;
-    public TMP_Text floorText;
 
     [Header("Event Pool")]
     public List<GameEventSO> possibleEvents = new List<GameEventSO>();
@@ -37,7 +36,6 @@ public class MapManager : MonoBehaviour
         if (ProgressionManager.Instance == null) return;
 
         if (currencyText != null) currencyText.text = ProgressionManager.Instance.playerCurrency.ToString();
-        if (floorText != null) floorText.text = "Floor: " + ProgressionManager.Instance.currentFloor;
     }
 
     public void OnNodeSelected(string nodeTypeString)

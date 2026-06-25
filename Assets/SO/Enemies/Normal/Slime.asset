@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlimeEnemySO
   enemyName: Slime
   enemyType: 0
-  baseHP: 1000
+  baseHP: 50
   enemySprite: {fileID: 3955008839091464340, guid: f2e30ff2d770a418cba6bcedf289ca4a, type: 3}
   themeColor: {r: 1, g: 1, b: 1, a: 1}
   gooPoolPrefab: {fileID: 1916739456777005738, guid: 055e6449359fc4f10b34a7301c4ca50e, type: 3}

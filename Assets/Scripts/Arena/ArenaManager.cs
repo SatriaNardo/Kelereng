@@ -37,6 +37,11 @@ public class ArenaManager : MonoBehaviour
     public int enemyHP = 100;
     public int baseDamagePerMarble = 10;
 
+    [Header("Victory Rewards")]
+    public Vector2Int normalEnemyRewardRange = new Vector2Int(10, 30);
+    public Vector2Int eliteEnemyRewardRange = new Vector2Int(40, 60);
+    public Vector2Int bossEnemyRewardRange = new Vector2Int(70, 90);
+
     private int currentTurnCount = 0; 
     private Rigidbody2D activeGacoan; 
     private bool activeGacoanHitTarget = false;
@@ -378,7 +383,13 @@ public class ArenaManager : MonoBehaviour
         if (playerWon)
         {
             Debug.Log("🏆 VICTORY!");
-            ProgressionManager.Instance.currentFloor++;
+            GrantVictoryReward();
+
+            if (ProgressionManager.Instance != null)
+            {
+                ProgressionManager.Instance.currentFloor++;
+            }
+
             StartCoroutine(LoadSceneDelay("MapScene"));
         }
         else
@@ -394,6 +405,42 @@ public class ArenaManager : MonoBehaviour
             }
 
             StartCoroutine(LoadSceneDelay("GameOverScene")); 
+        }
+    }
+
+    private void GrantVictoryReward()
+    {
+        if (ProgressionManager.Instance == null) return;
+
+        Vector2Int rewardRange = GetRewardRangeForActiveEnemy();
+        int minReward = Mathf.Min(rewardRange.x, rewardRange.y);
+        int maxReward = Mathf.Max(rewardRange.x, rewardRange.y);
+        int reward = Random.Range(minReward, maxReward + 1);
+
+        ProgressionManager.Instance.AddCurrency(reward);
+
+        string enemyTypeName = activeEnemyData != null ? activeEnemyData.enemyType.ToString() : EnemyType.Normal.ToString();
+        Debug.Log($"Victory reward granted for {enemyTypeName} enemy: +{reward} currency.");
+    }
+
+    private Vector2Int GetRewardRangeForActiveEnemy()
+    {
+        if (activeEnemyData == null)
+        {
+            return normalEnemyRewardRange;
+        }
+
+        switch (activeEnemyData.enemyType)
+        {
+            case EnemyType.Elite:
+                return eliteEnemyRewardRange;
+
+            case EnemyType.Boss:
+                return bossEnemyRewardRange;
+
+            case EnemyType.Normal:
+            default:
+                return normalEnemyRewardRange;
         }
     }
 

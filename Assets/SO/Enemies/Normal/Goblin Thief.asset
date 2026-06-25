@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GoblinThiefEnemySO
   enemyName: Goblin Thief
   enemyType: 0
-  baseHP: 1000
+  baseHP: 50
   enemySprite: {fileID: 0}
   themeColor: {r: 0.25, g: 0.22, b: 0.18, a: 1}
   smokeBombPrefab: {fileID: 9180261011422194471, guid: ca59c04c7dc424d9caa54a1226585b2c, type: 3}
   spawnCountPerTurn: 2
-  smokeRadius: 1.6
+  smokeRadius: 2
   smokeOpacity: 1
   smokeSortingOrder: 100
