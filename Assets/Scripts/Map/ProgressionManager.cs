@@ -57,6 +57,9 @@ public class ProgressionManager : MonoBehaviour
     public int currentEnergy = 0;
     public int maxEnergyThisTurn = 1; // Kapasitas maksimal yang meningkat per turn
 
+    [Header("Emblem System")]
+    public List<EmblemSO> equippedEmblems = new List<EmblemSO>();
+
     [Header("Persistent Map Data")]
     public bool isMapAlreadyGenerated = false;
     // PUSAT PENYIMPANAN DATA PETA: Menyimpan seluruh cetak biru node pertualangan
@@ -273,6 +276,103 @@ public class ProgressionManager : MonoBehaviour
         if (playerCurrency < 0) playerCurrency = 0; 
     }
 
+    public bool HasEmblemEffect(EmblemEffectType effectType)
+    {
+        foreach (EmblemSO emblem in equippedEmblems)
+        {
+            if (emblem != null && emblem.effectType == effectType)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void AddEmblem(EmblemSO emblem)
+    {
+        if (emblem == null || equippedEmblems.Contains(emblem))
+        {
+            return;
+        }
+
+        equippedEmblems.Add(emblem);
+        ApplyEmblemPassiveOnAcquire(emblem);
+        Debug.Log($"Emblem acquired: {emblem.emblemName}");
+    }
+
+    private void ApplyEmblemPassiveOnAcquire(EmblemSO emblem)
+    {
+        if (emblem.bonusAmmoSlot <= 0)
+        {
+            return;
+        }
+
+        BASE_AMMO += emblem.bonusAmmoSlot;
+        for (int i = 0; i < emblem.bonusAmmoSlot; i++)
+        {
+            equippedChamber.Add(null);
+        }
+    }
+
+    public float GetGuideLineRangeBonus()
+    {
+        float totalBonus = 0f;
+
+        foreach (EmblemSO emblem in equippedEmblems)
+        {
+            if (emblem != null && emblem.effectType == EmblemEffectType.ExtendedGuideLine)
+            {
+                totalBonus += emblem.guideLineRangeBonus;
+            }
+        }
+
+        return totalBonus;
+    }
+
+    public int GetRicochetPreviewCount()
+    {
+        int totalBounces = 0;
+
+        foreach (EmblemSO emblem in equippedEmblems)
+        {
+            if (emblem != null && emblem.effectType == EmblemEffectType.RicochetPreview)
+            {
+                totalBounces += emblem.ricochetPreviewCount;
+            }
+        }
+
+        return totalBounces;
+    }
+
+    public float GetEmblemLaunchForceMultiplier()
+    {
+        float multiplier = 1f;
+
+        foreach (EmblemSO emblem in equippedEmblems)
+        {
+            if (emblem != null && emblem.bonusForceMultiplier > 1f)
+            {
+                multiplier *= emblem.bonusForceMultiplier;
+            }
+        }
+
+        return multiplier;
+    }
+
+    public bool HasSlimeImmunity()
+    {
+        foreach (EmblemSO emblem in equippedEmblems)
+        {
+            if (emblem != null && emblem.kebalLendirSlime)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void ResetProgressForNewGame()
     {
         currentFloor = 1;
@@ -291,6 +391,7 @@ public class ProgressionManager : MonoBehaviour
         hasPendingEventFightReward = false;
         pendingEventFightReward = null;
         
+        equippedEmblems.Clear();
         ResetChamberToDefault();
         Debug.Log("🧼 Seluruh struktur peta persisten telah direset bersih!");
     }

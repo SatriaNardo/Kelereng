@@ -14,7 +14,13 @@ public class MarbleLauncher : MonoBehaviour
 
     [Header("Screen Constraints")]
     [Range(0.1f, 0.5f)] 
-    public float bottomScreenPercentage = 0.3f; 
+    public float bottomScreenPercentage = 0.3f;
+
+    [Header("Emblem Trajectory Preview")]
+    [Tooltip("Matches Gacoan CircleCollider2D radius for ricochet prediction.")]
+    public float marblePreviewRadius = 0.13f;
+    [Tooltip("Used to match ricochet preview with in-game marble physics.")]
+    public PhysicsMaterial2D marblePhysicsMaterial;
 
     // --- Private State Variables ---
     private Vector2 dragStartPos;
@@ -26,6 +32,18 @@ public class MarbleLauncher : MonoBehaviour
     // ==========================================
     // UNITY LIFECYCLE
     // ==========================================
+
+    private void Awake()
+    {
+        if (marblePhysicsMaterial == null && gacoanPrefab != null)
+        {
+            CircleCollider2D prefabCollider = gacoanPrefab.GetComponent<CircleCollider2D>();
+            if (prefabCollider != null)
+            {
+                marblePhysicsMaterial = prefabCollider.sharedMaterial;
+            }
+        }
+    }
 
     private void Start()
     {
@@ -90,10 +108,7 @@ public class MarbleLauncher : MonoBehaviour
         
         isDragging = true;
         trajectoryLine.enabled = true;
-        
-        // Garis bidik selalu dimulai dari posisi kelereng, bukan posisi jari.
-        trajectoryLine.SetPosition(0, launchOriginPos);
-        trajectoryLine.SetPosition(1, launchOriginPos);
+        UpdateTrajectoryLine(Vector2.zero);
     }
 
     private void ContinueDrag(Vector2 screenPosition)
@@ -101,17 +116,10 @@ public class MarbleLauncher : MonoBehaviour
         if (currentGacoan == null) return;
 
         Vector2 currentTouchWorld = Camera.main.ScreenToWorldPoint(screenPosition);
-        Vector2 pullVector = currentTouchWorld - dragStartPos;
-
-        if (pullVector.magnitude > maxDragDistance)
-        {
-            pullVector = pullVector.normalized * maxDragDistance;
-        }
+        Vector2 pullVector = ClampPullVector(currentTouchWorld - dragStartPos);
 
         // Kelereng tetap diam; hanya garis bidik yang memanjang mengikuti tarikan jari.
-        Vector2 launchDirection = -pullVector;
-        trajectoryLine.SetPosition(0, launchOriginPos);
-        trajectoryLine.SetPosition(1, launchOriginPos + launchDirection);
+        UpdateTrajectoryLine(-pullVector);
     }
 
     private void ReleaseAndFire(Vector2 screenPosition)
@@ -122,12 +130,7 @@ public class MarbleLauncher : MonoBehaviour
         if (currentGacoan == null) return;
 
         Vector2 currentTouchWorld = Camera.main.ScreenToWorldPoint(screenPosition);
-        Vector2 pullVector = currentTouchWorld - dragStartPos;
-
-        if (pullVector.magnitude > maxDragDistance)
-        {
-            pullVector = pullVector.normalized * maxDragDistance;
-        }
+        Vector2 pullVector = ClampPullVector(currentTouchWorld - dragStartPos);
 
         if (pullVector.magnitude > 0.2f)
         {
@@ -196,6 +199,11 @@ public class MarbleLauncher : MonoBehaviour
             ? activeElement.GetLaunchForceMultiplier(launchForceMultiplier)
             : launchForceMultiplier;
 
+        if (ProgressionManager.Instance != null)
+        {
+            finalLaunchForceMultiplier *= ProgressionManager.Instance.GetEmblemLaunchForceMultiplier();
+        }
+
         Vector2 launchForce = -pullVector * finalLaunchForceMultiplier;
         if (activeElement != null)
         {
@@ -228,5 +236,80 @@ public class MarbleLauncher : MonoBehaviour
             
             Debug.Log($"🔄 Swap Berhasil! Elemen ketapel ditukar dengan slot cadangan indeks ke-{targetIndexInChamber}!");
         }
+    }
+
+    private float GetEffectiveMaxDragDistance()
+    {
+        float bonus = ProgressionManager.Instance != null
+            ? ProgressionManager.Instance.GetGuideLineRangeBonus()
+            : 0f;
+
+        return maxDragDistance + bonus;
+    }
+
+    private Vector2 ClampPullVector(Vector2 pullVector)
+    {
+        float effectiveMaxDrag = GetEffectiveMaxDragDistance();
+        if (pullVector.magnitude > effectiveMaxDrag)
+        {
+            pullVector = pullVector.normalized * effectiveMaxDrag;
+        }
+
+        return pullVector;
+    }
+
+    private void UpdateTrajectoryLine(Vector2 launchDirection)
+    {
+        Collider2D ignoreCollider = currentGacoan != null
+            ? currentGacoan.GetComponent<Collider2D>()
+            : null;
+
+        int ricochetPreviewCount = ProgressionManager.Instance != null
+            ? ProgressionManager.Instance.GetRicochetPreviewCount()
+            : 0;
+
+        List<Vector2> points = TrajectoryPredictor.BuildTrajectoryPoints(
+            launchOriginPos,
+            launchDirection,
+            launchDirection.magnitude,
+            marblePreviewRadius,
+            ricochetPreviewCount,
+            ignoreCollider,
+            GetMarbleCollidersForPrediction(ignoreCollider),
+            marblePhysicsMaterial);
+
+        trajectoryLine.positionCount = points.Count;
+        for (int i = 0; i < points.Count; i++)
+        {
+            trajectoryLine.SetPosition(i, points[i]);
+        }
+    }
+
+    private List<CircleCollider2D> GetMarbleCollidersForPrediction(Collider2D ignoreCollider)
+    {
+        List<CircleCollider2D> marbleColliders = new List<CircleCollider2D>();
+
+        if (ArenaManager.Instance == null)
+        {
+            return marbleColliders;
+        }
+
+        foreach (Rigidbody2D marbleBody in ArenaManager.Instance.allMarblesInArena)
+        {
+            if (marbleBody == null)
+            {
+                continue;
+            }
+
+            CircleCollider2D circleCollider = marbleBody.GetComponent<CircleCollider2D>();
+            if (circleCollider == null || circleCollider == ignoreCollider || !circleCollider.enabled)
+            {
+                continue;
+            }
+
+            marbleColliders.Add(circleCollider);
+        }
+
+        return marbleColliders;
     }
 }
