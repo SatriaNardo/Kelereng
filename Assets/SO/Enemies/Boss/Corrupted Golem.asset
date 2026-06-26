@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a2b3c4d5e6f708192a3b4c5d6e7f81, type: 3}
+  m_Name: Corrupted Golem
+  m_EditorClassIdentifier: Assembly-CSharp::CorruptedGolemEnemySO
+  enemyName: Corrupted Golem
+  enemyType: 2
+  baseHP: 200
+  enemySprite: {fileID: 3955008839091464340, guid: f2e30ff2d770a418cba6bcedf289ca4a, type: 3}
+  themeColor: {r: 0.45, g: 0.12, b: 0.62, a: 1}
+  phaseTwoHpRatio: 0.5
+  quicksandPrefab: {fileID: 0}
+  quicksandRadius: 0.7
+  quicksandSprite: {fileID: 0}
+  rockFormationPrefab: {fileID: 0}
+  rockCount: 2
+  rockClusterRadius: 1.35
+  rockSpawnRadiusMultiplier: 1
+  rockSprite: {fileID: 0}
+  corruptedSmokePrefab: {fileID: 0}
+  smokeRadiusMultiplier: 0.72
+  corruptedSmokeSprite: {fileID: 0}
+  chainAnchorPrefab: {fileID: 0}
+  chainAnchorCount: 4
+  chainAnchorRadius: 0.28
+  chainSpawnRadiusMultiplier: 0.6
+  chainAnchorSprite: {fileID: 0}
+  hazardMaterial: {fileID: 6200000, guid: 8319fe7cf9f224304a6b39e4f4f97abb, type: 2}

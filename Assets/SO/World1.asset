@@ -17,7 +17,7 @@ MonoBehaviour:
   - floorLabel: 1
     columns:
     - columnPosition: -1
-      roomType: 1
+      roomType: 5
     - columnPosition: 0
       roomType: 1
     - columnPosition: 1

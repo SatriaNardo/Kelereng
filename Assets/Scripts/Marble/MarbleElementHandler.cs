@@ -28,24 +28,25 @@ public class MarbleElementHandler : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // 1. SAFETY CHECKS: Exit immediately if no element OR if it already clashed once
-        if (activeElement == null || rb == null || hasClashedThisTurn) return;
-
-        // Only activate the power if THIS marble is the active attacker moving at speed
+        if (rb == null || hasClashedThisTurn) return;
         if (rb.linearVelocity.magnitude < 0.1f) return;
 
-        // Check if we collided with another physics marble
         Rigidbody2D targetRb = collision.gameObject.GetComponent<Rigidbody2D>();
-        if (targetRb != null)
+        if (targetRb == null) return;
+
+        Vector2 contactPoint = collision.GetContact(0).point;
+
+        if (CorruptedSmokeZone.IsPointInsideSmoke(contactPoint))
         {
-            // 2. LOCK THE FLAG: Prevent any future collisions from entering this block
             hasClashedThisTurn = true;
-
-            // Extract the precise 2D coordinate where the two circles touched
-            Vector2 contactPoint = collision.GetContact(0).point;
-
-            // Execute the ScriptableObject power behavior (Wind AoE or Fire Knockback)
-            activeElement.OnClash(rb, targetRb, contactPoint);
+            CorruptedSmokeZone.ApplyRandomClash(rb, targetRb);
+            return;
         }
+
+        if (activeElement == null) return;
+
+        hasClashedThisTurn = true;
+        activeElement.OnClash(rb, targetRb, contactPoint);
+        ChainAnchorPoint.TryTriggerChainAt(contactPoint, rb, targetRb);
     }
 }

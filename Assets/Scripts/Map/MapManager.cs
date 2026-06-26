@@ -16,6 +16,12 @@ public class MapManager : MonoBehaviour
     [Header("Inventory UI Connection")]
     public UIInventoryManager uiInventoryManager;
 
+    [Header("Combat Encounters")]
+    public EnemySO bossEnemy;
+    public List<EnemySO> normalFightPool = new List<EnemySO>();
+    public List<EnemySO> eliteFightPool = new List<EnemySO>();
+    [Range(0f, 1f)] public float eliteFightChance = 0.2f;
+
     private void Start()
     {
         if (ProgressionManager.Instance != null)
@@ -45,6 +51,7 @@ public class MapManager : MonoBehaviour
         switch (selectedType)
         {
             case NodeType.Fight:
+                PrepareFightEncounter(selectedType);
                 LoadCombatScene();
                 break;
 
@@ -57,6 +64,7 @@ public class MapManager : MonoBehaviour
                 break;
 
             case NodeType.Boss:
+                PrepareFightEncounter(selectedType);
                 LoadCombatScene(); 
                 break;
             case NodeType.Store:
@@ -68,6 +76,59 @@ public class MapManager : MonoBehaviour
     private void LoadCombatScene()
     {
         SceneManager.LoadScene("FightScene");
+    }
+
+    private void PrepareFightEncounter(NodeType nodeType)
+    {
+        if (ProgressionManager.Instance == null) return;
+
+        if (nodeType == NodeType.Boss)
+        {
+            if (bossEnemy == null)
+            {
+                Debug.LogWarning("Boss node selected but no bossEnemy is assigned on MapManager.");
+                ProgressionManager.Instance.ClearPendingFightEnemy();
+                return;
+            }
+
+            ProgressionManager.Instance.SetPendingFightEnemy(bossEnemy);
+            Debug.Log($"Boss encounter queued: {bossEnemy.enemyName}");
+            return;
+        }
+
+        EnemySO selectedEnemy = PickRandomFightEnemy();
+        if (selectedEnemy != null)
+        {
+            ProgressionManager.Instance.SetPendingFightEnemy(selectedEnemy);
+            Debug.Log($"Fight encounter queued: {selectedEnemy.enemyName}");
+        }
+        else
+        {
+            ProgressionManager.Instance.ClearPendingFightEnemy();
+        }
+    }
+
+    private EnemySO PickRandomFightEnemy()
+    {
+        bool useElite = eliteFightPool.Count > 0 && Random.value < eliteFightChance;
+        List<EnemySO> sourcePool = useElite ? eliteFightPool : normalFightPool;
+
+        if (sourcePool.Count == 0)
+        {
+            sourcePool = useElite ? normalFightPool : eliteFightPool;
+        }
+
+        List<EnemySO> validEnemies = new List<EnemySO>();
+        foreach (EnemySO enemy in sourcePool)
+        {
+            if (enemy != null && enemy.enemyType != EnemyType.Boss)
+            {
+                validEnemies.Add(enemy);
+            }
+        }
+
+        if (validEnemies.Count == 0) return null;
+        return validEnemies[Random.Range(0, validEnemies.Count)];
     }
     
     public void LoadShopScene()

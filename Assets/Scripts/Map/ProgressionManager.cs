@@ -52,6 +52,7 @@ public class ProgressionManager : MonoBehaviour
     [HideInInspector] public GameEventSO selectedEventForEventScene = null;
     [HideInInspector] public bool hasPendingEventFightReward = false;
     [HideInInspector] public EventRewardData pendingEventFightReward = null;
+    [HideInInspector] public EnemySO pendingFightEnemy = null;
 
     [Header("Energy System")]
     public int currentEnergy = 0;
@@ -192,6 +193,23 @@ public class ProgressionManager : MonoBehaviour
         selectedEventForEventScene = null;
         ApplyEventReward(pendingEventFightReward);
         pendingEventFightReward = null;
+    }
+
+    public void SetPendingFightEnemy(EnemySO enemy)
+    {
+        pendingFightEnemy = enemy;
+    }
+
+    public void ClearPendingFightEnemy()
+    {
+        pendingFightEnemy = null;
+    }
+
+    public EnemySO ConsumePendingFightEnemy()
+    {
+        EnemySO enemy = pendingFightEnemy;
+        pendingFightEnemy = null;
+        return enemy;
     }
 
     public void LoadElementToSlot(int slotIndex, MarbleElementSO newElement)
@@ -390,6 +408,7 @@ public class ProgressionManager : MonoBehaviour
         selectedEventForEventScene = null;
         hasPendingEventFightReward = false;
         pendingEventFightReward = null;
+        pendingFightEnemy = null;
         
         equippedEmblems.Clear();
         ResetChamberToDefault();

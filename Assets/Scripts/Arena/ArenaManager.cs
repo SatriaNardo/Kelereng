@@ -27,6 +27,9 @@ public class ArenaManager : MonoBehaviour
 
     [Header("UI Connector")]
     public UIFightInventory uiFightInventory;
+
+    [Header("Arena Target Marble Generator")]
+    public MapGenerator mapGenerator;
     
     [Header("Enemy SO Connection")]
     public bool randomizeEnemyOnStart = true;
@@ -35,6 +38,7 @@ public class ArenaManager : MonoBehaviour
 
     [Header("Enemy Overlord Stats Dynamic")]
     public int enemyHP = 100;
+    public int maxEnemyHP = 100;
     public int baseDamagePerMarble = 10;
 
     [Header("Victory Rewards")]
@@ -48,6 +52,8 @@ public class ArenaManager : MonoBehaviour
     private bool skipNextEnemyTurn = false;
     private bool isGameOver = false;
 
+    public int EnemyActionCount { get; private set; }
+
     private void Awake()
     {
         Instance = this;
@@ -55,6 +61,11 @@ public class ArenaManager : MonoBehaviour
 
     private void Start()
     {
+        if (mapGenerator == null)
+        {
+            mapGenerator = Object.FindFirstObjectByType<MapGenerator>();
+        }
+
         // Reset match energy configuration
         if (ProgressionManager.Instance != null)
         {
@@ -64,7 +75,8 @@ public class ArenaManager : MonoBehaviour
 
         currentAmmo = ProgressionManager.Instance.BASE_AMMO;
         isGameOver = false;
-        currentTurnCount = 0; 
+        currentTurnCount = 0;
+        EnemyActionCount = 0;
 
         PickRandomEnemyForFight();
 
@@ -75,10 +87,12 @@ public class ArenaManager : MonoBehaviour
                                    (activeEnemyData.enemyType == EnemyType.Elite ? 1.5f : 1f);
             int floorBonus = (ProgressionManager.Instance.currentFloor - 1) * 20;
             enemyHP = Mathf.RoundToInt((activeEnemyData.baseHP + floorBonus) * kastaMultiplier);
+            maxEnemyHP = enemyHP;
         }
         else
         {
             enemyHP = 100;
+            maxEnemyHP = 100;
         }
 
         UpdateAmmoUI();
@@ -90,12 +104,23 @@ public class ArenaManager : MonoBehaviour
 
     private void PickRandomEnemyForFight()
     {
+        if (ProgressionManager.Instance != null)
+        {
+            EnemySO pendingEnemy = ProgressionManager.Instance.ConsumePendingFightEnemy();
+            if (pendingEnemy != null)
+            {
+                activeEnemyData = pendingEnemy;
+                Debug.Log($"Map-selected enemy loaded: {activeEnemyData.enemyName}");
+                return;
+            }
+        }
+
         if (!randomizeEnemyOnStart) return;
 
         List<EnemySO> validEnemies = new List<EnemySO>();
         foreach (EnemySO enemy in enemyPool)
         {
-            if (enemy != null)
+            if (enemy != null && enemy.enemyType != EnemyType.Boss)
             {
                 validEnemies.Add(enemy);
             }
@@ -103,7 +128,7 @@ public class ArenaManager : MonoBehaviour
 
         if (validEnemies.Count == 0)
         {
-            Debug.LogWarning("Enemy randomizer has no enemies assigned. Using activeEnemyData fallback.");
+            Debug.LogWarning("Enemy randomizer has no non-boss enemies assigned. Using activeEnemyData fallback.");
             return;
         }
 
@@ -119,6 +144,7 @@ public class ArenaManager : MonoBehaviour
         
         if (activeEnemyData != null)
         {
+            EnemyActionCount++;
             activeEnemyData.ExecuteEnemyAction(this); 
         }
 
@@ -128,6 +154,11 @@ public class ArenaManager : MonoBehaviour
     public void OnMapGenerated()
     {
         UpdateAmmoUI();
+    }
+
+    public bool HasAmmoForShot()
+    {
+        return GetAvailableShotCount() > 0;
     }
 
     public void OnMarbleFlicked(Rigidbody2D gacoanRb, bool isPlayer)
@@ -178,7 +209,16 @@ public class ArenaManager : MonoBehaviour
             Destroy(smokeBomb.gameObject);
         }
 
+        EntTreeEnemySO.ClearEntTreeHazards();
+        CorruptedGolemEnemySO.ClearGolemHazards();
+
         Debug.Log($"Cleared enemy hazards. Goo: {activeGooPools.Length}, Smoke: {activeSmokeBombs.Length}");
+    }
+
+    public float GetEnemyHpRatio()
+    {
+        if (maxEnemyHP <= 0) return 1f;
+        return Mathf.Clamp01((float)enemyHP / maxEnemyHP);
     }
 
     public void ClearIceTrails()
@@ -291,19 +331,9 @@ public class ArenaManager : MonoBehaviour
             activeGacoan = null; 
         }
 
-        bool targetMarblesLeft = false;
-        foreach (Rigidbody2D rb in allMarblesInArena)
+        if (enemyHP <= 0)
         {
-            if (rb != null && rb.CompareTag("TargetMarble"))
-            {
-                targetMarblesLeft = true;
-                break;
-            }
-        }
-
-        if (!targetMarblesLeft)
-        {
-            DetermineGameOver(true, "All target marbles cleared!");
+            DetermineGameOver(true, "Enemy defeated!");
             return;
         }
 
@@ -320,24 +350,19 @@ public class ArenaManager : MonoBehaviour
         {
             currentTurnCount++; 
             ClearIceTrails();
+            TopUpTargetMarblesForPlayerTurn();
 
             if (ProgressionManager.Instance != null)
             {
                 ProgressionManager.Instance.StartNewTurnEnergySetup(); 
             }
 
-            if (currentAmmo <= 0)
+            if (!HasAnyAvailablePlayerShot())
             {
                 DetermineGameOver(false, "Out of ammunition! You lost!");
                 return;
             }
                 
-            if (currentTurnCount > maxTurns)
-            {
-                DetermineGameOver(false, "Turn limit reached! Defeat!");
-                return;
-            }
-
             UpdateAmmoUI();
             if (uiFightInventory != null)
             {
@@ -360,6 +385,7 @@ public class ArenaManager : MonoBehaviour
             
             if (activeEnemyData != null)
             {
+                EnemyActionCount++;
                 activeEnemyData.ExecuteEnemyAction(this);
             }
 
@@ -371,6 +397,34 @@ public class ArenaManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.6f);
         SwitchTurns(); 
+    }
+
+    private void TopUpTargetMarblesForPlayerTurn()
+    {
+        if (mapGenerator == null)
+        {
+            mapGenerator = Object.FindFirstObjectByType<MapGenerator>();
+        }
+
+        if (mapGenerator != null)
+        {
+            mapGenerator.TopUpMarblesForTurn();
+        }
+    }
+
+    private bool HasAnyAvailablePlayerShot()
+    {
+        return GetAvailableShotCount() > 0;
+    }
+
+    private int GetAvailableShotCount()
+    {
+        if (ProgressionManager.Instance != null)
+        {
+            return ProgressionManager.Instance.equippedChamber.Count;
+        }
+
+        return currentAmmo;
     }
 
     private void DetermineGameOver(bool playerWon, string reason)
@@ -472,6 +526,8 @@ public class ArenaManager : MonoBehaviour
 
     private void UpdateAmmoUI()
     {
+        currentAmmo = GetAvailableShotCount();
+
         if (playerAmmoText != null) 
             playerAmmoText.text = currentAmmo.ToString();
 

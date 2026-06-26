@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -6736282608937119749}
   m_Layer: 0
   m_Name: TargetMarble
-  m_TagString: Gacoan
+  m_TagString: TargetMarble
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

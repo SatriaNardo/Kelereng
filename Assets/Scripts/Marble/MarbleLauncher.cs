@@ -55,7 +55,7 @@ public class MarbleLauncher : MonoBehaviour
         if (!ArenaManager.Instance.IsTurnActive && 
             ArenaManager.Instance.IsPlayerTurn && 
             currentGacoan == null && 
-            ArenaManager.Instance.currentAmmo > 0)
+            ArenaManager.Instance.HasAmmoForShot())
         {
             PrepareNextShot();
         }
