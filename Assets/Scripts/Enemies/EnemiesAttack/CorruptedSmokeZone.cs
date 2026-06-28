@@ -126,7 +126,7 @@ public class CorruptedSmokeZone : MonoBehaviour
             for (int x = 0; x < textureSize; x++)
             {
                 float distance = Vector2.Distance(new Vector2(x, y), center) / maxDistance;
-                float alpha = Mathf.SmoothStep(0f, 1f, 1f - distance);
+                float alpha = distance <= 1f ? 1f : 0f;
                 texture.SetPixel(x, y, new Color(1f, 1f, 1f, alpha));
             }
         }
