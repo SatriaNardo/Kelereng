@@ -6,7 +6,8 @@ public enum EventChoiceAction
     GoToNextNode,
     EndEvent,
     ApplyRewardAndEnd,
-    StartFightWithReward
+    StartFightWithReward,
+    ResolveRandomOutcome
 }
 
 [System.Serializable]
@@ -14,8 +15,24 @@ public class EventRewardData
 {
     public int currencyMin = 0;
     public int currencyMax = 0;
+    public int ammoMin = 0;
+    public int ammoMax = 0;
     public bool removeAmmo = false;
+    [Range(0f, 1f)] public float removeAmmoChance = 0f;
+    public bool removeRandomEmblem = false;
+    [Range(0f, 1f)] public float removeRandomEmblemChance = 0f;
     public List<MarbleElementSO> randomElementRewards = new List<MarbleElementSO>();
+    public List<EmblemSO> randomEmblemRewards = new List<EmblemSO>();
+}
+
+[System.Serializable]
+public class EventRandomOutcomeData
+{
+    public string outcomeText;
+    [Min(1)] public int weight = 1;
+    public EventChoiceAction action = EventChoiceAction.ApplyRewardAndEnd;
+    public EventRewardData reward = new EventRewardData();
+    public List<EnemySO> fightEnemyPool = new List<EnemySO>();
 }
 
 [System.Serializable]
@@ -25,6 +42,8 @@ public class EventChoiceData
     public EventChoiceAction action = EventChoiceAction.EndEvent;
     public int nextNodeIndex = -1;
     public EventRewardData reward = new EventRewardData();
+    public List<EnemySO> fightEnemyPool = new List<EnemySO>();
+    public List<EventRandomOutcomeData> randomOutcomes = new List<EventRandomOutcomeData>();
 }
 
 [System.Serializable]
@@ -69,6 +88,24 @@ public class GameEventSO : ScriptableObject
                 if (node.choices[i].reward == null)
                 {
                     node.choices[i].reward = new EventRewardData();
+                }
+
+                if (node.choices[i].fightEnemyPool == null)
+                {
+                    node.choices[i].fightEnemyPool = new List<EnemySO>();
+                }
+
+                if (node.choices[i].randomOutcomes == null)
+                {
+                    node.choices[i].randomOutcomes = new List<EventRandomOutcomeData>();
+                }
+
+                foreach (EventRandomOutcomeData outcome in node.choices[i].randomOutcomes)
+                {
+                    if (outcome == null) continue;
+                    if (outcome.reward == null) outcome.reward = new EventRewardData();
+                    if (outcome.fightEnemyPool == null) outcome.fightEnemyPool = new List<EnemySO>();
+                    if (outcome.weight < 1) outcome.weight = 1;
                 }
             }
         }

@@ -166,13 +166,7 @@ public class MarbleLauncher : MonoBehaviour
         MarbleElementHandler handler = currentGacoan.GetComponent<MarbleElementHandler>();
         if (handler != null)
         {
-            handler.activeElement = nextElement;
-            
-            SpriteRenderer sr = currentGacoan.GetComponent<SpriteRenderer>();
-            if (sr != null)
-            {
-                sr.color = nextElement != null ? nextElement.elementColor : Color.white;
-            }
+            handler.SetActiveElement(nextElement);
         }
 
         currentGacoanRb.bodyType = RigidbodyType2D.Kinematic;

@@ -13,7 +13,20 @@ MonoBehaviour:
   m_Name: SteamElement
   m_EditorClassIdentifier: Assembly-CSharp::CombinedElementSO
   elementName: Steam
-  elementColor: {r: 0.85, g: 0.9, b: 0.92, a: 1}
+  elementColor: {r: 1, g: 1, b: 1, a: 1}
+  idleSprite: {fileID: 8303654113392226935, guid: 8d8df486b38d84642b745baf918cac6b, type: 3}
+  rollingSprites:
+  - {fileID: -9129753915083539486, guid: 8d8df486b38d84642b745baf918cac6b, type: 3}
+  - {fileID: 3590269603903334888, guid: 8d8df486b38d84642b745baf918cac6b, type: 3}
+  - {fileID: -1240428824298424037, guid: 8d8df486b38d84642b745baf918cac6b, type: 3}
+  - {fileID: 8254068412579033560, guid: 8d8df486b38d84642b745baf918cac6b, type: 3}
+  - {fileID: 4647108761502433919, guid: 8d8df486b38d84642b745baf918cac6b, type: 3}
+  - {fileID: 824776529719871168, guid: 8d8df486b38d84642b745baf918cac6b, type: 3}
+  - {fileID: -3882323473438023046, guid: 8d8df486b38d84642b745baf918cac6b, type: 3}
+  - {fileID: 2369644405621456010, guid: 8d8df486b38d84642b745baf918cac6b, type: 3}
+  - {fileID: 7252256524986911067, guid: 8d8df486b38d84642b745baf918cac6b, type: 3}
+  - {fileID: -4417283884874679605, guid: 8d8df486b38d84642b745baf918cac6b, type: 3}
+  - {fileID: 6150227727417247265, guid: 8d8df486b38d84642b745baf918cac6b, type: 3}
   energyCost: 2
   fusionType: 7
   cycloneRadius: 0.5
@@ -21,12 +34,26 @@ MonoBehaviour:
   explosionRadius: 1
   explosionForce: 3
   quakeChainCount: 5
-  quakeLaunchForce: 1
   quakeSmallAoeRadius: 0.65
   quakeSmallAoeForce: 1
   quakeSearchRadius: 6
+  quakeAffectedMarbleEffectPrefab: {fileID: 0}
+  quakeAffectedMarbleEffectFrames: []
+  quakeEffectFramesPerSecond: 18
+  quakeAffectedMarbleEffectScale: 0.8
+  quakeEffectLifetime: 1
+  quakeEffectSortingOrder: -1
+  useQuakeDustBurst: 1
+  quakeParticleMaterial: {fileID: 0}
+  quakeDustStartColor: {r: 0.65, g: 0.52, b: 0.32, a: 1}
+  quakeDustEndColor: {r: 0.25, g: 0.18, b: 0.1, a: 0}
+  quakeDustLifetime: 0.45
+  quakeDustSpeed: 1.8
+  quakeDustStartSize: 0.16
+  quakeDustParticleCount: 20
   iceTrailSpotSpacing: 0.25
   iceTrailSpotSize: 0.45
+  iceTrailSprites: []
   blazeChainCount: 6
   blazeChainForce: 5
   blazeSearchRadius: 7
@@ -35,6 +62,9 @@ MonoBehaviour:
   steamSearchRadius: 7
   steamMassMultiplier: 0.5
   steamBuffDuration: 8
+  steamLinearDampingMultiplier: 0.2
+  steamAngularDampingMultiplier: 0.35
+  steamFriction: 0
   lavaLaunchMultiplier: 1.2
-  lavaPreserveSpeedMultiplier: 0.95
   lavaClashForce: 5
+  lavaPreserveSpeedMultiplier: 0.95

@@ -3,11 +3,14 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class PixelMarbleShadow : MonoBehaviour
 {
+    [Header("Sprites")]
+    public Sprite shadowSprite;
+
     [Header("Shape")]
     [Range(8, 64)] public int textureWidth = 24;
     [Range(4, 32)] public int textureHeight = 10;
-    public Vector2 localOffset = new Vector2(0.08f, -0.09f);
-    public Vector2 localScale = new Vector2(0.34f, 0.16f);
+    public Vector2 localOffset = Vector2.zero;
+    public Vector2 localScale = Vector2.one;
 
     [Header("Look")]
     [Range(0f, 1f)] public float opacity = 0.42f;
@@ -33,6 +36,7 @@ public class PixelMarbleShadow : MonoBehaviour
 
         shadowRenderer.enabled = sourceRenderer.enabled;
         shadowRenderer.flipX = sourceRenderer.flipX;
+        shadowRenderer.transform.localRotation = Quaternion.Inverse(transform.localRotation);
         SyncShadowSort();
     }
 
@@ -47,7 +51,7 @@ public class PixelMarbleShadow : MonoBehaviour
         }
 
         shadowTransform.localPosition = new Vector3(localOffset.x, localOffset.y, 0.02f);
-        shadowTransform.localRotation = Quaternion.identity;
+        shadowTransform.localRotation = Quaternion.Inverse(transform.localRotation);
         shadowTransform.localScale = new Vector3(localScale.x, localScale.y, 1f);
 
         shadowRenderer = shadowTransform.GetComponent<SpriteRenderer>();
@@ -56,9 +60,30 @@ public class PixelMarbleShadow : MonoBehaviour
             shadowRenderer = shadowTransform.gameObject.AddComponent<SpriteRenderer>();
         }
 
-        shadowRenderer.sprite = GetOrCreateShadowSprite();
         shadowRenderer.color = new Color(shadowColor.r, shadowColor.g, shadowColor.b, opacity);
         shadowRenderer.maskInteraction = SpriteMaskInteraction.None;
+        ApplySprite(shadowSprite);
+    }
+
+    public void ConfigureSprite(Sprite newShadowSprite)
+    {
+        shadowSprite = newShadowSprite;
+
+        if (shadowRenderer == null)
+        {
+            EnsureShadowRenderer();
+        }
+        else
+        {
+            ApplySprite(shadowSprite);
+        }
+    }
+
+    private void ApplySprite(Sprite newShadowSprite)
+    {
+        if (shadowRenderer == null) return;
+
+        shadowRenderer.sprite = newShadowSprite != null ? newShadowSprite : GetOrCreateShadowSprite();
     }
 
     private void SyncShadowSort()

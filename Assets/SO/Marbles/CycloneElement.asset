@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848a001d671f5428d88b6e65247168a6, type: 3}
+  m_Name: CycloneElement
+  m_EditorClassIdentifier: Assembly-CSharp::CombinedElementSO
+  elementName: Cyclone
+  elementColor: {r: 1, g: 1, b: 1, a: 1}
+  idleSprite: {fileID: 9060142045569798249, guid: a2e486ec215b04083bd9106942eb1fe9, type: 3}
+  rollingSprites:
+  - {fileID: 4879902245953114722, guid: a2e486ec215b04083bd9106942eb1fe9, type: 3}
+  - {fileID: 2952621878145108160, guid: a2e486ec215b04083bd9106942eb1fe9, type: 3}
+  - {fileID: -1237126622922266366, guid: a2e486ec215b04083bd9106942eb1fe9, type: 3}
+  - {fileID: -7295262928062539505, guid: a2e486ec215b04083bd9106942eb1fe9, type: 3}
+  - {fileID: 9211598933792374225, guid: a2e486ec215b04083bd9106942eb1fe9, type: 3}
+  - {fileID: 4220812568947885406, guid: a2e486ec215b04083bd9106942eb1fe9, type: 3}
+  - {fileID: 1992597856710530191, guid: a2e486ec215b04083bd9106942eb1fe9, type: 3}
+  - {fileID: 5524804040392424728, guid: a2e486ec215b04083bd9106942eb1fe9, type: 3}
+  - {fileID: 4592472602502610499, guid: a2e486ec215b04083bd9106942eb1fe9, type: 3}
+  - {fileID: 2161837352169995435, guid: a2e486ec215b04083bd9106942eb1fe9, type: 3}
+  - {fileID: 710459423595370647, guid: a2e486ec215b04083bd9106942eb1fe9, type: 3}
+  energyCost: 1
+  fusionType: 0
+  cycloneRadius: 0.5
+  cycloneForce: 5
+  explosionRadius: 1
+  explosionForce: 3
+  quakeChainCount: 5
+  quakeSmallAoeRadius: 0.65
+  quakeSmallAoeForce: 1
+  quakeSearchRadius: 6
+  quakeAffectedMarbleEffectPrefab: {fileID: 0}
+  quakeAffectedMarbleEffectFrames: []
+  quakeEffectFramesPerSecond: 18
+  quakeAffectedMarbleEffectScale: 0.8
+  quakeEffectLifetime: 1
+  quakeEffectSortingOrder: -1
+  useQuakeDustBurst: 1
+  quakeParticleMaterial: {fileID: 0}
+  quakeDustStartColor: {r: 0.65, g: 0.52, b: 0.32, a: 1}
+  quakeDustEndColor: {r: 0.25, g: 0.18, b: 0.1, a: 0}
+  quakeDustLifetime: 0.45
+  quakeDustSpeed: 1.8
+  quakeDustStartSize: 0.16
+  quakeDustParticleCount: 20
+  iceTrailSpotSpacing: 0.25
+  iceTrailSpotSize: 0.45
+  iceTrailSprites: []
+  blazeChainCount: 6
+  blazeChainForce: 5
+  blazeSearchRadius: 7
+  steamChainCount: 6
+  steamChainForce: 8
+  steamSearchRadius: 7
+  steamMassMultiplier: 0.5
+  steamBuffDuration: 8
+  lavaLaunchMultiplier: 1.2
+  lavaClashForce: 5
+  lavaPreserveSpeedMultiplier: 0.95

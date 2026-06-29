@@ -27,7 +27,7 @@ public class MapNode : MonoBehaviour
         mapManager = manager;
         UIAnchoredPosition = position;
 
-        nodeText.text = type.ToString()[0].ToString(); 
+        nodeText.text = type == MapManager.NodeType.Elite ? "EL" : type.ToString()[0].ToString(); 
         nodeButton.onClick.AddListener(OnNodeClicked);
         
         // Catatan: UpdateNodeInteractivity() dihapus dari sini karena harus menunggu garis digambar dahulu

@@ -1149,7 +1149,7 @@ MonoBehaviour:
   nodePrefab: {fileID: 6387272609203728550, guid: 5b019fcc9996a45aa881c72827e0550d, type: 3}
   linePrefab: {fileID: 9212616148082089538, guid: 72537f8848635415c98baf4008220e63, type: 3}
   mapContainer: {fileID: 890314754}
-  spacing: {x: 100, y: 100}
+  spacing: {x: 100, y: 200}
   mapVisualScale: 2
   mapBottomPadding: 140
   xJitter: 16.2
@@ -1166,29 +1166,93 @@ MonoBehaviour:
       roomType: 1
   - floorLabel: 2
     columns:
+    - columnPosition: -2
+      roomType: 0
     - columnPosition: -1
       roomType: 0
     - columnPosition: 0
       roomType: 0
     - columnPosition: 1
+      roomType: 0
+    - columnPosition: 2
       roomType: 0
   - floorLabel: 3
     columns:
+    - columnPosition: -2
+      roomType: 0
     - columnPosition: -1
       roomType: 0
     - columnPosition: 0
-      roomType: 2
+      roomType: 0
     - columnPosition: 1
+      roomType: 0
+    - columnPosition: 2
       roomType: 0
   - floorLabel: 4
     columns:
+    - columnPosition: -2
+      roomType: 0
     - columnPosition: -1
       roomType: 0
     - columnPosition: 0
       roomType: 0
     - columnPosition: 1
       roomType: 0
+    - columnPosition: 2
+      roomType: 0
   - floorLabel: 5
+    columns:
+    - columnPosition: 0
+      roomType: 2
+  - floorLabel: 6
+    columns:
+    - columnPosition: -2
+      roomType: 0
+    - columnPosition: -1
+      roomType: 0
+    - columnPosition: 0
+      roomType: 6
+    - columnPosition: 1
+      roomType: 0
+    - columnPosition: 2
+      roomType: 0
+  - floorLabel: 7
+    columns:
+    - columnPosition: -2
+      roomType: 0
+    - columnPosition: -1
+      roomType: 0
+    - columnPosition: 0
+      roomType: 6
+    - columnPosition: 1
+      roomType: 0
+    - columnPosition: 2
+      roomType: 0
+  - floorLabel: 8
+    columns:
+    - columnPosition: -2
+      roomType: 0
+    - columnPosition: -1
+      roomType: 0
+    - columnPosition: 0
+      roomType: 6
+    - columnPosition: 1
+      roomType: 0
+    - columnPosition: 2
+      roomType: 0
+  - floorLabel: 9
+    columns:
+    - columnPosition: -2
+      roomType: 0
+    - columnPosition: -1
+      roomType: 0
+    - columnPosition: 0
+      roomType: 6
+    - columnPosition: 1
+      roomType: 0
+    - columnPosition: 2
+      roomType: 0
+  - floorLabel: 10
     columns:
     - columnPosition: 0
       roomType: 5
@@ -1196,6 +1260,10 @@ MonoBehaviour:
   minNodesPerFloor: 2
   maxNodesPerFloor: 4
   keepSingleNodeFloors: 1
+  eliteMinFloor: 6
+  eliteMaxFloor: 9
+  minEliteNodesPerMap: 1
+  maxEliteNodesPerMap: 2
   returnToWorldMapWhenCleared: 1
   worldMapSceneName: WorldMapScene
   resizeMapContainerForScroll: 1
@@ -1221,6 +1289,33 @@ MonoBehaviour:
   possibleEvents:
   - {fileID: 11400000, guid: 4c67cfd227744741b906d6a9b933be1e, type: 2}
   - {fileID: 11400000, guid: 1846ed92593d4a6a93258130f1c66dc8, type: 2}
+  - {fileID: 11400000, guid: 9a1011121314456789abcdeffedcba01, type: 2}
+  - {fileID: 11400000, guid: aa2021222324456789abcdeffedcba02, type: 2}
+  - {fileID: 11400000, guid: bb3031323334456789abcdeffedcba03, type: 2}
+  - {fileID: 11400000, guid: cc4041424344456789abcdeffedcba04, type: 2}
+  - {fileID: 11400000, guid: ee6061626364456789abcdeffedcba06, type: 2}
+  - {fileID: 11400000, guid: dd5051525354456789abcdeffedcba05, type: 2}
+  floorEventPools:
+  - poolName: Floors 1-4 Events
+    minFloor: 1
+    maxFloor: 4
+    events:
+    - {fileID: 11400000, guid: 4c67cfd227744741b906d6a9b933be1e, type: 2}
+    - {fileID: 11400000, guid: 1846ed92593d4a6a93258130f1c66dc8, type: 2}
+    - {fileID: 11400000, guid: 9a1011121314456789abcdeffedcba01, type: 2}
+    - {fileID: 11400000, guid: aa2021222324456789abcdeffedcba02, type: 2}
+  - poolName: Floor 5 Lake Event
+    minFloor: 5
+    maxFloor: 5
+    events:
+    - {fileID: 11400000, guid: bb3031323334456789abcdeffedcba03, type: 2}
+  - poolName: Floors 6-9 Forest Events
+    minFloor: 6
+    maxFloor: 9
+    events:
+    - {fileID: 11400000, guid: cc4041424344456789abcdeffedcba04, type: 2}
+    - {fileID: 11400000, guid: dd5051525354456789abcdeffedcba05, type: 2}
+    - {fileID: 11400000, guid: ee6061626364456789abcdeffedcba06, type: 2}
   uiInventoryManager: {fileID: 1727905076}
   bossEnemy: {fileID: 11400000, guid: e6f708192a3b4c5d6e7f8091a2b3c4d5, type: 2}
   normalFightPool:
@@ -1228,7 +1323,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c862b06c823c477f992a16423cfbb942, type: 2}
   eliteFightPool:
   - {fileID: 11400000, guid: c3d4e5f60718293a4b5c6d7e8f9012ab, type: 2}
-  eliteFightChance: 0.2
 --- !u!4 &1727905075
 Transform:
   m_ObjectHideFlags: 0
@@ -1580,7 +1674,7 @@ MonoBehaviour:
   highestUnlockedWorldMapIndex: 0
   totalWorldMapNodes: 6
   currentPathMapFloorCount: 0
-  selectedWorldMapConfig: {fileID: 0}
+  selectedWorldMapConfig: {fileID: 11400000, guid: e970ad71f905b4dccb381bb8365f3224, type: 2}
   equippedChamber:
   - {fileID: 0}
   - {fileID: 0}
@@ -1595,7 +1689,7 @@ MonoBehaviour:
   quakeFusionAsset: {fileID: 11400000, guid: 3aec884ea9f14b6aad352b7343c0c2fe, type: 2}
   iceFusionAsset: {fileID: 11400000, guid: 5cb8d0bc98fd4c86a6d688eb8b91f25f, type: 2}
   blazeFusionAsset: {fileID: 11400000, guid: 9ce1a927c021446c9ef825ea10754a79, type: 2}
-  dustFusionAsset: {fileID: 11400000, guid: a3ce77de04a948a28983bff3450f71ce, type: 2}
+  sandFusionAsset: {fileID: 11400000, guid: a3ce77de04a948a28983bff3450f71ce, type: 2}
   steamFusionAsset: {fileID: 11400000, guid: c7206631b7874648b4c579089a25c951, type: 2}
   lavaFusionAsset: {fileID: 11400000, guid: 1731c418b8a8497fbba25aafc418cf6c, type: 2}
   pendingElementFromShop: {fileID: 0}
@@ -1604,10 +1698,19 @@ MonoBehaviour:
   pendingEventFightReward:
     currencyMin: 0
     currencyMax: 0
+    ammoMin: 0
+    ammoMax: 0
     removeAmmo: 0
+    removeAmmoChance: 0
+    removeRandomEmblem: 0
+    removeRandomEmblemChance: 0
     randomElementRewards: []
+    randomEmblemRewards: []
+  pendingFightEnemy: {fileID: 0}
+  usedEventIds: []
   currentEnergy: 0
   maxEnergyThisTurn: 1
+  equippedEmblems: []
   isMapAlreadyGenerated: 0
   savedMapNodes: []
 --- !u!4 &1936659484

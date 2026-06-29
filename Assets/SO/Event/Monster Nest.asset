@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cfd4f33bf814da2a8b5c07bbf7689ec, type: 3}
+  m_Name: Monster Nest
+  m_EditorClassIdentifier: Assembly-CSharp::GameEventSO
+  eventName: Monster Nest
+  conversationNodes:
+  - speakerName: Monster Nest
+    bodyText: A nest of roots, slime, and stolen pouches blocks the trail. Something moves inside it.
+    choices:
+    - choiceText: Destroy the nest
+      action: 4
+      nextNodeIndex: -1
+      reward: {currencyMin: 0, currencyMax: 0, ammoMin: 0, ammoMax: 0, removeAmmo: 0, removeAmmoChance: 0, removeRandomEmblem: 0, removeRandomEmblemChance: 0, randomElementRewards: [], randomEmblemRewards: []}
+      fightEnemyPool: []
+      randomOutcomes:
+      - outcomeText: Ent roots and a goblin burst from the nest.
+        weight: 1
+        action: 3
+        reward:
+          currencyMin: 0
+          currencyMax: 0
+          ammoMin: 1
+          ammoMax: 2
+          removeAmmo: 0
+          removeAmmoChance: 0
+          removeRandomEmblem: 0
+          removeRandomEmblemChance: 0
+          randomElementRewards:
+          - {fileID: 11400000, guid: 835bc8f40cdfc4909bb4fe1da31c48d7, type: 2}
+          - {fileID: 11400000, guid: 36edd8b7019bb469da53a8277c613c1f, type: 2}
+          - {fileID: 11400000, guid: 628b9bf4788842b1a4563d94ecc55fae, type: 2}
+          - {fileID: 11400000, guid: 2eab0a1e33334e6a8003bb95c8c1ebe3, type: 2}
+          randomEmblemRewards:
+          - {fileID: 11400000, guid: cba703fe911ad41d0a93d58bdfbbbe7b, type: 2}
+          - {fileID: 11400000, guid: f7a8b9c0d1e24356a7b8c9d0e1f23456, type: 2}
+        fightEnemyPool:
+        - {fileID: 11400000, guid: 7b1a2c3d4e5f4a6b8c9d0e1f23456789, type: 2}
+      - outcomeText: Ent roots and slime spill from the nest.
+        weight: 1
+        action: 3
+        reward:
+          currencyMin: 0
+          currencyMax: 0
+          ammoMin: 1
+          ammoMax: 2
+          removeAmmo: 0
+          removeAmmoChance: 0
+          removeRandomEmblem: 0
+          removeRandomEmblemChance: 0
+          randomElementRewards:
+          - {fileID: 11400000, guid: 835bc8f40cdfc4909bb4fe1da31c48d7, type: 2}
+          - {fileID: 11400000, guid: 36edd8b7019bb469da53a8277c613c1f, type: 2}
+          - {fileID: 11400000, guid: 628b9bf4788842b1a4563d94ecc55fae, type: 2}
+          - {fileID: 11400000, guid: 2eab0a1e33334e6a8003bb95c8c1ebe3, type: 2}
+          randomEmblemRewards:
+          - {fileID: 11400000, guid: cba703fe911ad41d0a93d58bdfbbbe7b, type: 2}
+          - {fileID: 11400000, guid: f7a8b9c0d1e24356a7b8c9d0e1f23456, type: 2}
+        fightEnemyPool:
+        - {fileID: 11400000, guid: 8c2b3d4e5f604b7c9d0e1f23456789ab, type: 2}
+    - choiceText: Sneak past
+      action: 1
+      nextNodeIndex: -1
+      reward: {currencyMin: 0, currencyMax: 0, ammoMin: 0, ammoMax: 0, removeAmmo: 0, removeAmmoChance: 0, removeRandomEmblem: 0, removeRandomEmblemChance: 0, randomElementRewards: [], randomEmblemRewards: []}
+      fightEnemyPool: []
+      randomOutcomes: []
+    - choiceText: Steal from the nest
+      action: 4
+      nextNodeIndex: -1
+      reward: {currencyMin: 0, currencyMax: 0, ammoMin: 0, ammoMax: 0, removeAmmo: 0, removeAmmoChance: 0, removeRandomEmblem: 0, removeRandomEmblemChance: 0, randomElementRewards: [], randomEmblemRewards: []}
+      fightEnemyPool: []
+      randomOutcomes:
+      - outcomeText: You steal a pouch of currency and slip away.
+        weight: 1
+        action: 2
+        reward:
+          currencyMin: 10
+          currencyMax: 18
+          ammoMin: 0
+          ammoMax: 0
+          removeAmmo: 0
+          removeAmmoChance: 0
+          removeRandomEmblem: 0
+          removeRandomEmblemChance: 0
+          randomElementRewards: []
+          randomEmblemRewards: []
+        fightEnemyPool: []
+      - outcomeText: The nest wakes up.
+        weight: 1
+        action: 3
+        reward: {currencyMin: 0, currencyMax: 0, ammoMin: 0, ammoMax: 0, removeAmmo: 0, removeAmmoChance: 0, removeRandomEmblem: 0, removeRandomEmblemChance: 0, randomElementRewards: [], randomEmblemRewards: []}
+        fightEnemyPool:
+        - {fileID: 11400000, guid: 1a693be7b3a1e4e53bf9a234c670c3ae, type: 2}
+        - {fileID: 11400000, guid: c862b06c823c477f992a16423cfbb942, type: 2}

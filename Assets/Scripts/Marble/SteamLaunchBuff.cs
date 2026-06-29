@@ -2,19 +2,22 @@ using UnityEngine;
 
 public class SteamLaunchBuff : MonoBehaviour
 {
+    public const string ModifierId = "SteamFloaty";
+
     public float massMultiplier = 0.5f;
     public float duration = 8f;
+    public float linearDampingMultiplier = 0.2f;
+    public float angularDampingMultiplier = 0.35f;
+    public float friction = 0f;
 
-    private Rigidbody2D rb;
-    private float originalMass;
-    private bool isApplied = false;
+    private MarblePhysicsModifier physicsModifier;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        if (rb == null)
+        physicsModifier = GetComponent<MarblePhysicsModifier>();
+        if (physicsModifier == null)
         {
-            Destroy(this);
+            physicsModifier = gameObject.AddComponent<MarblePhysicsModifier>();
         }
     }
 
@@ -25,24 +28,28 @@ public class SteamLaunchBuff : MonoBehaviour
 
     public void Configure(float newMassMultiplier, float newDuration)
     {
+        Configure(newMassMultiplier, newDuration, linearDampingMultiplier, angularDampingMultiplier, friction);
+    }
+
+    public void Configure(float newMassMultiplier, float newDuration, float newLinearDampingMultiplier, float newAngularDampingMultiplier, float newFriction)
+    {
         massMultiplier = newMassMultiplier;
         duration = newDuration;
+        linearDampingMultiplier = newLinearDampingMultiplier;
+        angularDampingMultiplier = newAngularDampingMultiplier;
+        friction = newFriction;
 
-        if (isApplied)
+        if (physicsModifier != null)
         {
-            rb.mass = Mathf.Max(0.01f, originalMass * massMultiplier);
-            CancelInvoke();
-            Invoke(nameof(Expire), duration);
+            ApplyBuff();
         }
     }
 
     private void ApplyBuff()
     {
-        if (rb == null || isApplied) return;
-
-        isApplied = true;
-        originalMass = rb.mass;
-        rb.mass = Mathf.Max(0.01f, originalMass * massMultiplier);
+        if (physicsModifier == null) return;
+        physicsModifier.ApplyTimedModifier(ModifierId, duration, massMultiplier, linearDampingMultiplier, angularDampingMultiplier, friction);
+        CancelInvoke();
         Invoke(nameof(Expire), duration);
     }
 
@@ -51,11 +58,17 @@ public class SteamLaunchBuff : MonoBehaviour
         Destroy(this);
     }
 
-    private void OnDestroy()
+    public static bool IsActive(GameObject target)
     {
-        if (rb != null && isApplied)
+        if (target == null) return false;
+
+        MarblePhysicsModifier modifier = target.GetComponent<MarblePhysicsModifier>();
+        if (modifier != null && modifier.HasModifier(ModifierId))
         {
-            rb.mass = originalMass;
+            return true;
         }
+
+        SteamLaunchBuff steamBuff = target.GetComponent<SteamLaunchBuff>();
+        return steamBuff != null;
     }
 }

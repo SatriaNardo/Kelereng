@@ -13,7 +13,20 @@ MonoBehaviour:
   m_Name: EarthElement
   m_EditorClassIdentifier: Assembly-CSharp::EarthElementSO
   elementName: Earth
-  elementColor: {r: 0.45, g: 0.32, b: 0.16, a: 1}
+  elementColor: {r: 1, g: 1, b: 1, a: 1}
+  idleSprite: {fileID: -8054193372503629505, guid: 80ac83dda9357426c80dda0144cbe33b, type: 3}
+  rollingSprites:
+  - {fileID: -1471111186459956216, guid: 80ac83dda9357426c80dda0144cbe33b, type: 3}
+  - {fileID: 294300986204308129, guid: 80ac83dda9357426c80dda0144cbe33b, type: 3}
+  - {fileID: -527464939597217607, guid: 80ac83dda9357426c80dda0144cbe33b, type: 3}
+  - {fileID: -5961175305882270861, guid: 80ac83dda9357426c80dda0144cbe33b, type: 3}
+  - {fileID: -1227096530119377835, guid: 80ac83dda9357426c80dda0144cbe33b, type: 3}
+  - {fileID: 5587241460015388814, guid: 80ac83dda9357426c80dda0144cbe33b, type: 3}
+  - {fileID: -6864493786412165125, guid: 80ac83dda9357426c80dda0144cbe33b, type: 3}
+  - {fileID: -8611920388493469743, guid: 80ac83dda9357426c80dda0144cbe33b, type: 3}
+  - {fileID: 8529070403429349287, guid: 80ac83dda9357426c80dda0144cbe33b, type: 3}
+  - {fileID: -7847389852032670985, guid: 80ac83dda9357426c80dda0144cbe33b, type: 3}
+  - {fileID: 8346589263112569562, guid: 80ac83dda9357426c80dda0144cbe33b, type: 3}
   energyCost: 1
   searchRadius: 1
   chainedMarbleCount: 2

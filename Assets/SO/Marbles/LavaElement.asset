@@ -13,7 +13,20 @@ MonoBehaviour:
   m_Name: LavaElement
   m_EditorClassIdentifier: Assembly-CSharp::CombinedElementSO
   elementName: Lava
-  elementColor: {r: 1, g: 0.34, b: 0.02, a: 1}
+  elementColor: {r: 1, g: 1, b: 1, a: 1}
+  idleSprite: {fileID: 4628366229152750905, guid: 9461e76b683ca440793288de68e5cd2e, type: 3}
+  rollingSprites:
+  - {fileID: -8729777968480835414, guid: 9461e76b683ca440793288de68e5cd2e, type: 3}
+  - {fileID: 5588628565035195124, guid: 9461e76b683ca440793288de68e5cd2e, type: 3}
+  - {fileID: -2370965172913881595, guid: 9461e76b683ca440793288de68e5cd2e, type: 3}
+  - {fileID: 198270496961950944, guid: 9461e76b683ca440793288de68e5cd2e, type: 3}
+  - {fileID: -4434186485215240811, guid: 9461e76b683ca440793288de68e5cd2e, type: 3}
+  - {fileID: 2376522677403208258, guid: 9461e76b683ca440793288de68e5cd2e, type: 3}
+  - {fileID: -886726587422850880, guid: 9461e76b683ca440793288de68e5cd2e, type: 3}
+  - {fileID: 2509862500327782887, guid: 9461e76b683ca440793288de68e5cd2e, type: 3}
+  - {fileID: 6548666064332828673, guid: 9461e76b683ca440793288de68e5cd2e, type: 3}
+  - {fileID: -8484893553586145385, guid: 9461e76b683ca440793288de68e5cd2e, type: 3}
+  - {fileID: -5150341155737775991, guid: 9461e76b683ca440793288de68e5cd2e, type: 3}
   energyCost: 2
   fusionType: 8
   cycloneRadius: 0.5
@@ -36,5 +49,5 @@ MonoBehaviour:
   steamMassMultiplier: 0.5
   steamBuffDuration: 8
   lavaLaunchMultiplier: 1.2
-  lavaPreserveSpeedMultiplier: 0.95
   lavaClashForce: 5
+  lavaPreserveSpeedMultiplier: 0.95

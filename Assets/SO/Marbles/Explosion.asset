@@ -12,8 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 848a001d671f5428d88b6e65247168a6, type: 3}
   m_Name: Explosion
   m_EditorClassIdentifier: Assembly-CSharp::CombinedElementSO
-  elementName: Explosion
-  elementColor: {r: 1, g: 0.7646351, b: 0.1273585, a: 1}
+  elementName: ExplosionElement
+  elementColor: {r: 1, g: 1, b: 1, a: 1}
+  idleSprite: {fileID: -1100939806957185793, guid: 5764242fdb7cf4bbd9559b5c1ef9ad9f, type: 3}
+  rollingSprites:
+  - {fileID: -955575015825027657, guid: 5764242fdb7cf4bbd9559b5c1ef9ad9f, type: 3}
+  - {fileID: 159232472531086086, guid: 5764242fdb7cf4bbd9559b5c1ef9ad9f, type: 3}
+  - {fileID: 9085305786085439302, guid: 5764242fdb7cf4bbd9559b5c1ef9ad9f, type: 3}
+  - {fileID: 7165584597465508169, guid: 5764242fdb7cf4bbd9559b5c1ef9ad9f, type: 3}
+  - {fileID: -2988563109531978721, guid: 5764242fdb7cf4bbd9559b5c1ef9ad9f, type: 3}
+  - {fileID: -5913202888569977456, guid: 5764242fdb7cf4bbd9559b5c1ef9ad9f, type: 3}
+  - {fileID: 8485857464169824428, guid: 5764242fdb7cf4bbd9559b5c1ef9ad9f, type: 3}
+  - {fileID: 4568823564248254275, guid: 5764242fdb7cf4bbd9559b5c1ef9ad9f, type: 3}
+  - {fileID: 8695114557585026579, guid: 5764242fdb7cf4bbd9559b5c1ef9ad9f, type: 3}
+  - {fileID: 8996034278138882023, guid: 5764242fdb7cf4bbd9559b5c1ef9ad9f, type: 3}
+  - {fileID: 8455866406030837361, guid: 5764242fdb7cf4bbd9559b5c1ef9ad9f, type: 3}
   energyCost: 2
   fusionType: 1
   cycloneRadius: 0.5
@@ -21,12 +34,26 @@ MonoBehaviour:
   explosionRadius: 1
   explosionForce: 3
   quakeChainCount: 5
-  quakeLaunchForce: 1
   quakeSmallAoeRadius: 0.65
   quakeSmallAoeForce: 1
   quakeSearchRadius: 6
+  quakeAffectedMarbleEffectPrefab: {fileID: 0}
+  quakeAffectedMarbleEffectFrames: []
+  quakeEffectFramesPerSecond: 18
+  quakeAffectedMarbleEffectScale: 0.8
+  quakeEffectLifetime: 1
+  quakeEffectSortingOrder: -1
+  useQuakeDustBurst: 1
+  quakeParticleMaterial: {fileID: 0}
+  quakeDustStartColor: {r: 0.65, g: 0.52, b: 0.32, a: 1}
+  quakeDustEndColor: {r: 0.25, g: 0.18, b: 0.1, a: 0}
+  quakeDustLifetime: 0.45
+  quakeDustSpeed: 1.8
+  quakeDustStartSize: 0.16
+  quakeDustParticleCount: 20
   iceTrailSpotSpacing: 0.25
   iceTrailSpotSize: 0.45
+  iceTrailSprites: []
   blazeChainCount: 6
   blazeChainForce: 5
   blazeSearchRadius: 7

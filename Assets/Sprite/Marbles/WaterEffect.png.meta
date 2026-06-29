@@ -1,0 +1,774 @@
+fileFormatVersion: 2
+guid: 48911176f25554f268ca43da410b72ac
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -148506086636587783
+    second: Water_Standard_0
+  - first:
+      213: 4588659124943161828
+    second: Water_Standard_1
+  - first:
+      213: 8674957829715969669
+    second: Water_Standard_2
+  - first:
+      213: 7068859055185605853
+    second: Water_Standard_3
+  - first:
+      213: 7426395091587729733
+    second: Water_Standard_4
+  - first:
+      213: -1006358905967083377
+    second: Water_Standard_5
+  - first:
+      213: 8499587424803688090
+    second: Water_Standard_6
+  - first:
+      213: -601515427078662996
+    second: Water_Standard_7
+  - first:
+      213: 6233197949028134233
+    second: Water_Standard_8
+  - first:
+      213: -6208214576355871658
+    second: Water_Standard_9
+  - first:
+      213: 1744743946271032674
+    second: Water_Standard_10
+  - first:
+      213: -5340880682246269056
+    second: Water_Standard_11
+  - first:
+      213: 1217643418972903454
+    second: Water_Standard_12
+  - first:
+      213: -1213194123738692957
+    second: Water_Standard_13
+  - first:
+      213: -1875640876381284757
+    second: Water_Standard_14
+  - first:
+      213: -5786272927493779238
+    second: Water_Standard_15
+  - first:
+      213: -949771368026768302
+    second: Water_Standard_16
+  - first:
+      213: 3360673513428034125
+    second: Water_Standard_17
+  - first:
+      213: 3567760483257784214
+    second: Water_Standard_18
+  - first:
+      213: 8634536014000734495
+    second: Water_Standard_19
+  - first:
+      213: -3313097320057694091
+    second: Water_Standard_20
+  - first:
+      213: 8101286559715384041
+    second: Water_Standard_21
+  - first:
+      213: -140076331034829004
+    second: Water_Standard_22
+  - first:
+      213: 417167997889919716
+    second: Water_Standard_23
+  - first:
+      213: -3461861463746364419
+    second: Water_Standard_24
+  - first:
+      213: -4019695217956189727
+    second: Water_Standard_25
+  - first:
+      213: 8578801199681041670
+    second: Water_Standard_26
+  - first:
+      213: -2407187757824335654
+    second: Water_Standard_27
+  - first:
+      213: 8383102666390846620
+    second: Water_Standard_28
+  - first:
+      213: -5513876591380477970
+    second: Water_Standard_29
+  - first:
+      213: 7462860494623357425
+    second: Water_Standard_30
+  - first:
+      213: -1933710819104588175
+    second: Water_Standard_31
+  - first:
+      213: -4270264981043473342
+    second: Water_Standard_32
+  - first:
+      213: -6564297794470693339
+    second: Water_Standard_33
+  - first:
+      213: -3830101586925642298
+    second: Water_Standard_34
+  - first:
+      213: 5795546526473136820
+    second: Water_Standard_35
+  - first:
+      213: 2088987810698272890
+    second: Water_Standard_36
+  - first:
+      213: -4094165013555304068
+    second: Water_Standard_37
+  - first:
+      213: 449679751424978368
+    second: Water_Standard_38
+  - first:
+      213: 5111775823519982634
+    second: Water_Standard_39
+  - first:
+      213: -8049483848360150028
+    second: Water_Standard_40
+  - first:
+      213: 5302788228148737708
+    second: Water_Standard_41
+  - first:
+      213: -5793625512335476496
+    second: Water_Standard_42
+  - first:
+      213: -3333067949794069880
+    second: Water_Standard_43
+  - first:
+      213: 1873687449489834402
+    second: Water_Standard_44
+  - first:
+      213: 8039609078391242048
+    second: Water_Standard_45
+  - first:
+      213: 5111819987973528151
+    second: Water_Standard_46
+  - first:
+      213: -4419834675424305617
+    second: Water_Standard_47
+  - first:
+      213: 4839581698380906719
+    second: Water_Standard_48
+  - first:
+      213: 5372471096965955058
+    second: Water_Standard_49
+  - first:
+      213: -2931034938328089792
+    second: Water_Standard_50
+  - first:
+      213: 6617011035693297592
+    second: Water_Standard_51
+  - first:
+      213: -5291031900198316385
+    second: Water_Standard_52
+  - first:
+      213: -8761983500410865468
+    second: Water_Standard_53
+  - first:
+      213: -8606660240601182049
+    second: Water_Standard_54
+  - first:
+      213: -8134821783775789557
+    second: Water_Standard_55
+  - first:
+      213: 1438542924985566378
+    second: Water_Standard_56
+  - first:
+      213: -8619242972477627652
+    second: Water_Standard_57
+  - first:
+      213: 73608388682760870
+    second: Water_Standard_58
+  - first:
+      213: -1898436396663730380
+    second: Water_Standard_59
+  - first:
+      213: 9079014961923419634
+    second: Water_Standard_60
+  - first:
+      213: 1243615816671573351
+    second: Water_Standard_61
+  - first:
+      213: 448253979282167877
+    second: Water_Standard_62
+  - first:
+      213: 3832035814658313929
+    second: Water_Standard_63
+  - first:
+      213: 6438231668430277478
+    second: Water_Standard_64
+  - first:
+      213: 3056234724818996384
+    second: Water_Standard_65
+  - first:
+      213: 5531721021966092966
+    second: Water_Standard_66
+  - first:
+      213: 5491013196249147680
+    second: Water_Standard_67
+  - first:
+      213: 7690039932728714280
+    second: Water_Standard_68
+  - first:
+      213: -4227452387687591228
+    second: Water_Standard_69
+  - first:
+      213: -3230110990338616927
+    second: Water_Standard_70
+  - first:
+      213: -6311182251877578446
+    second: Water_Standard_71
+  - first:
+      213: -3005344240889754604
+    second: Water_Standard_72
+  - first:
+      213: 2648348017691851556
+    second: Water_Standard_73
+  - first:
+      213: 3710546088552201309
+    second: Water_Standard_74
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: WaterEffect_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2700
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dacb74c5b4fad47369c44f0bd838e207
+      internalID: -715362159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WaterEffect_1
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 2700
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ddc1dea9fedb4d55bdf1d5b56cf21ec
+      internalID: 37475973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WaterEffect_2
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 2700
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3534a89f1113b4c059fb7b63986f192c
+      internalID: -1392438346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WaterEffect_3
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 2700
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ba35fc73e68b4efdb2694eaf9161d83
+      internalID: 314428256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WaterEffect_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2160
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64900290d19fe4783a3a28dc429fe2d0
+      internalID: 1055105888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WaterEffect_5
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 2160
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec7aaea131c544c9694de6a0a0c4af78
+      internalID: 1402378049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WaterEffect_6
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 2160
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e9819c31508244f892a7a8d6947239e
+      internalID: 379827511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WaterEffect_7
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 2160
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a5296a08597b4da2a5a9025f31000ed
+      internalID: 2039312322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WaterEffect_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1620
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d47ffb86f9a324586a615ddc6a7512a7
+      internalID: -1884298658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WaterEffect_9
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 1620
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa28453860d544056b1e5ca16a068455
+      internalID: -658673651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WaterEffect_10
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 1620
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2672db402664c4c658ea7cc334e083ce
+      internalID: 1368024538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WaterEffect_11
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 1620
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 955284b1830aa4c8c89c9e0e15f01478
+      internalID: -1659094080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WaterEffect_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1080
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1a7e0e37f11d46d992953437608bf83
+      internalID: 1012693353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WaterEffect_13
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 1080
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a586fe2edfd9141808e062db1a6e2467
+      internalID: -415932826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WaterEffect_14
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 1080
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4190735a747c442d38f77aeabf1796a5
+      internalID: -1175324177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WaterEffect_15
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 1080
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8077ba6d657424306935d29cd123e877
+      internalID: -1254234643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WaterEffect_16
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 540
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1f02e383b08c4152893285e6e0941a1
+      internalID: 730415985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 992e535207599462ab0c6f77827aa03b
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":6.0},"gridSpriteSize":{"x":720.0,"y":540.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      WaterEffect_0: -715362159
+      WaterEffect_1: 37475973
+      WaterEffect_10: 1368024538
+      WaterEffect_11: -1659094080
+      WaterEffect_12: 1012693353
+      WaterEffect_13: -415932826
+      WaterEffect_14: -1175324177
+      WaterEffect_15: -1254234643
+      WaterEffect_16: 730415985
+      WaterEffect_2: -1392438346
+      WaterEffect_3: 314428256
+      WaterEffect_4: 1055105888
+      WaterEffect_5: 1402378049
+      WaterEffect_6: 379827511
+      WaterEffect_7: 2039312322
+      WaterEffect_8: -1884298658
+      WaterEffect_9: -658673651
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

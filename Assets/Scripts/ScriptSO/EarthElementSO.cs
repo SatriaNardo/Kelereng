@@ -9,7 +9,7 @@ public class EarthElementSO : MarbleElementSO
     public int chainedMarbleCount = 3;
     public float randomLaunchForce = 10f;
 
-    public override void OnClash(Rigidbody2D attacker, Rigidbody2D victim, Vector2 collisionPoint)
+    public override void OnClash(Rigidbody2D attacker, Rigidbody2D victim, Vector2 collisionPoint, Vector2 impactDirection)
     {
         List<Rigidbody2D> nearbyMarbles = FindNearestMarbles(attacker, collisionPoint);
 

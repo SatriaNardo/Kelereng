@@ -3,21 +3,78 @@ using System.Collections;
 
 public class TargetMarble : MonoBehaviour
 {
+    [Header("Common Visuals")]
+    public Sprite idleSprite;
+    public Sprite[] rollingSprites;
+
+    [Header("Shadow Visuals")]
+    public Sprite shadowSprite;
+
     [Header("Exit Animation Settings")]
     public float delayBeforeShrink = 0.4f; 
     public float shrinkDuration = 0.3f;
 
+    [Header("Spawn Animation")]
+    public bool playSpawnAnimation = true;
+    public float spawnDuration = 0.22f;
+    public AnimationCurve spawnScaleCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+
     private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
+    private MarbleRollAnimator rollAnimator;
+    private PixelMarbleShadow pixelShadow;
+    private Collider2D marbleCollider;
     private bool isOut = false;
+    private bool isSpawning = false;
+    private Vector3 originalScale;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        pixelShadow = GetComponent<PixelMarbleShadow>();
+        marbleCollider = GetComponent<Collider2D>();
+        originalScale = transform.localScale;
+        ApplyVisuals();
+
+        if (playSpawnAnimation)
+        {
+            StartCoroutine(AnimateSpawnIn());
+        }
+    }
+
+    private void ApplyVisuals()
+    {
+        if (spriteRenderer == null) return;
+
+        Sprite selectedIdleSprite = idleSprite != null ? idleSprite : spriteRenderer.sprite;
+        if (selectedIdleSprite != null)
+        {
+            spriteRenderer.sprite = selectedIdleSprite;
+        }
+
+        rollAnimator = GetComponent<MarbleRollAnimator>();
+        if (rollAnimator == null)
+        {
+            rollAnimator = gameObject.AddComponent<MarbleRollAnimator>();
+        }
+
+        rollAnimator.Configure(selectedIdleSprite, rollingSprites);
+
+        if (pixelShadow == null && shadowSprite != null)
+        {
+            pixelShadow = gameObject.AddComponent<PixelMarbleShadow>();
+        }
+
+        if (pixelShadow != null)
+        {
+            pixelShadow.ConfigureSprite(shadowSprite);
+        }
     }
 
     private void Update()
     {
-        if (isOut) return;
+        if (isOut || isSpawning) return;
 
         // Kalkulasi jarak flat 2D terhadap pusat lingkaran ring
         float distance = Vector2.Distance(transform.position, ArenaManager.Instance.arenaCenter.position);
@@ -62,6 +119,44 @@ public class TargetMarble : MonoBehaviour
         ArenaManager.Instance.OnMarbleExited(gameObject);
 
         StartCoroutine(AnimateToPocket());
+    }
+
+    private IEnumerator AnimateSpawnIn()
+    {
+        isSpawning = true;
+
+        if (marbleCollider != null)
+        {
+            marbleCollider.enabled = false;
+        }
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
+
+        float duration = Mathf.Max(0.01f, spawnDuration);
+        float timer = 0f;
+        transform.localScale = Vector3.zero;
+
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            float progress = Mathf.Clamp01(timer / duration);
+            float scale = spawnScaleCurve != null ? spawnScaleCurve.Evaluate(progress) : progress;
+            transform.localScale = originalScale * scale;
+            yield return null;
+        }
+
+        transform.localScale = originalScale;
+
+        if (marbleCollider != null)
+        {
+            marbleCollider.enabled = true;
+        }
+
+        isSpawning = false;
     }
 
     private IEnumerator AnimateToPocket()

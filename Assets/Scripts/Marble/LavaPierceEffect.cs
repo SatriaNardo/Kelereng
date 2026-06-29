@@ -21,24 +21,36 @@ public class LavaPierceEffect : MonoBehaviour
             return;
         }
 
-        if (rb.linearVelocity.magnitude <= minimumSpeed)
+        Vector2 currentVelocity = rb.linearVelocity;
+        float currentSpeed = currentVelocity.magnitude;
+
+        if (currentSpeed <= minimumSpeed)
         {
             Destroy(this);
             return;
         }
 
-        previousVelocity = rb.linearVelocity;
+        previousVelocity = currentVelocity;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (rb == null) return;
-
-        Rigidbody2D otherRb = collision.gameObject.GetComponent<Rigidbody2D>();
-        if (otherRb == null) return;
+        if (!IsMarbleCollision(collision)) return;
         if (previousVelocity.sqrMagnitude <= 0.001f) return;
 
-        float preservedSpeed = previousVelocity.magnitude * preserveSpeedMultiplier;
-        rb.linearVelocity = previousVelocity.normalized * Mathf.Max(rb.linearVelocity.magnitude, preservedSpeed);
+        rb.linearVelocity = previousVelocity * preserveSpeedMultiplier;
+    }
+
+    private bool IsMarbleCollision(Collision2D collision)
+    {
+        GameObject other = collision.gameObject;
+        if (other == null) return false;
+
+        return other.CompareTag("TargetMarble")
+            || other.CompareTag("PlayerMarble")
+            || other.CompareTag("Gacoan")
+            || other.GetComponent<TargetMarble>() != null
+            || other.GetComponent<MarbleElementHandler>() != null;
     }
 }

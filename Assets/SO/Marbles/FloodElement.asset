@@ -13,7 +13,20 @@ MonoBehaviour:
   m_Name: FloodElement
   m_EditorClassIdentifier: Assembly-CSharp::CombinedElementSO
   elementName: Flood
-  elementColor: {r: 0.1, g: 0.45, b: 1, a: 1}
+  elementColor: {r: 1, g: 1, b: 1, a: 1}
+  idleSprite: {fileID: 8715688335908151748, guid: ff8d1007522184b4cbce196d6a3c3f83, type: 3}
+  rollingSprites:
+  - {fileID: 8897562258819730462, guid: ff8d1007522184b4cbce196d6a3c3f83, type: 3}
+  - {fileID: 6078288901318506527, guid: ff8d1007522184b4cbce196d6a3c3f83, type: 3}
+  - {fileID: 3129073712137362987, guid: ff8d1007522184b4cbce196d6a3c3f83, type: 3}
+  - {fileID: -7319069048427680998, guid: ff8d1007522184b4cbce196d6a3c3f83, type: 3}
+  - {fileID: 4434294827192120977, guid: ff8d1007522184b4cbce196d6a3c3f83, type: 3}
+  - {fileID: -2090605483097476463, guid: ff8d1007522184b4cbce196d6a3c3f83, type: 3}
+  - {fileID: 2015000161990935081, guid: ff8d1007522184b4cbce196d6a3c3f83, type: 3}
+  - {fileID: -4794730086730236040, guid: ff8d1007522184b4cbce196d6a3c3f83, type: 3}
+  - {fileID: 1076416226839377677, guid: ff8d1007522184b4cbce196d6a3c3f83, type: 3}
+  - {fileID: 6366771795924022995, guid: ff8d1007522184b4cbce196d6a3c3f83, type: 3}
+  - {fileID: 3931557995157925332, guid: ff8d1007522184b4cbce196d6a3c3f83, type: 3}
   energyCost: 2
   fusionType: 2
   cycloneRadius: 0.5
@@ -21,12 +34,26 @@ MonoBehaviour:
   explosionRadius: 1
   explosionForce: 3
   quakeChainCount: 5
-  quakeLaunchForce: 1
   quakeSmallAoeRadius: 0.65
   quakeSmallAoeForce: 1
   quakeSearchRadius: 6
+  quakeAffectedMarbleEffectPrefab: {fileID: 0}
+  quakeAffectedMarbleEffectFrames: []
+  quakeEffectFramesPerSecond: 18
+  quakeAffectedMarbleEffectScale: 0.8
+  quakeEffectLifetime: 1
+  quakeEffectSortingOrder: -1
+  useQuakeDustBurst: 1
+  quakeParticleMaterial: {fileID: 0}
+  quakeDustStartColor: {r: 0.65, g: 0.52, b: 0.32, a: 1}
+  quakeDustEndColor: {r: 0.25, g: 0.18, b: 0.1, a: 0}
+  quakeDustLifetime: 0.45
+  quakeDustSpeed: 1.8
+  quakeDustStartSize: 0.16
+  quakeDustParticleCount: 20
   iceTrailSpotSpacing: 0.25
   iceTrailSpotSize: 0.45
+  iceTrailSprites: []
   blazeChainCount: 6
   blazeChainForce: 5
   blazeSearchRadius: 7
@@ -36,5 +63,5 @@ MonoBehaviour:
   steamMassMultiplier: 0.5
   steamBuffDuration: 8
   lavaLaunchMultiplier: 1.2
-  lavaPreserveSpeedMultiplier: 0.95
   lavaClashForce: 5
+  lavaPreserveSpeedMultiplier: 0.95

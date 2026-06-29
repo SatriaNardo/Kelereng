@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ProceduralMapGenerator : MonoBehaviour
 {
-    public enum NodeSelection { Random, Fight, Event, Treasure, Store, Boss }
+    public enum NodeSelection { Random, Fight, Event, Treasure, Store, Boss, Elite }
 
     [System.Serializable]
     public struct ColumnConfig
@@ -60,6 +60,12 @@ public class ProceduralMapGenerator : MonoBehaviour
     [Range(1, 6)] public int maxNodesPerFloor = 4;
     public bool keepSingleNodeFloors = true;
 
+    [Header("Elite Nodes")]
+    public int eliteMinFloor = 6;
+    public int eliteMaxFloor = 9;
+    [Range(0, 4)] public int minEliteNodesPerMap = 1;
+    [Range(0, 4)] public int maxEliteNodesPerMap = 2;
+
     [Header("World Map Return")]
     public bool returnToWorldMapWhenCleared = true;
     public string worldMapSceneName = "WorldMapScene";
@@ -101,6 +107,7 @@ public class ProceduralMapGenerator : MonoBehaviour
         if (pm == null) return;
 
         ApplyWorldMapConfig(pm.selectedWorldMapConfig);
+        RegenerateIfSavedMapHasUnnaturalEliteNodes(pm);
 
         pm.currentPathMapFloorCount = mapLayout.Count;
         if (returnToWorldMapWhenCleared && mapLayout.Count > 0 && pm.currentFloor > mapLayout.Count)
@@ -116,6 +123,7 @@ public class ProceduralMapGenerator : MonoBehaviour
         if (!pm.isMapAlreadyGenerated)
         {
             pm.savedMapNodes.Clear();
+            HashSet<int> eliteFloorsForMap = PickEliteFloorsForCurrentMap();
 
             // 1. Lahirkan struktur node sesuai rancangan mentah di Inspector
             for (int i = 0; i < mapLayout.Count; i++)
@@ -125,6 +133,7 @@ public class ProceduralMapGenerator : MonoBehaviour
                 nodesByFloor[floorNumber] = new List<MapNode>();
 
                 List<ColumnConfig> selectedColumns = GetColumnsForFloor(floorData);
+                EnsureEliteColumnIfPlanned(floorNumber, floorData, selectedColumns, eliteFloorsForMap);
                 foreach (ColumnConfig colData in selectedColumns)
                 {
                     MapManager.NodeType finalType = DetermineFinalNodeType(colData.roomType);
@@ -207,6 +216,42 @@ public class ProceduralMapGenerator : MonoBehaviour
         ScrollToBottom();
     }
 
+    private void RegenerateIfSavedMapHasUnnaturalEliteNodes(ProgressionManager progression)
+    {
+        if (progression == null || !progression.isMapAlreadyGenerated) return;
+        if (mapLayout == null || mapLayout.Count < eliteMaxFloor) return;
+        if (SavedMapHasNaturalEliteNodes(progression.savedMapNodes)) return;
+
+        progression.savedMapNodes.Clear();
+        progression.isMapAlreadyGenerated = false;
+        Debug.Log("Saved map Elite nodes are outside the natural range. Regenerating path map.");
+    }
+
+    private bool SavedMapHasNaturalEliteNodes(List<MapNodeBlueprint> savedNodes)
+    {
+        if (savedNodes == null) return false;
+
+        int eliteCount = 0;
+        foreach (MapNodeBlueprint node in savedNodes)
+        {
+            if (node == null || node.nodeTypeString != MapManager.NodeType.Elite.ToString())
+            {
+                continue;
+            }
+
+            if (node.floorNumber < eliteMinFloor || node.floorNumber > eliteMaxFloor)
+            {
+                return false;
+            }
+
+            eliteCount++;
+        }
+
+        int minEliteCount = Mathf.Clamp(minEliteNodesPerMap, 0, GetEliteEligibleFloorCount());
+        int maxEliteCount = Mathf.Clamp(maxEliteNodesPerMap, minEliteCount, GetEliteEligibleFloorCount());
+        return eliteCount >= minEliteCount && eliteCount <= maxEliteCount;
+    }
+
     private void ApplyWorldMapConfig(WorldMapConfigSO worldMapConfig)
     {
         if (worldMapConfig == null || worldMapConfig.mapLayout == null || worldMapConfig.mapLayout.Count == 0)
@@ -219,6 +264,10 @@ public class ProceduralMapGenerator : MonoBehaviour
         minNodesPerFloor = worldMapConfig.minNodesPerFloor;
         maxNodesPerFloor = worldMapConfig.maxNodesPerFloor;
         keepSingleNodeFloors = worldMapConfig.keepSingleNodeFloors;
+        eliteMinFloor = worldMapConfig.eliteMinFloor;
+        eliteMaxFloor = worldMapConfig.eliteMaxFloor;
+        minEliteNodesPerMap = worldMapConfig.minEliteNodesPerMap;
+        maxEliteNodesPerMap = worldMapConfig.maxEliteNodesPerMap;
     }
 
     private List<ColumnConfig> GetColumnsForFloor(FloorConfig floorData)
@@ -238,11 +287,26 @@ public class ProceduralMapGenerator : MonoBehaviour
             return floorData.columns;
         }
 
+        List<ColumnConfig> fixedColumns = new List<ColumnConfig>();
+        List<ColumnConfig> randomColumns = new List<ColumnConfig>();
+        foreach (ColumnConfig column in floorData.columns)
+        {
+            if (column.roomType == NodeSelection.Random)
+            {
+                randomColumns.Add(column);
+            }
+            else
+            {
+                fixedColumns.Add(column);
+            }
+        }
+
         int minCount = Mathf.Clamp(minNodesPerFloor, 1, floorData.columns.Count);
         int maxCount = Mathf.Clamp(maxNodesPerFloor, minCount, floorData.columns.Count);
         int targetCount = Random.Range(minCount, maxCount + 1);
+        int randomTargetCount = Mathf.Clamp(targetCount - fixedColumns.Count, 0, randomColumns.Count);
 
-        List<ColumnConfig> shuffledColumns = new List<ColumnConfig>(floorData.columns);
+        List<ColumnConfig> shuffledColumns = new List<ColumnConfig>(randomColumns);
         for (int i = 0; i < shuffledColumns.Count; i++)
         {
             int swapIndex = Random.Range(i, shuffledColumns.Count);
@@ -251,9 +315,137 @@ public class ProceduralMapGenerator : MonoBehaviour
             shuffledColumns[swapIndex] = temp;
         }
 
-        List<ColumnConfig> selectedColumns = shuffledColumns.GetRange(0, targetCount);
+        List<ColumnConfig> selectedColumns = new List<ColumnConfig>(fixedColumns);
+        selectedColumns.AddRange(shuffledColumns.GetRange(0, randomTargetCount));
         selectedColumns.Sort((a, b) => a.columnPosition.CompareTo(b.columnPosition));
         return selectedColumns;
+    }
+
+    private HashSet<int> PickEliteFloorsForCurrentMap()
+    {
+        HashSet<int> eliteFloors = new HashSet<int>();
+        List<int> eligibleFloors = new List<int>();
+        for (int floor = eliteMinFloor; floor <= eliteMaxFloor && floor <= mapLayout.Count; floor++)
+        {
+            eligibleFloors.Add(floor);
+        }
+
+        if (eligibleFloors.Count == 0) return eliteFloors;
+
+        int minCount = Mathf.Clamp(minEliteNodesPerMap, 0, eligibleFloors.Count);
+        int maxCount = Mathf.Clamp(maxEliteNodesPerMap, minCount, eligibleFloors.Count);
+        int targetCount = Random.Range(minCount, maxCount + 1);
+
+        for (int i = 0; i < eligibleFloors.Count; i++)
+        {
+            int swapIndex = Random.Range(i, eligibleFloors.Count);
+            int temp = eligibleFloors[i];
+            eligibleFloors[i] = eligibleFloors[swapIndex];
+            eligibleFloors[swapIndex] = temp;
+        }
+
+        for (int i = 0; i < targetCount; i++)
+        {
+            eliteFloors.Add(eligibleFloors[i]);
+        }
+
+        return eliteFloors;
+    }
+
+    private int GetEliteEligibleFloorCount()
+    {
+        if (mapLayout == null) return 0;
+        int count = 0;
+        for (int floor = eliteMinFloor; floor <= eliteMaxFloor && floor <= mapLayout.Count; floor++)
+        {
+            count++;
+        }
+
+        return count;
+    }
+
+    private void EnsureEliteColumnIfPlanned(int floorNumber, FloorConfig floorData, List<ColumnConfig> selectedColumns, HashSet<int> eliteFloorsForMap)
+    {
+        if (selectedColumns == null || eliteFloorsForMap == null || !eliteFloorsForMap.Contains(floorNumber)) return;
+
+        foreach (ColumnConfig column in selectedColumns)
+        {
+            if (column.roomType == NodeSelection.Elite)
+            {
+                return;
+            }
+        }
+
+        if (selectedColumns.Count > 0)
+        {
+            ReplaceRandomSelectedColumnWithElite(selectedColumns);
+        }
+        else
+        {
+            int availableColumn = PickAvailableColumnForElite(floorData, selectedColumns);
+            if (availableColumn == int.MinValue) return;
+
+            selectedColumns.Add(new ColumnConfig
+            {
+                columnPosition = availableColumn,
+                roomType = NodeSelection.Elite
+            });
+        }
+
+        selectedColumns.Sort((a, b) => a.columnPosition.CompareTo(b.columnPosition));
+    }
+
+    private int PickAvailableColumnForElite(FloorConfig floorData, List<ColumnConfig> selectedColumns)
+    {
+        List<int> availableColumns = new List<int>();
+        if (floorData.columns != null && floorData.columns.Count > 0)
+        {
+            foreach (ColumnConfig column in floorData.columns)
+            {
+                if (!availableColumns.Contains(column.columnPosition))
+                {
+                    availableColumns.Add(column.columnPosition);
+                }
+            }
+        }
+        else
+        {
+            availableColumns.Add(0);
+        }
+
+        foreach (ColumnConfig selectedColumn in selectedColumns)
+        {
+            availableColumns.Remove(selectedColumn.columnPosition);
+        }
+
+        if (availableColumns.Count == 0)
+        {
+            return int.MinValue;
+        }
+
+        return availableColumns[Random.Range(0, availableColumns.Count)];
+    }
+
+    private void ReplaceRandomSelectedColumnWithElite(List<ColumnConfig> selectedColumns)
+    {
+        if (selectedColumns == null || selectedColumns.Count == 0) return;
+
+        List<int> replaceableIndexes = new List<int>();
+        for (int i = 0; i < selectedColumns.Count; i++)
+        {
+            if (selectedColumns[i].roomType == NodeSelection.Random)
+            {
+                replaceableIndexes.Add(i);
+            }
+        }
+
+        int selectedIndex = replaceableIndexes.Count > 0
+            ? replaceableIndexes[Random.Range(0, replaceableIndexes.Count)]
+            : Random.Range(0, selectedColumns.Count);
+
+        ColumnConfig eliteColumn = selectedColumns[selectedIndex];
+        eliteColumn.roomType = NodeSelection.Elite;
+        selectedColumns[selectedIndex] = eliteColumn;
     }
 
     private bool ContainsBossNode(List<ColumnConfig> columns)
@@ -292,7 +484,7 @@ public class ProceduralMapGenerator : MonoBehaviour
         System.Random pseudoRandom = new System.Random(uniqueSeed);
         float horizontalJitter = (float)(pseudoRandom.NextDouble() * 2.0 - 1.0) * xJitter * mapVisualScale;
 
-        if (type == MapManager.NodeType.Boss || (type == MapManager.NodeType.Treasure && columnOffset == 0))
+        if (type == MapManager.NodeType.Boss || type == MapManager.NodeType.Elite || (type == MapManager.NodeType.Treasure && columnOffset == 0))
         {
             horizontalJitter *= 0.1f;
         }

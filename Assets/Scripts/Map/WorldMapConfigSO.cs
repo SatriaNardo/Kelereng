@@ -15,4 +15,10 @@ public class WorldMapConfigSO : ScriptableObject
     [Range(1, 6)] public int minNodesPerFloor = 2;
     [Range(1, 6)] public int maxNodesPerFloor = 4;
     public bool keepSingleNodeFloors = true;
+
+    [Header("Elite Nodes")]
+    public int eliteMinFloor = 6;
+    public int eliteMaxFloor = 9;
+    [Range(0, 4)] public int minEliteNodesPerMap = 1;
+    [Range(0, 4)] public int maxEliteNodesPerMap = 2;
 }

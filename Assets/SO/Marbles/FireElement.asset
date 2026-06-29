@@ -13,6 +13,43 @@ MonoBehaviour:
   m_Name: FireElement
   m_EditorClassIdentifier: Assembly-CSharp::FireElementSO
   elementName: Fire
-  elementColor: {r: 1, g: 0.30561107, b: 0, a: 1}
+  elementColor: {r: 1, g: 1, b: 1, a: 1}
+  idleSprite: {fileID: 223512361597632268, guid: 64c07e16e65944bd3a988bcb3e0217dd, type: 3}
+  rollingSprites:
+  - {fileID: 3463555377115042344, guid: 64c07e16e65944bd3a988bcb3e0217dd, type: 3}
+  - {fileID: 2284438510619847710, guid: 64c07e16e65944bd3a988bcb3e0217dd, type: 3}
+  - {fileID: -3003273199620208772, guid: 64c07e16e65944bd3a988bcb3e0217dd, type: 3}
+  - {fileID: 44641908040272226, guid: 64c07e16e65944bd3a988bcb3e0217dd, type: 3}
+  - {fileID: 5040943841368812383, guid: 64c07e16e65944bd3a988bcb3e0217dd, type: 3}
+  - {fileID: 2642494734535274319, guid: 64c07e16e65944bd3a988bcb3e0217dd, type: 3}
+  - {fileID: -944817096663105235, guid: 64c07e16e65944bd3a988bcb3e0217dd, type: 3}
+  - {fileID: 3090908177220133304, guid: 64c07e16e65944bd3a988bcb3e0217dd, type: 3}
+  - {fileID: -7509230224550933562, guid: 64c07e16e65944bd3a988bcb3e0217dd, type: 3}
+  - {fileID: -6289409885040635177, guid: 64c07e16e65944bd3a988bcb3e0217dd, type: 3}
+  - {fileID: 1989982847163478433, guid: 64c07e16e65944bd3a988bcb3e0217dd, type: 3}
   energyCost: 1
-  launchSpeedMultiplier: 1.5
+  launchSpeedMultiplier: 2
+  useMovementTrail: 1
+  particleMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  trailStartColor: {r: 1, g: 0.85, b: 0.2, a: 1}
+  trailEndColor: {r: 1, g: 0.1, b: 0, a: 0}
+  trailParticlesPerSecond: 28
+  trailLifetime: 0.28
+  trailStartSize: 0.11
+  trailSpeed: 0.45
+  trailSortingOrder: 18
+  clashEffectPrefab: {fileID: 3542060388210304713, guid: e649c6cf6cdb448b1a024be7f17a3a97, type: 3}
+  clashEffectFrames: []
+  clashEffectFramesPerSecond: 60
+  clashEffectScale: 0.5
+  clashEffectOffset: 0.35
+  clashEffectLifetime: 1
+  useClashParticleBurst: 1
+  burstStartColor: {r: 1, g: 0.95, b: 0.25, a: 1}
+  burstEndColor: {r: 1, g: 0.08, b: 0, a: 0}
+  burstLifetime: 0.36
+  burstSpeed: 4.8
+  burstStartSize: 0.18
+  burstParticleCount: 34
+  burstSpreadAngle: 42
+  burstSortingOrder: 22

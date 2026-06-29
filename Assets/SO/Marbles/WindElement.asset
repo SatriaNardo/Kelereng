@@ -13,6 +13,44 @@ MonoBehaviour:
   m_Name: WindElement
   m_EditorClassIdentifier: Assembly-CSharp::WindElementSO
   elementName: Wind
-  elementColor: {r: 0.504717, g: 1, b: 0.72462016, a: 1}
+  elementColor: {r: 1, g: 1, b: 1, a: 1}
+  idleSprite: {fileID: -8899857514401364534, guid: 24692adf729c04634b15ec132ad6fd47, type: 3}
+  rollingSprites:
+  - {fileID: 750483339964065969, guid: 24692adf729c04634b15ec132ad6fd47, type: 3}
+  - {fileID: -8813673810930225209, guid: 24692adf729c04634b15ec132ad6fd47, type: 3}
+  - {fileID: -2739226893966380994, guid: 24692adf729c04634b15ec132ad6fd47, type: 3}
+  - {fileID: 3540863117185322184, guid: 24692adf729c04634b15ec132ad6fd47, type: 3}
+  - {fileID: 2573649056803948271, guid: 24692adf729c04634b15ec132ad6fd47, type: 3}
+  - {fileID: 7062152711154697537, guid: 24692adf729c04634b15ec132ad6fd47, type: 3}
+  - {fileID: 8042708609109826290, guid: 24692adf729c04634b15ec132ad6fd47, type: 3}
+  - {fileID: -8147493191726386962, guid: 24692adf729c04634b15ec132ad6fd47, type: 3}
+  - {fileID: 1939249770437049915, guid: 24692adf729c04634b15ec132ad6fd47, type: 3}
+  - {fileID: -1806717725142685388, guid: 24692adf729c04634b15ec132ad6fd47, type: 3}
+  - {fileID: -1454266138754985544, guid: 24692adf729c04634b15ec132ad6fd47, type: 3}
+  energyCost: 1
   aoeRadius: 0.5
   pushForce: 5
+  useMovementTrail: 0
+  particleMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  trailStartColor: {r: 0.69455355, g: 1, b: 0.5707547, a: 1}
+  trailEndColor: {r: 0.58871967, g: 1, b: 0.34901965, a: 0}
+  trailParticlesPerSecond: 24
+  trailLifetime: 0.25
+  trailStartSize: 0.09
+  trailSpeed: 0.7
+  trailSortingOrder: 18
+  clashEffectPrefab: {fileID: 7463192002183001027, guid: 7d8e3fad8e19349e19298fc3deb79cc6, type: 3}
+  clashEffectFrames: []
+  clashEffectFramesPerSecond: 18
+  clashEffectScale: 0.5
+  clashEffectOffset: 0.3
+  clashEffectLifetime: 1
+  useClashParticleBurst: 1
+  burstStartColor: {r: 0.92804533, g: 1, b: 0.9019608, a: 1}
+  burstEndColor: {r: 0.47609696, g: 1, b: 0.25098038, a: 0}
+  burstLifetime: 0.32
+  burstSpeed: 5.2
+  burstStartSize: 0.13
+  burstParticleCount: 28
+  burstSpreadAngle: 75
+  burstSortingOrder: 22
