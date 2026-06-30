@@ -119,7 +119,15 @@ public class MarbleLauncher : MonoBehaviour
         Vector2 pullVector = ClampPullVector(currentTouchWorld - dragStartPos);
 
         // Kelereng tetap diam; hanya garis bidik yang memanjang mengikuti tarikan jari.
-        UpdateTrajectoryLine(-pullVector);
+        if (CurrentEmblemManager.Instance != null &&
+            CurrentEmblemManager.Instance.currentEmblem is EagleEyeSO)
+        {
+            UpdateRicochetTrajectory(-pullVector);
+        }
+        else
+        {
+            UpdateTrajectoryLine(-pullVector);
+        }
     }
 
     private void ReleaseAndFire(Vector2 screenPosition)
@@ -212,10 +220,70 @@ public class MarbleLauncher : MonoBehaviour
 
         currentGacoanRb.AddForce(launchForce, ForceMode2D.Impulse);
 
+        if (CurrentEmblemManager.Instance != null &&
+            CurrentEmblemManager.Instance.currentEmblem is CloneArmySO cloneSO)
+        {
+            SpawnCloneMarbles(
+                cloneSO,
+                launchForce,
+                currentGacoan.transform.position);
+        }
+
+        if (CurrentEmblemManager.Instance != null &&
+            CurrentEmblemManager.Instance.currentEmblem != null)
+        {
+            CurrentEmblemManager.Instance.currentEmblem.Activate(currentGacoan);
+            CurrentEmblemManager.Instance.ConsumeCurrentEmblem();
+        }
+
         ArenaManager.Instance.OnMarbleFlicked(currentGacoanRb, true);
         
         currentGacoan = null;
         currentGacoanRb = null;
+    }
+
+    private void SpawnCloneMarbles(
+    CloneArmySO cloneSO,
+    Vector2 originalForce,
+    Vector2 spawnPosition)
+    {
+        for (int i = 0; i < cloneSO.cloneCount; i++)
+        {
+            float angle;
+
+            if (cloneSO.cloneCount == 1)
+                angle = cloneSO.spreadAngle;
+            else
+                angle = Mathf.Lerp(
+                    -cloneSO.spreadAngle,
+                    cloneSO.spreadAngle,
+                    (float)i / (cloneSO.cloneCount - 1));
+
+            Vector2 rotatedForce =
+                Quaternion.Euler(0, 0, angle) * originalForce;
+
+            GameObject clone =
+                Instantiate(gacoanPrefab, spawnPosition, Quaternion.identity);
+
+            Rigidbody2D cloneRb =
+                clone.GetComponent<Rigidbody2D>();
+
+            cloneRb.bodyType = RigidbodyType2D.Dynamic;
+            cloneRb.AddForce(rotatedForce, ForceMode2D.Impulse);
+
+            ArenaManager.Instance.allMarblesInArena.Add(cloneRb);
+
+            clone.tag = "PlayerMarble";
+
+            if (clone.GetComponent<PlayerMarbleHitTracker>() == null)
+            {
+                clone.AddComponent<PlayerMarbleHitTracker>();
+            }
+            ArenaManager.Instance.allMarblesInArena.Add(cloneRb);
+            ArenaManager.Instance.OnMarbleFlicked(cloneRb, false);
+
+            Debug.Log($"👥 Clone spawned with angle {angle}");
+        }
     }
 
     public void ForceSwapActiveMarble(int targetIndexInChamber)
@@ -279,6 +347,32 @@ public class MarbleLauncher : MonoBehaviour
             marblePhysicsMaterial);
 
         trajectoryLine.positionCount = points.Count;
+        for (int i = 0; i < points.Count; i++)
+        {
+            trajectoryLine.SetPosition(i, points[i]);
+        }
+    }
+    private void UpdateRicochetTrajectory(Vector2 launchDirection)
+    {
+        Collider2D ignoreCollider = currentGacoan != null
+            ? currentGacoan.GetComponent<Collider2D>()
+            : null;
+
+        // Eagle Eye selalu melihat 1 pantulan tambahan
+        int ricochetPreviewCount = 1;
+
+        List<Vector2> points = TrajectoryPredictor.BuildTrajectoryPoints(
+            launchOriginPos,
+            launchDirection,
+            launchDirection.magnitude,
+            marblePreviewRadius,
+            ricochetPreviewCount,
+            ignoreCollider,
+            GetMarbleCollidersForPrediction(ignoreCollider),
+            marblePhysicsMaterial);
+
+        trajectoryLine.positionCount = points.Count;
+
         for (int i = 0; i < points.Count; i++)
         {
             trajectoryLine.SetPosition(i, points[i]);

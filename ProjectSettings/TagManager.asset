@@ -6,6 +6,8 @@ TagManager:
   tags:
   - TargetMarble
   - PlayerMarble
+  - Gacoan
+  - Wall
   layers:
   - Default
   - TransparentFX
