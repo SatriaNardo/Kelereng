@@ -32,7 +32,7 @@ public class TargetMarble : MonoBehaviour
     {
         if (isOut) return;
 
-        if (collision.gameObject.CompareTag("Gacoan") || collision.gameObject.name.Contains("Gacoan"))
+        if (collision.gameObject.CompareTag("Gacoan") || collision.gameObject.name.Contains("PlayerMarble"))
         {
             MarbleElementHandler handler = collision.gameObject.GetComponent<MarbleElementHandler>();
 

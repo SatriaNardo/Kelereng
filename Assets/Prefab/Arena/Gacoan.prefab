@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -3602732921527586864}
   - component: {fileID: 290670560919463425}
   - component: {fileID: 4255964443235803652}
+  - component: {fileID: -5474131527279094478}
   m_Layer: 0
   m_Name: Gacoan
   m_TagString: Gacoan
@@ -224,3 +225,15 @@ MonoBehaviour:
     - rid: 1822475186130387035
       type: {class: ShadowShape2DProvider_Collider2D, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
       data: 
+--- !u!114 &-5474131527279094478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189841511969755208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafa1f47ef8ed4a21b1c3895a3ba8b16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RicochetHandler
