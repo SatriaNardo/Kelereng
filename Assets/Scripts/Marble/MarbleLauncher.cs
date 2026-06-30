@@ -275,7 +275,7 @@ public class MarbleLauncher : MonoBehaviour
         UpdateStandbyAimArrow();
     }
 
-<<<<<<< Updated upstream
+
     private void SpawnCloneMarbles(
     CloneArmySO cloneSO,
     Vector2 originalForce,
@@ -320,10 +320,8 @@ public class MarbleLauncher : MonoBehaviour
         }
     }
 
-    public void ForceSwapActiveMarble(int targetIndexInChamber)
-=======
     public bool ForceSwapActiveMarble(int targetIndexInChamber)
->>>>>>> Stashed changes
+
     {
         if (isDragging || currentGacoan == null) return false;
 
