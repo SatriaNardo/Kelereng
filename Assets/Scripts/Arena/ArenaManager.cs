@@ -48,8 +48,10 @@ public class ArenaManager : MonoBehaviour
 
     private int currentTurnCount = 0; 
     private Rigidbody2D activeGacoan; 
+    private Rigidbody2D lastPlayerMarbleThatHitTarget;
     private bool activeGacoanHitTarget = false;
     private bool skipNextEnemyTurn = false;
+    public bool phoenixAvailable = false;
     private bool isGameOver = false;
     private bool isVictoryPending = false;
     private bool isVictoryRecoveryTurn = false;
@@ -104,6 +106,13 @@ public class ArenaManager : MonoBehaviour
         // Lock launcher and trigger enemy first action setup
         IsPlayerTurn = false; 
         Invoke("StartEnemyFirstTurn", 0.1f);
+
+        LuckyDrawSO lucky = Resources.Load<LuckyDrawSO>("SO/Emblems/Fun/LuckyDraw");
+
+        if (lucky != null)
+        {
+            lucky.RollReward();
+        }
     }
 
     private void PickRandomEnemyForFight()
@@ -190,6 +199,7 @@ public class ArenaManager : MonoBehaviour
         if (playerMarbleRb == activeGacoan)
         {
             activeGacoanHitTarget = true;
+            lastPlayerMarbleThatHitTarget = playerMarbleRb;
         }
     }
 
@@ -303,9 +313,28 @@ public class ArenaManager : MonoBehaviour
             MarbleElementSO savedElement = handler != null ? handler.activeElement : null;
 
             int finalDamage = baseDamagePerMarble;
-            if (savedElement != null && savedElement.elementName == "Explosion") 
+
+            // Buff dari elemen
+            if (savedElement != null && savedElement.elementName == "Explosion")
             {
-                finalDamage *= 2; 
+                finalDamage *= 2;
+            }
+
+            // Buff dari Emblem Crusher
+            MarbleDamageBuff damageBuff = null;
+
+            if (lastPlayerMarbleThatHitTarget != null)
+            {
+                damageBuff =
+                    lastPlayerMarbleThatHitTarget.GetComponent<MarbleDamageBuff>();
+            }
+
+            if (damageBuff != null)
+            {
+                finalDamage = Mathf.RoundToInt(
+                    finalDamage * damageBuff.damageMultiplier);
+
+                Debug.Log($"💥 Crusher aktif! Damage menjadi {finalDamage}");
             }
 
             DamageEnemy(finalDamage); 
@@ -383,6 +412,37 @@ public class ArenaManager : MonoBehaviour
             {
                 BeginVictoryRecoveryTurn("Enemy defeated!");
             }
+            return;
+        }
+
+        // Cek apakah player kehabisan seluruh kelereng
+        // Cek kehabisan ammo
+        if (currentAmmo <= 0)
+        {
+            // Apakah emblem yang aktif adalah Phoenix?
+            if (CurrentEmblemManager.Instance != null &&
+                CurrentEmblemManager.Instance.currentEmblem is PhoenixSO phoenix)
+            {
+                currentAmmo += phoenix.bonusAmmo;
+
+                UpdateAmmoUI();
+
+                Debug.Log("🔥 Phoenix Activated! +1 Ammo");
+
+                // Hapus emblem setelah dipakai
+                CurrentEmblemManager.Instance.ConsumeCurrentEmblem();
+
+                return; // Jangan lanjut ganti turn dulu
+            }
+            Debug.Log($"Ammo sekarang: {currentAmmo}");
+
+            if (CurrentEmblemManager.Instance != null)
+            {
+                Debug.Log($"Current Emblem = {CurrentEmblemManager.Instance.currentEmblem}");
+            }
+
+            // Tidak punya Phoenix -> kalah
+            DetermineGameOver(false, "Semua kelereng habis!");
             return;
         }
 
@@ -586,7 +646,7 @@ public class ArenaManager : MonoBehaviour
         Destroy(gacoanObj);
     }
 
-    private void UpdateAmmoUI()
+    public void UpdateAmmoUI()
     {
         currentAmmo = GetAvailableShotCount();
 
@@ -654,5 +714,42 @@ public class ArenaManager : MonoBehaviour
         }
 
         Debug.Log($"{reason} Recovery turn started so player can retrieve marbles before leaving.");
+    }
+
+    public void RecallAllPlayerMarbles()
+    {
+        List<Rigidbody2D> marbles =
+            new List<Rigidbody2D>(allMarblesInArena);
+
+        foreach (Rigidbody2D rb in marbles)
+        {
+            if (rb == null) continue;
+
+            GameObject marble = rb.gameObject;
+
+            if (marble.CompareTag("PlayerMarble"))
+            {
+                // Tambahkan ammo
+                currentAmmo++;
+
+                MarbleElementHandler handler =
+                    marble.GetComponent<MarbleElementHandler>();
+
+                if (handler != null)
+                {
+                    ProgressionManager.Instance
+                        .AddAmmoToChamber(handler.activeElement);
+                }
+
+                // Hapus dari arena
+                allMarblesInArena.Remove(rb);
+
+                Destroy(marble);
+            }
+        }
+
+        UpdateAmmoUI();
+
+        Debug.Log("🌀 Recall Zone berhasil memanggil semua kelereng.");
     }
 }
