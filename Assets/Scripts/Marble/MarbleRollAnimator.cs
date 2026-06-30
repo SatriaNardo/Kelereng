@@ -11,8 +11,13 @@ public class MarbleRollAnimator : MonoBehaviour
     public float speedSmoothing = 18f;
     public float directionSwitchThreshold = 0.12f;
     public float idleGraceTime = 0.08f;
-    public bool reverseWhenMovingDown = true;
+    public bool reverseWhenMovingDown = false;
     public bool holdLastFrameWhenStopped = true;
+
+    [Header("Direction Facing")]
+    public bool rotateToMovementDirection = true;
+    public float movementRotationOffsetDegrees = -90f;
+    public float rotationSmoothing = 24f;
 
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
@@ -23,6 +28,7 @@ public class MarbleRollAnimator : MonoBehaviour
     private float smoothedSpeed;
     private float idleTimer;
     private int rollDirection = 1;
+    private Quaternion baseVisualRotation = Quaternion.identity;
 
     private void Awake()
     {
@@ -33,11 +39,12 @@ public class MarbleRollAnimator : MonoBehaviour
         }
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+        baseVisualRotation = transform.localRotation;
     }
 
     private void Update()
     {
-        if (spriteRenderer == null || rb == null || rollingSprites == null || rollingSprites.Length == 0)
+        if (spriteRenderer == null || rb == null)
         {
             return;
         }
@@ -64,7 +71,12 @@ public class MarbleRollAnimator : MonoBehaviour
         }
 
         idleTimer = 0f;
-        UpdateRollDirection(velocity);
+        ApplyMovementRotation(velocity);
+
+        if (rollingSprites == null || rollingSprites.Length == 0)
+        {
+            return;
+        }
 
         float speedRatio = speedForBaseFrameRate > 0f ? smoothedSpeed / speedForBaseFrameRate : 1f;
         float framesPerSecond = Mathf.Clamp(baseFramesPerSecond * speedRatio, 1f, maxFramesPerSecond);
@@ -91,6 +103,7 @@ public class MarbleRollAnimator : MonoBehaviour
         smoothedSpeed = 0f;
         idleTimer = 0f;
         rollDirection = 1;
+        baseVisualRotation = transform.localRotation;
 
         if (spriteRenderer == null)
         {
@@ -109,6 +122,24 @@ public class MarbleRollAnimator : MonoBehaviour
         if (spriteRenderer != null && idleSprite != null)
         {
             spriteRenderer.sprite = idleSprite;
+        }
+    }
+
+    public void SetBaseVisualRotation(Quaternion rotation)
+    {
+        baseVisualRotation = rotation;
+        if (!rotateToMovementDirection || rb == null || rb.linearVelocity.magnitude < movingThreshold)
+        {
+            transform.localRotation = baseVisualRotation;
+        }
+    }
+
+    public void SetRotateToMovementDirection(bool shouldRotate)
+    {
+        rotateToMovementDirection = shouldRotate;
+        if (!rotateToMovementDirection)
+        {
+            transform.localRotation = baseVisualRotation;
         }
     }
 
@@ -145,5 +176,18 @@ public class MarbleRollAnimator : MonoBehaviour
         {
             rollDirection = 1;
         }
+    }
+
+    private void ApplyMovementRotation(Vector2 velocity)
+    {
+        if (!rotateToMovementDirection || velocity.sqrMagnitude <= directionSwitchThreshold * directionSwitchThreshold)
+        {
+            return;
+        }
+
+        float movementAngle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
+        Quaternion targetRotation = baseVisualRotation * Quaternion.Euler(0f, 0f, movementAngle + movementRotationOffsetDegrees);
+        float t = 1f - Mathf.Exp(-rotationSmoothing * Time.deltaTime);
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, t);
     }
 }

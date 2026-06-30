@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848a001d671f5428d88b6e65247168a6, type: 3}
+  m_Name: MudElement
+  m_EditorClassIdentifier: Assembly-CSharp::CombinedElementSO
+  elementName: Mud
+  elementColor: {r: 0.52, g: 0.35, b: 0.18, a: 1}
+  idleSprite: {fileID: 6787231891213460151, guid: aa2ce2e091834415abc1256e2126d5c8, type: 3}
+  rollingSprites:
+  - {fileID: 6819040319554893794, guid: aa2ce2e091834415abc1256e2126d5c8, type: 3}
+  - {fileID: 7487182849555639621, guid: aa2ce2e091834415abc1256e2126d5c8, type: 3}
+  - {fileID: -5792031504719716514, guid: aa2ce2e091834415abc1256e2126d5c8, type: 3}
+  - {fileID: -4833734046494734989, guid: aa2ce2e091834415abc1256e2126d5c8, type: 3}
+  - {fileID: 6087724448321075516, guid: aa2ce2e091834415abc1256e2126d5c8, type: 3}
+  - {fileID: -249129655948781354, guid: aa2ce2e091834415abc1256e2126d5c8, type: 3}
+  - {fileID: -448327484436363221, guid: aa2ce2e091834415abc1256e2126d5c8, type: 3}
+  - {fileID: -6325795679241298419, guid: aa2ce2e091834415abc1256e2126d5c8, type: 3}
+  - {fileID: -790559351519300268, guid: aa2ce2e091834415abc1256e2126d5c8, type: 3}
+  - {fileID: 950637278761785888, guid: aa2ce2e091834415abc1256e2126d5c8, type: 3}
+  - {fileID: -6730511556865254684, guid: aa2ce2e091834415abc1256e2126d5c8, type: 3}
+  visualRotationZ: 0
+  energyCost: 2
+  fusionType: 9
+  useMovementTrail: 1
+  movementParticleMaterial: {fileID: 0}
+  movementParticleSprite: {fileID: 0}
+  movementTrailParticlesPerSecond: 22
+  movementTrailLifetime: 0.36
+  movementTrailStartSize: 0.13
+  movementTrailSpeed: 0.28
+  movementTrailSortingOrder: 18
+  movementTrailStartColor: {r: 0.54, g: 0.36, b: 0.2, a: 1}
+  movementTrailMidColor: {r: 0.32, g: 0.22, b: 0.12, a: 1}
+  movementTrailEndColor: {r: 0.2, g: 0.13, b: 0.07, a: 0}
+  cycloneRadius: 0.5
+  cycloneForce: 5
+  explosionRadius: 1
+  explosionForce: 3
+  explosionClashEffectPrefab: {fileID: 0}
+  explosionClashEffectFrames: []
+  explosionClashEffectFramesPerSecond: 18
+  explosionClashEffectScale: 1
+  explosionClashEffectLifetime: 1
+  explosionClashEffectSortingOrder: 20
+  quakeChainCount: 5
+  quakeSmallAoeRadius: 0.65
+  quakeSmallAoeForce: 1
+  quakeSearchRadius: 6
+  quakeImpactEffectPrefab: {fileID: 0}
+  quakeImpactEffectScale: 1
+  quakeAffectedMarbleEffectPrefab: {fileID: 0}
+  quakeAffectedMarbleEffectFrames: []
+  quakeEffectFramesPerSecond: 18
+  quakeAffectedMarbleEffectScale: 0.8
+  quakeEffectLifetime: 1
+  quakeEffectSortingOrder: -1
+  quakeChainStepDelay: 0.12
+  useQuakeDustBurst: 1
+  quakeParticleMaterial: {fileID: 0}
+  quakeDustStartColor: {r: 0.65, g: 0.52, b: 0.32, a: 1}
+  quakeDustEndColor: {r: 0.25, g: 0.18, b: 0.1, a: 0}
+  quakeDustLifetime: 0.45
+  quakeDustSpeed: 1.8
+  quakeDustStartSize: 0.16
+  quakeDustParticleCount: 20
+  iceTrailSpotSpacing: 0.25
+  iceTrailSpotSize: 0.45
+  iceTrailSprites: []
+  iceTrailLinearDampingMultiplier: 0.08
+  iceTrailAngularDampingMultiplier: 0.15
+  iceTrailFriction: 0
+  blazeLaunchSpeedMultiplier: 2
+  blazeChainCount: 6
+  blazeChainForce: 5
+  blazeSearchRadius: 7
+  blazeChainStepDelay: 0.12
+  steamChainCount: 6
+  steamSearchRadius: 7
+  steamMassMultiplier: 0.5
+  steamBuffDuration: 8
+  steamLinearDampingMultiplier: 0.2
+  steamAngularDampingMultiplier: 0.35
+  steamFriction: 0
+  lavaLaunchMultiplier: 1.2
+  lavaClashForce: 5
+  lavaPreserveSpeedMultiplier: 0.95
+  mudMaxStickCount: 5
+  mudImmediateVelocityMultiplier: 0.2

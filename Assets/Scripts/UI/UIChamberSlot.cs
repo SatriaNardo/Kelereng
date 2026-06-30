@@ -7,8 +7,22 @@ public class UIChamberSlot : MonoBehaviour
     [HideInInspector] public int slotIndex; // Sekarang diisi otomatis oleh manager
     public TMP_Text elementLabelText;
     public Image backgroundImage;
+    public Image marbleImage;
+    public Sprite commonMarbleSprite;
 
     private UIInventoryManager manager;
+
+    private void Awake()
+    {
+        if (marbleImage == null)
+        {
+            Transform marbleImageTransform = transform.Find("MarbleImage");
+            if (marbleImageTransform != null)
+            {
+                marbleImage = marbleImageTransform.GetComponent<Image>();
+            }
+        }
+    }
 
     // Tambahkan parameter index di sini
     public void SetupSlot(UIInventoryManager inventoryManager, int index)
@@ -20,15 +34,44 @@ public class UIChamberSlot : MonoBehaviour
 
     public void RefreshDisplay(MarbleElementSO element)
     {
+        Sprite marbleSprite = element != null ? element.idleSprite : commonMarbleSprite;
+
+        if (marbleImage != null)
+        {
+            marbleImage.sprite = marbleSprite;
+            marbleImage.preserveAspect = true;
+            marbleImage.color = marbleSprite != null ? Color.white : Color.clear;
+            marbleImage.enabled = marbleSprite != null;
+        }
+
+        if (elementLabelText != null)
+        {
+            elementLabelText.gameObject.SetActive(true);
+        }
+
         if (element != null)
         {
-            elementLabelText.text = element.elementName[0].ToString().ToUpper();
-            backgroundImage.color = element.elementColor;
+            if (elementLabelText != null)
+            {
+                elementLabelText.text = element.elementName[0].ToString().ToUpper();
+            }
+
+            if (backgroundImage != null)
+            {
+                backgroundImage.color = element.elementColor;
+            }
         }
         else
         {
-            elementLabelText.text = "0"; 
-            backgroundImage.color = Color.gray;
+            if (elementLabelText != null)
+            {
+                elementLabelText.text = "0";
+            }
+
+            if (backgroundImage != null)
+            {
+                backgroundImage.color = Color.gray;
+            }
         }
     }
 

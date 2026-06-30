@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9461e76b683ca440793288de68e5cd2e
+guid: 1cb7056fc4caa428d9f98553b4f9f94b
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -427,9 +427,9 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: dd9f8206f358a4070a9737235747674e
+      spriteID: 980dc2ca1005688b0800000000000000
       internalID: -5150341155737775991
       vertices: []
       indices: 
@@ -439,7 +439,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 328d75230a0884b07bb3df23f015b7fb
+    spriteID: 65d48033f4ce941ee9631e956adcfde7
     internalID: 0
     vertices: []
     indices: 

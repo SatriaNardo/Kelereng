@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using TMPro;
 
@@ -15,16 +16,46 @@ public class UIFightInventory : MonoBehaviour
     public bool useCarouselLayout = true;
     public bool showActiveMarbleInCenter = true;
     public Vector2 carouselCenter = new Vector2(0f, 110f);
-    public Vector2 carouselRadius = new Vector2(170f, 90f);
-    [Range(90f, 270f)] public float arcStartAngle = 205f;
-    [Range(270f, 450f)] public float arcEndAngle = 335f;
+    public Vector2 reserveCircleCenter = new Vector2(0f, -70f);
+    public Vector2 reserveCircleRadius = new Vector2(170f, 115f);
+    public float reserveStartAngle = 270f;
     public Vector2 activeSlotSize = new Vector2(92f, 92f);
     public Vector2 reserveSlotSize = new Vector2(62f, 62f);
     [Range(0.4f, 1f)] public float farSlotScale = 0.78f;
+    public float scrollDegreesPerStep = 18f;
+    public float dragDegreesPerPixel = 0.35f;
+    public bool invertCarouselScroll = false;
+
+    [Header("Panel Toggle")]
+    public bool startPanelOpen = false;
+    public Vector2 toggleButtonSize = new Vector2(96f, 44f);
+    public Vector2 toggleButtonOffsetFromRight = new Vector2(-24f, 0f);
+    public Color toggleButtonColor = new Color(0.95f, 0.18f, 0.16f, 1f);
+
+    private readonly List<RectTransform> reserveSlotTransforms = new List<RectTransform>();
+    private float carouselRotationOffset;
+    private bool isDraggingCarousel;
+    private Vector2 lastPointerPosition;
+    private float totalDragDistance;
+    private CanvasGroup panelCanvasGroup;
+    private Button panelToggleButton;
+    private TextMeshProUGUI panelToggleText;
+    private bool isPanelOpen;
 
     private void OnEnable()
     {
+        EnsurePanelToggleButton();
+        EnsurePanelCanvasGroup();
+        isPanelOpen = startPanelOpen;
+        ApplyPanelVisibility();
         RefreshAvailableElementsUI();
+    }
+
+    private void Update()
+    {
+        if (!isPanelOpen || !useCarouselLayout || reserveSlotTransforms.Count <= 1) return;
+
+        HandleCarouselInput();
     }
 
     public void RefreshAvailableElementsUI()
@@ -32,6 +63,7 @@ public class UIFightInventory : MonoBehaviour
         if (ProgressionManager.Instance == null || containerGrid == null || quickSlotPrefab == null) return;
 
         PrepareContainerForManualLayout();
+        reserveSlotTransforms.Clear();
 
         // 1. Bersihkan sisa tombol lama di layar
         foreach (Transform child in containerGrid) Destroy(child.gameObject);
@@ -42,6 +74,7 @@ public class UIFightInventory : MonoBehaviour
         if (useCarouselLayout)
         {
             RefreshCarousel(chamber);
+            ApplyPanelVisibility();
             return;
         }
 
@@ -51,6 +84,8 @@ public class UIFightInventory : MonoBehaviour
             GameObject btnObj = CreateSlotButton(chamber[i], i, false);
             ConfigureSwapButton(btnObj, i);
         }
+
+        ApplyPanelVisibility();
     }
 
     private void RefreshCarousel(List<MarbleElementSO> chamber)
@@ -74,9 +109,13 @@ public class UIFightInventory : MonoBehaviour
         for (int i = 1; i < chamber.Count; i++)
         {
             GameObject reserveSlot = CreateSlotButton(chamber[i], i, false);
-            ConfigureSwapButton(reserveSlot, i);
-            PositionReserveSlot(reserveSlot.GetComponent<RectTransform>(), i - 1, reserveCount);
+            ConfigureReserveSelectButton(reserveSlot, i);
+            RectTransform reserveRect = reserveSlot.GetComponent<RectTransform>();
+            reserveSlotTransforms.Add(reserveRect);
+            PositionReserveSlot(reserveRect, i - 1, reserveCount);
         }
+
+        RefreshReserveDrawOrder();
     }
 
     private GameObject CreateSlotButton(MarbleElementSO element, int chamberIndex, bool isActiveSlot)
@@ -128,26 +167,209 @@ public class UIFightInventory : MonoBehaviour
         {
             if (marbleLauncher == null) return;
 
-            marbleLauncher.ForceSwapActiveMarble(indexCatcher);
-            RefreshAvailableElementsUI();
+            if (marbleLauncher.ForceSwapActiveMarble(indexCatcher))
+            {
+                RefreshAvailableElementsUI();
+            }
         });
+    }
+
+    private void ConfigureReserveSelectButton(GameObject btnObj, int chamberIndex)
+    {
+        Button button = btnObj.GetComponent<Button>();
+        if (button == null) return;
+
+        button.onClick.RemoveAllListeners();
+        int indexCatcher = chamberIndex;
+        button.onClick.AddListener(() =>
+        {
+            if (totalDragDistance > 8f) return;
+            if (marbleLauncher == null) return;
+
+            if (marbleLauncher.ForceSwapActiveMarble(indexCatcher))
+            {
+                RefreshAvailableElementsUI();
+                ClosePanel();
+            }
+        });
+    }
+
+    private void EnsurePanelCanvasGroup()
+    {
+        if (containerGrid == null) return;
+
+        panelCanvasGroup = containerGrid.GetComponent<CanvasGroup>();
+        if (panelCanvasGroup == null)
+        {
+            panelCanvasGroup = containerGrid.gameObject.AddComponent<CanvasGroup>();
+        }
+    }
+
+    private void EnsurePanelToggleButton()
+    {
+        if (panelToggleButton != null || containerGrid == null) return;
+
+        Canvas canvas = containerGrid.GetComponentInParent<Canvas>();
+        if (canvas == null) return;
+
+        GameObject buttonObject = new GameObject("SwapPanelToggleButton", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(Button));
+        buttonObject.transform.SetParent(canvas.transform, false);
+
+        RectTransform rectTransform = buttonObject.GetComponent<RectTransform>();
+        rectTransform.anchorMin = new Vector2(1f, 0.5f);
+        rectTransform.anchorMax = new Vector2(1f, 0.5f);
+        rectTransform.pivot = new Vector2(1f, 0.5f);
+        rectTransform.anchoredPosition = toggleButtonOffsetFromRight;
+        rectTransform.sizeDelta = toggleButtonSize;
+
+        Image image = buttonObject.GetComponent<Image>();
+        image.color = toggleButtonColor;
+
+        panelToggleButton = buttonObject.GetComponent<Button>();
+        panelToggleButton.onClick.AddListener(TogglePanel);
+
+        GameObject textObject = new GameObject("Text", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+        textObject.transform.SetParent(buttonObject.transform, false);
+
+        RectTransform textRect = textObject.GetComponent<RectTransform>();
+        textRect.anchorMin = Vector2.zero;
+        textRect.anchorMax = Vector2.one;
+        textRect.offsetMin = Vector2.zero;
+        textRect.offsetMax = Vector2.zero;
+
+        panelToggleText = textObject.GetComponent<TextMeshProUGUI>();
+        panelToggleText.fontSize = 18f;
+        panelToggleText.alignment = TextAlignmentOptions.Center;
+        panelToggleText.color = Color.white;
+        panelToggleText.raycastTarget = false;
+    }
+
+    private void TogglePanel()
+    {
+        isPanelOpen = !isPanelOpen;
+        if (isPanelOpen)
+        {
+            RefreshAvailableElementsUI();
+        }
+        else
+        {
+            ClosePanel();
+            return;
+        }
+
+        ApplyPanelVisibility();
+    }
+
+    private void ClosePanel()
+    {
+        isPanelOpen = false;
+        ApplyPanelVisibility();
+    }
+
+    private void ApplyPanelVisibility()
+    {
+        EnsurePanelCanvasGroup();
+
+        if (panelCanvasGroup != null)
+        {
+            panelCanvasGroup.alpha = isPanelOpen ? 1f : 0f;
+            panelCanvasGroup.interactable = isPanelOpen;
+            panelCanvasGroup.blocksRaycasts = isPanelOpen;
+        }
+
+        if (panelToggleText != null)
+        {
+            panelToggleText.text = isPanelOpen ? "Close" : "Swap";
+        }
     }
 
     private void PositionReserveSlot(RectTransform slotTransform, int reserveIndex, int reserveCount)
     {
         if (slotTransform == null) return;
 
-        float t = reserveCount <= 1 ? 0.5f : (float)reserveIndex / (reserveCount - 1);
-        float angle = Mathf.Lerp(arcStartAngle, arcEndAngle, t) * Mathf.Deg2Rad;
-        Vector2 position = carouselCenter + new Vector2(Mathf.Cos(angle) * carouselRadius.x, Mathf.Sin(angle) * carouselRadius.y);
+        float angleStep = reserveCount <= 0 ? 0f : 360f / reserveCount;
+        float angle = (reserveStartAngle + carouselRotationOffset + reserveIndex * angleStep) * Mathf.Deg2Rad;
+        Vector2 position = reserveCircleCenter + new Vector2(Mathf.Cos(angle) * reserveCircleRadius.x, Mathf.Sin(angle) * reserveCircleRadius.y);
         slotTransform.anchoredPosition = position;
 
-        float distanceFromCenter = Mathf.Abs(t - 0.5f) * 2f;
-        float scale = Mathf.Lerp(1f, farSlotScale, distanceFromCenter);
+        float frontAmount = Mathf.InverseLerp(-1f, 1f, Mathf.Sin(angle));
+        float scale = Mathf.Lerp(farSlotScale, 1f, frontAmount);
         slotTransform.localScale = Vector3.one * scale;
         slotTransform.sizeDelta = reserveSlotSize;
+    }
 
-        slotTransform.SetSiblingIndex(reserveIndex);
+    private void HandleCarouselInput()
+    {
+        Pointer pointer = Pointer.current;
+        if (pointer == null) return;
+
+        Vector2 pointerPosition = pointer.position.ReadValue();
+        Vector2 scrollDelta = Mouse.current != null ? Mouse.current.scroll.ReadValue() : Vector2.zero;
+        if (Mathf.Abs(scrollDelta.y) > 0.01f)
+        {
+            float direction = invertCarouselScroll ? -1f : 1f;
+            RotateCarousel(scrollDelta.y * scrollDegreesPerStep * direction / 120f);
+        }
+
+        if (pointer.press.wasPressedThisFrame && IsPointerInsideContainer(pointerPosition))
+        {
+            isDraggingCarousel = true;
+            lastPointerPosition = pointerPosition;
+            totalDragDistance = 0f;
+        }
+        else if (pointer.press.wasReleasedThisFrame)
+        {
+            isDraggingCarousel = false;
+        }
+
+        if (!isDraggingCarousel || !pointer.press.isPressed) return;
+
+        float deltaX = pointerPosition.x - lastPointerPosition.x;
+        if (Mathf.Abs(deltaX) > 0.01f)
+        {
+            float direction = invertCarouselScroll ? -1f : 1f;
+            RotateCarousel(deltaX * dragDegreesPerPixel * direction);
+        }
+
+        totalDragDistance += Vector2.Distance(pointerPosition, lastPointerPosition);
+        lastPointerPosition = pointerPosition;
+    }
+
+    private bool IsPointerInsideContainer(Vector2 screenPosition)
+    {
+        RectTransform containerRect = containerGrid as RectTransform;
+        if (containerRect == null) return true;
+
+        Canvas canvas = containerGrid.GetComponentInParent<Canvas>();
+        Camera eventCamera = canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay ? canvas.worldCamera : null;
+        return RectTransformUtility.RectangleContainsScreenPoint(containerRect, screenPosition, eventCamera);
+    }
+
+    private void RotateCarousel(float degrees)
+    {
+        carouselRotationOffset += degrees;
+        RefreshReservePositions();
+    }
+
+    private void RefreshReservePositions()
+    {
+        int reserveCount = reserveSlotTransforms.Count;
+        for (int i = 0; i < reserveCount; i++)
+        {
+            PositionReserveSlot(reserveSlotTransforms[i], i, reserveCount);
+        }
+
+        RefreshReserveDrawOrder();
+    }
+
+    private void RefreshReserveDrawOrder()
+    {
+        List<RectTransform> sortedSlots = new List<RectTransform>(reserveSlotTransforms);
+        sortedSlots.Sort((a, b) => a.anchoredPosition.y.CompareTo(b.anchoredPosition.y));
+        for (int i = 0; i < sortedSlots.Count; i++)
+        {
+            sortedSlots[i].SetSiblingIndex(i);
+        }
     }
 
     private void PrepareContainerForManualLayout()

@@ -6,6 +6,7 @@ public class IceTrailSpot : MonoBehaviour
     public float linearDampingMultiplier = 0.08f;
     public float angularDampingMultiplier = 0.15f;
     public float friction = 0f;
+    public Rigidbody2D ownerRb;
 
     private const string ModifierId = "IceTrailLowFriction";
     private CircleCollider2D triggerCollider;
@@ -17,9 +18,15 @@ public class IceTrailSpot : MonoBehaviour
 
     public void Configure(float radius, float newLinearDampingMultiplier, float newAngularDampingMultiplier, float newFriction)
     {
+        Configure(radius, newLinearDampingMultiplier, newAngularDampingMultiplier, newFriction, null);
+    }
+
+    public void Configure(float radius, float newLinearDampingMultiplier, float newAngularDampingMultiplier, float newFriction, Rigidbody2D newOwnerRb)
+    {
         linearDampingMultiplier = newLinearDampingMultiplier;
         angularDampingMultiplier = newAngularDampingMultiplier;
         friction = newFriction;
+        ownerRb = newOwnerRb;
         EnsureTriggerCollider();
         triggerCollider.radius = Mathf.Max(0.01f, radius);
     }
@@ -28,6 +35,7 @@ public class IceTrailSpot : MonoBehaviour
     {
         Rigidbody2D rb = collision.GetComponent<Rigidbody2D>();
         if (rb == null || rb.bodyType != RigidbodyType2D.Dynamic) return;
+        if (rb == ownerRb) return;
 
         MarblePhysicsModifier modifier = collision.GetComponent<MarblePhysicsModifier>();
         if (modifier == null)

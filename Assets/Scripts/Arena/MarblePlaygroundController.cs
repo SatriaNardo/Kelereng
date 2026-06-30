@@ -27,6 +27,13 @@ public class MarblePlaygroundController : MonoBehaviour
     public int dummyEnemyHp = 9999;
     public bool includeCommonMarble = true;
 
+    [Header("Fight Scene Physics Match")]
+    public bool matchFightScenePhysics = true;
+    public float fightSceneArenaRadius = 1.8f;
+    public float fightSceneMaxDragDistance = 2f;
+    public float fightSceneLaunchForceMultiplier = 5f;
+    [Range(0.1f, 0.5f)] public float fightSceneBottomScreenPercentage = 0.3f;
+
     private readonly List<GameObject> spawnedTargets = new List<GameObject>();
     private Vector2 menuScrollPosition;
 
@@ -159,6 +166,8 @@ public class MarblePlaygroundController : MonoBehaviour
 
     private void ConfigurePlayground()
     {
+        ApplyFightScenePhysicsSettings();
+
         if (ProgressionManager.Instance != null)
         {
             ProgressionManager.Instance.BASE_AMMO = Mathf.Max(1, ammoSlots);
@@ -173,6 +182,20 @@ public class MarblePlaygroundController : MonoBehaviour
         }
 
         FillChamberWithSelectedElement();
+    }
+
+    private void ApplyFightScenePhysicsSettings()
+    {
+        if (!matchFightScenePhysics) return;
+
+        visibleArenaRadius = fightSceneArenaRadius;
+
+        if (marbleLauncher != null)
+        {
+            marbleLauncher.maxDragDistance = fightSceneMaxDragDistance;
+            marbleLauncher.launchForceMultiplier = fightSceneLaunchForceMultiplier;
+            marbleLauncher.bottomScreenPercentage = fightSceneBottomScreenPercentage;
+        }
     }
 
     private void KeepPlaygroundReady()

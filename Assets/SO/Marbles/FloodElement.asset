@@ -27,22 +27,43 @@ MonoBehaviour:
   - {fileID: 1076416226839377677, guid: ff8d1007522184b4cbce196d6a3c3f83, type: 3}
   - {fileID: 6366771795924022995, guid: ff8d1007522184b4cbce196d6a3c3f83, type: 3}
   - {fileID: 3931557995157925332, guid: ff8d1007522184b4cbce196d6a3c3f83, type: 3}
+  visualRotationZ: 0
   energyCost: 2
   fusionType: 2
+  useMovementTrail: 1
+  movementParticleMaterial: {fileID: 0}
+  movementParticleSprite: {fileID: 0}
+  movementTrailParticlesPerSecond: 26
+  movementTrailLifetime: 0.3
+  movementTrailStartSize: 0.11
+  movementTrailSpeed: 0.55
+  movementTrailSortingOrder: 18
+  movementTrailStartColor: {r: 0.75, g: 0.95, b: 1, a: 1}
+  movementTrailMidColor: {r: 0.45, g: 0.82, b: 1, a: 1}
+  movementTrailEndColor: {r: 0.35, g: 0.65, b: 1, a: 0}
   cycloneRadius: 0.5
   cycloneForce: 5
-  explosionRadius: 1
+  explosionRadius: 1.5
   explosionForce: 3
+  explosionClashEffectPrefab: {fileID: 0}
+  explosionClashEffectFrames: []
+  explosionClashEffectFramesPerSecond: 18
+  explosionClashEffectScale: 1
+  explosionClashEffectLifetime: 1
+  explosionClashEffectSortingOrder: 20
   quakeChainCount: 5
   quakeSmallAoeRadius: 0.65
   quakeSmallAoeForce: 1
   quakeSearchRadius: 6
+  quakeImpactEffectPrefab: {fileID: 0}
+  quakeImpactEffectScale: 1
   quakeAffectedMarbleEffectPrefab: {fileID: 0}
   quakeAffectedMarbleEffectFrames: []
   quakeEffectFramesPerSecond: 18
   quakeAffectedMarbleEffectScale: 0.8
   quakeEffectLifetime: 1
   quakeEffectSortingOrder: -1
+  quakeChainStepDelay: 0.12
   useQuakeDustBurst: 1
   quakeParticleMaterial: {fileID: 0}
   quakeDustStartColor: {r: 0.65, g: 0.52, b: 0.32, a: 1}
@@ -54,14 +75,19 @@ MonoBehaviour:
   iceTrailSpotSpacing: 0.25
   iceTrailSpotSize: 0.45
   iceTrailSprites: []
+  iceTrailLinearDampingMultiplier: 0.08
+  iceTrailAngularDampingMultiplier: 0.15
+  iceTrailFriction: 0
   blazeChainCount: 6
   blazeChainForce: 5
   blazeSearchRadius: 7
   steamChainCount: 6
-  steamChainForce: 8
   steamSearchRadius: 7
   steamMassMultiplier: 0.5
   steamBuffDuration: 8
+  steamLinearDampingMultiplier: 0.2
+  steamAngularDampingMultiplier: 0.35
+  steamFriction: 0
   lavaLaunchMultiplier: 1.2
   lavaClashForce: 5
   lavaPreserveSpeedMultiplier: 0.95

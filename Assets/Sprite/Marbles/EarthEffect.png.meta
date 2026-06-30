@@ -1,0 +1,829 @@
+fileFormatVersion: 2
+guid: cc3c9e677b1b94df0946a6070e1a87ce
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1096532997559676981
+    second: Earth_Standard_0
+  - first:
+      213: -3210746681370464596
+    second: Earth_Standard_1
+  - first:
+      213: -532444105209725014
+    second: Earth_Standard_2
+  - first:
+      213: 8449164250849801711
+    second: Earth_Standard_3
+  - first:
+      213: -2328592974542343792
+    second: Earth_Standard_4
+  - first:
+      213: -9098895439967646459
+    second: Earth_Standard_5
+  - first:
+      213: -4239768582145181507
+    second: Earth_Standard_6
+  - first:
+      213: -875763245138359079
+    second: Earth_Standard_7
+  - first:
+      213: 1138804593195438492
+    second: Earth_Standard_8
+  - first:
+      213: -7780303528243397560
+    second: Earth_Standard_9
+  - first:
+      213: -8129141188570587026
+    second: Earth_Standard_10
+  - first:
+      213: 5791994324552605960
+    second: Earth_Standard_11
+  - first:
+      213: -33430058650150356
+    second: Earth_Standard_12
+  - first:
+      213: 4152442529664620254
+    second: Earth_Standard_13
+  - first:
+      213: 2891670409232988516
+    second: Earth_Standard_14
+  - first:
+      213: 6213486605105103798
+    second: Earth_Standard_15
+  - first:
+      213: -3296377774422625653
+    second: Earth_Standard_16
+  - first:
+      213: -8386806903339844744
+    second: Earth_Standard_17
+  - first:
+      213: 1228574326802176249
+    second: Earth_Standard_18
+  - first:
+      213: 6451381698348301973
+    second: Earth_Standard_19
+  - first:
+      213: -5023268126533175979
+    second: Earth_Standard_20
+  - first:
+      213: 1963346854475592876
+    second: Earth_Standard_21
+  - first:
+      213: 5425688484693645474
+    second: Earth_Standard_22
+  - first:
+      213: 1673261723603034669
+    second: Earth_Standard_23
+  - first:
+      213: 3251355047169744109
+    second: Earth_Standard_24
+  - first:
+      213: -7496120306727745981
+    second: Earth_Standard_25
+  - first:
+      213: 8885252322624013930
+    second: Earth_Standard_26
+  - first:
+      213: -6816918587357711278
+    second: Earth_Standard_27
+  - first:
+      213: 7652273027761459098
+    second: Earth_Standard_28
+  - first:
+      213: 4507242351783399470
+    second: Earth_Standard_29
+  - first:
+      213: -6801628803363711375
+    second: Earth_Standard_30
+  - first:
+      213: 5760611719911007463
+    second: Earth_Standard_31
+  - first:
+      213: -6069509135713651955
+    second: Earth_Standard_32
+  - first:
+      213: 5735533426650295299
+    second: Earth_Standard_33
+  - first:
+      213: 7994836235358604329
+    second: Earth_Standard_34
+  - first:
+      213: 1819341565374265910
+    second: Earth_Standard_35
+  - first:
+      213: 1335451189921173404
+    second: Earth_Standard_36
+  - first:
+      213: 6320096936720148361
+    second: Earth_Standard_37
+  - first:
+      213: -3497600053800542884
+    second: Earth_Standard_38
+  - first:
+      213: 1170147870347025889
+    second: Earth_Standard_39
+  - first:
+      213: 838596444867824543
+    second: Earth_Standard_40
+  - first:
+      213: 8936650669599340577
+    second: Earth_Standard_41
+  - first:
+      213: 2348160962919557309
+    second: Earth_Standard_42
+  - first:
+      213: -5638388895152486411
+    second: Earth_Standard_43
+  - first:
+      213: 5393267909697956611
+    second: Earth_Standard_44
+  - first:
+      213: 6088216108512660148
+    second: Earth_Standard_45
+  - first:
+      213: -6958822214112448241
+    second: Earth_Standard_46
+  - first:
+      213: 454999110222708424
+    second: Earth_Standard_47
+  - first:
+      213: 4997946564372643063
+    second: Earth_Standard_48
+  - first:
+      213: 4943546359662230025
+    second: Earth_Standard_49
+  - first:
+      213: 6401726589911168742
+    second: Earth_Standard_50
+  - first:
+      213: 3277819767780903021
+    second: Earth_Standard_51
+  - first:
+      213: -7626038354393107107
+    second: Earth_Standard_52
+  - first:
+      213: 1927184965959925124
+    second: Earth_Standard_53
+  - first:
+      213: 4551003349935998019
+    second: Earth_Standard_54
+  - first:
+      213: -8931804710049486934
+    second: Earth_Standard_55
+  - first:
+      213: -3718930302333711825
+    second: Earth_Standard_56
+  - first:
+      213: 3085639628391126069
+    second: Earth_Standard_57
+  - first:
+      213: -1447302760523444438
+    second: Earth_Standard_58
+  - first:
+      213: 7980705392784256637
+    second: Earth_Standard_59
+  - first:
+      213: -6415818136637559835
+    second: Earth_Standard_60
+  - first:
+      213: 7351432674963199618
+    second: Earth_Standard_61
+  - first:
+      213: -2998869870860084575
+    second: Earth_Standard_62
+  - first:
+      213: 8996915965752477502
+    second: Earth_Standard_63
+  - first:
+      213: -8699097268603431321
+    second: Earth_Standard_64
+  - first:
+      213: -3809452272481554416
+    second: Earth_Standard_65
+  - first:
+      213: 1714106012634655296
+    second: Earth_Standard_66
+  - first:
+      213: -1535222561028652077
+    second: Earth_Standard_67
+  - first:
+      213: 7285572704990479731
+    second: Earth_Standard_68
+  - first:
+      213: -1732915950021614879
+    second: Earth_Standard_69
+  - first:
+      213: -5146429002142143222
+    second: Earth_Standard_70
+  - first:
+      213: 5583600630412816658
+    second: Earth_Standard_71
+  - first:
+      213: 2554169357647288673
+    second: Earth_Standard_72
+  - first:
+      213: 6263757315835907290
+    second: Earth_Standard_73
+  - first:
+      213: -8013345203337353352
+    second: Earth_Standard_74
+  - first:
+      213: 3111876473432189568
+    second: Earth_Standard_75
+  - first:
+      213: -2042138123613842951
+    second: Earth_Standard_76
+  - first:
+      213: -5794625235303244581
+    second: Earth_Standard_77
+  - first:
+      213: 5971895251018627063
+    second: Earth_Standard_78
+  - first:
+      213: 3700901590172628836
+    second: Earth_Standard_79
+  - first:
+      213: -404169895555402323
+    second: Earth_Standard_80
+  - first:
+      213: -8363789444000384591
+    second: Earth_Standard_81
+  - first:
+      213: -1024641482785313280
+    second: Earth_Standard_82
+  - first:
+      213: 2718252994107762175
+    second: Earth_Standard_83
+  - first:
+      213: 6377851475993604643
+    second: Earth_Standard_84
+  - first:
+      213: 8716524873845271171
+    second: Earth_Standard_85
+  - first:
+      213: 8624337553115691480
+    second: Earth_Standard_86
+  - first:
+      213: -2145959174073743598
+    second: Earth_Standard_87
+  - first:
+      213: 8692924490033535082
+    second: Earth_Standard_88
+  - first:
+      213: -2422413407627651422
+    second: Earth_Standard_89
+  - first:
+      213: -6006149135008948754
+    second: Earth_Standard_90
+  - first:
+      213: 7011009438416941038
+    second: Earth_Standard_91
+  - first:
+      213: -122350902737365072
+    second: Earth_Standard_92
+  - first:
+      213: 7291654097530576215
+    second: Earth_Standard_93
+  - first:
+      213: -2971763443347558339
+    second: Earth_Standard_94
+  - first:
+      213: 7749170290070446810
+    second: Earth_Standard_95
+  - first:
+      213: -4652682546997258847
+    second: Earth_Standard_96
+  - first:
+      213: -3654088653573328797
+    second: Earth_Standard_97
+  - first:
+      213: 1145440653432796301
+    second: Earth_Standard_98
+  - first:
+      213: 6699389243619521518
+    second: Earth_Standard_99
+  - first:
+      213: -2478615976815023402
+    second: Earth_Standard_100
+  - first:
+      213: -237957596929570308
+    second: Earth_Standard_101
+  - first:
+      213: 3947518541780452081
+    second: Earth_Standard_102
+  - first:
+      213: -3307344637406927193
+    second: Earth_Standard_103
+  - first:
+      213: 813769446376273435
+    second: Earth_Standard_104
+  - first:
+      213: 4720302059731252273
+    second: Earth_Standard_105
+  - first:
+      213: -8625222992212816783
+    second: Earth_Standard_106
+  - first:
+      213: -3445176889821401905
+    second: Earth_Standard_107
+  - first:
+      213: -1096673825429561522
+    second: Earth_Standard_108
+  - first:
+      213: 4012490442785576557
+    second: Earth_Standard_109
+  - first:
+      213: -9056461483579600763
+    second: Earth_Standard_110
+  - first:
+      213: -1698650836358312870
+    second: Earth_Standard_111
+  - first:
+      213: 2107625257197128187
+    second: Earth_Standard_112
+  - first:
+      213: -8623855962866575288
+    second: Earth_Standard_113
+  - first:
+      213: 6436502616932542385
+    second: Earth_Standard_114
+  - first:
+      213: 4721158352587137612
+    second: Earth_Standard_115
+  - first:
+      213: -2066451226977038305
+    second: Earth_Standard_116
+  - first:
+      213: -6780949555022113285
+    second: Earth_Standard_117
+  - first:
+      213: -8381709266247131049
+    second: Earth_Standard_118
+  - first:
+      213: -48808747405623822
+    second: Earth_Standard_119
+  - first:
+      213: -9030474112399168829
+    second: Earth_Standard_120
+  - first:
+      213: -6853812231011064281
+    second: Earth_Standard_121
+  - first:
+      213: -2847594544309707954
+    second: Earth_Standard_122
+  - first:
+      213: 432213402038580899
+    second: Earth_Standard_123
+  - first:
+      213: 8913753550377801549
+    second: Earth_Standard_124
+  - first:
+      213: -6640819578772128508
+    second: Earth_Standard_125
+  - first:
+      213: 6117342194925052859
+    second: Earth_Standard_126
+  - first:
+      213: -1954849092023724102
+    second: Earth_Standard_127
+  - first:
+      213: 9150616071074798337
+    second: Earth_Standard_128
+  - first:
+      213: 8976392073227740745
+    second: Earth_Standard_129
+  - first:
+      213: -1524150843010772270
+    second: Earth_Standard_130
+  - first:
+      213: -6081933926169289412
+    second: Earth_Standard_131
+  - first:
+      213: 7256858498607853711
+    second: Earth_Standard_132
+  - first:
+      213: 3041664270960353474
+    second: Earth_Standard_133
+  - first:
+      213: -6625590605899970253
+    second: Earth_Standard_134
+  - first:
+      213: -5538682091392992635
+    second: Earth_Standard_135
+  - first:
+      213: -5359264681679915178
+    second: Earth_Standard_136
+  - first:
+      213: 6066471200359991572
+    second: Earth_Standard_137
+  - first:
+      213: -3207804181805455574
+    second: Earth_Standard_138
+  - first:
+      213: 886719448227203578
+    second: Earth_Standard_139
+  - first:
+      213: -3901433385871943417
+    second: Earth_Standard_140
+  - first:
+      213: 4217460172883541652
+    second: Earth_Standard_141
+  - first:
+      213: -1810945653444913461
+    second: Earth_Standard_142
+  - first:
+      213: -5310617974696304463
+    second: Earth_Standard_143
+  - first:
+      213: 1632821926703662059
+    second: Earth_Standard_144
+  - first:
+      213: 4562027888854976241
+    second: Earth_Standard_145
+  - first:
+      213: 7893946002460806947
+    second: Earth_Standard_146
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: EarthEffect_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2700
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d78dc0febca524b488ce14c8542d50da
+      internalID: -522068033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EarthEffect_1
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 2700
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0f5340667f85492f8b8b66cc12c09f8
+      internalID: 1858763962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EarthEffect_2
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 1620
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6026e042a1f7949bfb932a341ce4882e
+      internalID: -2073174274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EarthEffect_3
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 1620
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c5727029afb647e3acf8e2856e852d1
+      internalID: 987950438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EarthEffect_4
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 1620
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bae2a811b27848cb84cba820ad8479d
+      internalID: -534469469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EarthEffect_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1080
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c99791e9f8424024b034a2201c403e0
+      internalID: 322011366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EarthEffect_6
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 1080
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 201d1cad281b245e1a317744ce8756c0
+      internalID: 2014559529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EarthEffect_7
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 1080
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 974246ca662d548f48bff89bf0a5586a
+      internalID: -1871899128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EarthEffect_8
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 1080
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf0665cb198f24d329544b40fcb7e21b
+      internalID: 948780000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EarthEffect_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 540
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 933b601a3673e4088810eeca05ee0a87
+      internalID: -606085794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: fde18faf66f5a48b6bdc7f169e06566a
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":6.0},"gridSpriteSize":{"x":720.0,"y":540.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      EarthEffect_0: -522068033
+      EarthEffect_1: 1858763962
+      EarthEffect_2: -2073174274
+      EarthEffect_3: 987950438
+      EarthEffect_4: -534469469
+      EarthEffect_5: 322011366
+      EarthEffect_6: 2014559529
+      EarthEffect_7: -1871899128
+      EarthEffect_8: 948780000
+      EarthEffect_9: -606085794
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

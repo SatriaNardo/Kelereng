@@ -20,6 +20,7 @@ public class MarbleElementHandler : MonoBehaviour
     private MarbleRollAnimator rollAnimator;
     private PixelMarbleShadow pixelShadow;
     private Sprite defaultSprite;
+    private Quaternion defaultVisualRotation;
     private Vector2 previousVelocity;
     
     // NEW: Tracks if this marble has already used its elemental burst this shot
@@ -32,6 +33,7 @@ public class MarbleElementHandler : MonoBehaviour
         rollAnimator = GetComponent<MarbleRollAnimator>();
         pixelShadow = GetComponent<PixelMarbleShadow>();
         defaultSprite = spriteRenderer != null ? spriteRenderer.sprite : null;
+        defaultVisualRotation = spriteRenderer != null ? spriteRenderer.transform.localRotation : Quaternion.identity;
         previousVelocity = rb != null ? rb.linearVelocity : Vector2.zero;
     }
 
@@ -59,6 +61,10 @@ public class MarbleElementHandler : MonoBehaviour
         if (spriteRenderer == null) return;
 
         spriteRenderer.color = activeElement != null ? activeElement.elementColor : Color.white;
+        Quaternion baseVisualRotation = activeElement != null
+            ? defaultVisualRotation * Quaternion.Euler(0f, 0f, activeElement.visualRotationZ)
+            : defaultVisualRotation;
+        spriteRenderer.transform.localRotation = baseVisualRotation;
 
         Sprite idleSprite = commonIdleSprite != null ? commonIdleSprite : defaultSprite;
         Sprite[] rollingSprites = commonRollingSprites;
@@ -91,6 +97,8 @@ public class MarbleElementHandler : MonoBehaviour
         }
 
         rollAnimator.Configure(idleSprite, rollingSprites);
+        rollAnimator.SetBaseVisualRotation(baseVisualRotation);
+        rollAnimator.SetRotateToMovementDirection(!ShouldKeepFixedSpriteRotation(activeElement));
 
         if (pixelShadow == null)
         {
@@ -148,6 +156,15 @@ public class MarbleElementHandler : MonoBehaviour
             || other.CompareTag("Gacoan")
             || other.GetComponent<TargetMarble>() != null
             || other.GetComponent<MarbleElementHandler>() != null;
+    }
+
+    private bool ShouldKeepFixedSpriteRotation(MarbleElementSO element)
+    {
+        if (element == null) return false;
+        if (element is FireElementSO) return true;
+
+        CombinedElementSO combinedElement = element as CombinedElementSO;
+        return combinedElement != null && combinedElement.fusionType == CombinedElementSO.FusionType.Blaze;
     }
 
     private Vector2 GetImpactDirection(Collision2D collision, Rigidbody2D targetRb)

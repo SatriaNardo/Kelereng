@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 848a001d671f5428d88b6e65247168a6, type: 3}
-  m_Name: Explosion
+  m_Name: ExplosionElement
   m_EditorClassIdentifier: Assembly-CSharp::CombinedElementSO
-  elementName: ExplosionElement
+  elementName: Explosion
   elementColor: {r: 1, g: 1, b: 1, a: 1}
   idleSprite: {fileID: -1100939806957185793, guid: 5764242fdb7cf4bbd9559b5c1ef9ad9f, type: 3}
   rollingSprites:
@@ -27,22 +27,43 @@ MonoBehaviour:
   - {fileID: 8695114557585026579, guid: 5764242fdb7cf4bbd9559b5c1ef9ad9f, type: 3}
   - {fileID: 8996034278138882023, guid: 5764242fdb7cf4bbd9559b5c1ef9ad9f, type: 3}
   - {fileID: 8455866406030837361, guid: 5764242fdb7cf4bbd9559b5c1ef9ad9f, type: 3}
+  visualRotationZ: 90
   energyCost: 2
   fusionType: 1
+  useMovementTrail: 1
+  movementParticleMaterial: {fileID: 0}
+  movementParticleSprite: {fileID: 0}
+  movementTrailParticlesPerSecond: 26
+  movementTrailLifetime: 0.3
+  movementTrailStartSize: 0.11
+  movementTrailSpeed: 0.55
+  movementTrailSortingOrder: 18
+  movementTrailStartColor: {r: 0.55, g: 0, b: 0, a: 1}
+  movementTrailMidColor: {r: 0.28, g: 0, b: 0, a: 1}
+  movementTrailEndColor: {r: 0.08, g: 0, b: 0, a: 0}
   cycloneRadius: 0.5
-  cycloneForce: 5
+  cycloneForce: 6
   explosionRadius: 1
-  explosionForce: 3
+  explosionForce: 6
+  explosionClashEffectPrefab: {fileID: 2177250898993619004, guid: 02b17c22b305d46d781ed17cf8437461, type: 3}
+  explosionClashEffectFrames: []
+  explosionClashEffectFramesPerSecond: 60
+  explosionClashEffectScale: 0.35
+  explosionClashEffectLifetime: 1
+  explosionClashEffectSortingOrder: 20
   quakeChainCount: 5
   quakeSmallAoeRadius: 0.65
   quakeSmallAoeForce: 1
   quakeSearchRadius: 6
+  quakeImpactEffectPrefab: {fileID: 0}
+  quakeImpactEffectScale: 1
   quakeAffectedMarbleEffectPrefab: {fileID: 0}
   quakeAffectedMarbleEffectFrames: []
   quakeEffectFramesPerSecond: 18
   quakeAffectedMarbleEffectScale: 0.8
   quakeEffectLifetime: 1
   quakeEffectSortingOrder: -1
+  quakeChainStepDelay: 0.12
   useQuakeDustBurst: 1
   quakeParticleMaterial: {fileID: 0}
   quakeDustStartColor: {r: 0.65, g: 0.52, b: 0.32, a: 1}
@@ -54,14 +75,19 @@ MonoBehaviour:
   iceTrailSpotSpacing: 0.25
   iceTrailSpotSize: 0.45
   iceTrailSprites: []
+  iceTrailLinearDampingMultiplier: 0.08
+  iceTrailAngularDampingMultiplier: 0.15
+  iceTrailFriction: 0
   blazeChainCount: 6
   blazeChainForce: 5
   blazeSearchRadius: 7
   steamChainCount: 6
-  steamChainForce: 8
   steamSearchRadius: 7
   steamMassMultiplier: 0.5
   steamBuffDuration: 8
+  steamLinearDampingMultiplier: 0.2
+  steamAngularDampingMultiplier: 0.35
+  steamFriction: 0
   lavaLaunchMultiplier: 1.2
   lavaClashForce: 5
   lavaPreserveSpeedMultiplier: 0.95

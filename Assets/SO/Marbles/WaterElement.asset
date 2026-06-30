@@ -27,8 +27,9 @@ MonoBehaviour:
   - {fileID: -4014513795891211863, guid: 260ceb5a979784548991173a2201c7bd, type: 3}
   - {fileID: 1916509385454207981, guid: 260ceb5a979784548991173a2201c7bd, type: 3}
   - {fileID: 1002884511499421427, guid: 260ceb5a979784548991173a2201c7bd, type: 3}
+  visualRotationZ: 0
   energyCost: 1
-  extraKnockbackForce: 15
+  extraKnockbackForce: 6
   useMovementTrail: 1
   particleMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   trailStartColor: {r: 0.65, g: 0.95, b: 1, a: 1}

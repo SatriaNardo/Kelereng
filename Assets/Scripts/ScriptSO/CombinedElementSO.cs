@@ -14,11 +14,27 @@ public class CombinedElementSO : MarbleElementSO
         Blaze,
         Sand,
         Steam,
-        Lava
+        Lava,
+        Mud
     }
 
     [Header("Fusion Type Settings")]
     public FusionType fusionType;
+
+    [Header("Movement Trail")]
+    public bool useMovementTrail = true;
+    public Material movementParticleMaterial;
+    public Sprite movementParticleSprite;
+    public float movementTrailParticlesPerSecond = 24f;
+    public float movementTrailLifetime = 0.28f;
+    public float movementTrailStartSize = 0.1f;
+    public float movementTrailSpeed = 0.55f;
+    public int movementTrailSortingOrder = 18;
+
+    [Header("Movement Trail Colors")]
+    public Color movementTrailStartColor = Color.white;
+    public Color movementTrailMidColor = new Color(0.75f, 0.75f, 0.75f, 1f);
+    public Color movementTrailEndColor = new Color(1f, 1f, 1f, 0f);
 
     [Header("Cyclone")]
     public float cycloneRadius = 0.5f;
@@ -27,18 +43,27 @@ public class CombinedElementSO : MarbleElementSO
     [Header("Explosion/Flood")]
     public float explosionRadius = 1f;
     public float explosionForce = 3f;
+    public GameObject explosionClashEffectPrefab;
+    public Sprite[] explosionClashEffectFrames;
+    public float explosionClashEffectFramesPerSecond = 18f;
+    public float explosionClashEffectScale = 1f;
+    public float explosionClashEffectLifetime = 1f;
+    public int explosionClashEffectSortingOrder = 20;
 
     [Header("Quake")]
     public int quakeChainCount = 5;
     public float quakeSmallAoeRadius = 0.65f;
     public float quakeSmallAoeForce = 1f;
     public float quakeSearchRadius = 6f;
+    public GameObject quakeImpactEffectPrefab;
+    public float quakeImpactEffectScale = 1f;
     public GameObject quakeAffectedMarbleEffectPrefab;
     public Sprite[] quakeAffectedMarbleEffectFrames;
     public float quakeEffectFramesPerSecond = 18f;
     public float quakeAffectedMarbleEffectScale = 0.8f;
     public float quakeEffectLifetime = 1f;
     public int quakeEffectSortingOrder = -1;
+    public float quakeChainStepDelay = 0.12f;
     public bool useQuakeDustBurst = true;
     public Material quakeParticleMaterial;
     public Color quakeDustStartColor = new Color(0.65f, 0.52f, 0.32f, 1f);
@@ -57,9 +82,11 @@ public class CombinedElementSO : MarbleElementSO
     [Range(0f, 1f)] public float iceTrailFriction = 0f;
 
     [Header("Blaze")]
+    public float blazeLaunchSpeedMultiplier = 2f;
     public int blazeChainCount = 6;
     public float blazeChainForce = 5f;
     public float blazeSearchRadius = 7f;
+    public float blazeChainStepDelay = 0.12f;
 
     [Header("Steam")]
     public int steamChainCount = 6;
@@ -75,11 +102,20 @@ public class CombinedElementSO : MarbleElementSO
     public float lavaClashForce = 5f;
     public float lavaPreserveSpeedMultiplier = 0.95f;
 
+    [Header("Mud")]
+    public int mudMaxStickCount = 5;
+    [Range(0f, 1f)] public float mudImmediateVelocityMultiplier = 0.2f;
+
     public override float GetLaunchForceMultiplier(float baseMultiplier)
     {
         if (fusionType == FusionType.Lava)
         {
             return baseMultiplier * lavaLaunchMultiplier;
+        }
+
+        if (fusionType == FusionType.Blaze)
+        {
+            return baseMultiplier * blazeLaunchSpeedMultiplier;
         }
 
         return baseMultiplier;
@@ -88,6 +124,8 @@ public class CombinedElementSO : MarbleElementSO
     public override void OnLaunch(Rigidbody2D marble)
     {
         if (marble == null) return;
+
+        ApplyMovementTrail(marble);
 
         if (fusionType == FusionType.Ice)
         {
@@ -111,6 +149,39 @@ public class CombinedElementSO : MarbleElementSO
         }
     }
 
+    private void ApplyMovementTrail(Rigidbody2D marble)
+    {
+        if (!useMovementTrail || marble == null) return;
+
+        GetMovementTrailColors(out Color startColor, out Color midColor, out Color endColor);
+
+        GenericMarbleTrailEffect trail = marble.GetComponent<GenericMarbleTrailEffect>();
+        if (trail == null)
+        {
+            trail = marble.gameObject.AddComponent<GenericMarbleTrailEffect>();
+        }
+
+        trail.Configure(
+            $"{fusionType}MoveTrail",
+            startColor,
+            midColor,
+            endColor,
+            movementTrailParticlesPerSecond,
+            movementTrailLifetime,
+            movementTrailStartSize,
+            movementTrailSpeed,
+            movementTrailSortingOrder,
+            movementParticleMaterial,
+            movementParticleSprite);
+    }
+
+    private void GetMovementTrailColors(out Color startColor, out Color midColor, out Color endColor)
+    {
+        startColor = movementTrailStartColor;
+        midColor = movementTrailMidColor;
+        endColor = movementTrailEndColor;
+    }
+
     public override void OnClash(Rigidbody2D attacker, Rigidbody2D victim, Vector2 collisionPoint, Vector2 impactDirection)
     {
         switch (fusionType)
@@ -120,11 +191,16 @@ public class CombinedElementSO : MarbleElementSO
                 break;
 
             case FusionType.Explosion:
+                SpriteSheetEffect.SpawnEffect(collisionPoint, explosionClashEffectPrefab, explosionClashEffectFrames, elementColor, explosionClashEffectFramesPerSecond, explosionClashEffectScale, impactDirection, explosionClashEffectLifetime, explosionClashEffectSortingOrder);
+                PushAoe(attacker, collisionPoint, explosionRadius, explosionForce, true);
+                break;
+
             case FusionType.Flood:
                 PushAoe(attacker, collisionPoint, explosionRadius, explosionForce, true);
                 break;
 
             case FusionType.Quake:
+                SpriteSheetEffect.SpawnEffect(collisionPoint, quakeImpactEffectPrefab, null, elementColor, quakeEffectFramesPerSecond, quakeImpactEffectScale, impactDirection, quakeEffectLifetime, quakeEffectSortingOrder);
                 ChainLaunchWithSmallAoe(attacker, collisionPoint, quakeChainCount, quakeSearchRadius, quakeSmallAoeRadius, quakeSmallAoeForce);
                 break;
 
@@ -132,7 +208,7 @@ public class CombinedElementSO : MarbleElementSO
                 break;
 
             case FusionType.Blaze:
-                ChainLaunch(attacker, collisionPoint, blazeChainCount, blazeSearchRadius, blazeChainForce);
+                ChainLaunch(attacker, collisionPoint, blazeChainCount, blazeSearchRadius, blazeChainForce, blazeChainStepDelay);
                 break;
 
             case FusionType.Sand:
@@ -153,6 +229,10 @@ public class CombinedElementSO : MarbleElementSO
                     if (pushDirection == Vector2.zero) pushDirection = Random.insideUnitCircle.normalized;
                     victim.AddForce(pushDirection * lavaClashForce, ForceMode2D.Impulse);
                 }
+                break;
+
+            case FusionType.Mud:
+                ApplyMudSticky(attacker, victim);
                 break;
         }
 
@@ -181,23 +261,25 @@ public class CombinedElementSO : MarbleElementSO
         }
     }
 
-    private void ChainLaunch(Rigidbody2D attacker, Vector2 center, int count, float searchRadius, float force)
+    private void ChainLaunch(Rigidbody2D attacker, Vector2 center, int count, float searchRadius, float force, float stepDelay = 0f)
     {
         List<Rigidbody2D> nearest = FindNearestMarbles(attacker, center, count, searchRadius);
+        if (nearest.Count <= 0) return;
 
-        foreach (Rigidbody2D rb in nearest)
+        ElementChainSequence.Run("BlazeChainSequence", nearest, stepDelay, rb =>
         {
             Vector2 randomDirection = Random.insideUnitCircle.normalized;
             if (randomDirection == Vector2.zero) randomDirection = Vector2.up;
             rb.AddForce(randomDirection * force, ForceMode2D.Impulse);
-        }
+        });
     }
 
     private void ChainLaunchWithSmallAoe(Rigidbody2D attacker, Vector2 center, int count, float searchRadius, float smallRadius, float smallForce)
     {
         List<Rigidbody2D> nearest = FindNearestMarbles(attacker, center, count, searchRadius);
+        if (nearest.Count <= 0) return;
 
-        foreach (Rigidbody2D rb in nearest)
+        ElementChainSequence.Run("QuakeChainSequence", nearest, quakeChainStepDelay, rb =>
         {
             Vector2 randomDirection = Random.insideUnitCircle.normalized;
             if (randomDirection == Vector2.zero) randomDirection = Vector2.up;
@@ -210,7 +292,7 @@ public class CombinedElementSO : MarbleElementSO
                 QuakeDustBurstEffect.Spawn(rb.position, quakeDustStartColor, quakeDustEndColor, quakeDustLifetime, quakeDustSpeed, quakeDustStartSize, quakeDustParticleCount, quakeEffectSortingOrder, quakeParticleMaterial);
             }
             PushAoe(attacker, rb.position, smallRadius, smallForce, false);
-        }
+        });
     }
 
     private void SteamChain(Rigidbody2D attacker, Vector2 center)
@@ -231,6 +313,11 @@ public class CombinedElementSO : MarbleElementSO
         SteamLaunchBuff buff = rb.GetComponent<SteamLaunchBuff>();
         if (buff == null) buff = rb.gameObject.AddComponent<SteamLaunchBuff>();
         buff.Configure(steamMassMultiplier, steamBuffDuration, steamLinearDampingMultiplier, steamAngularDampingMultiplier, steamFriction);
+    }
+
+    private void ApplyMudSticky(Rigidbody2D attacker, Rigidbody2D victim)
+    {
+        MudStickyEffect.TryStick(attacker, victim, mudMaxStickCount, mudImmediateVelocityMultiplier);
     }
 
     private List<Rigidbody2D> FindNearestMarbles(Rigidbody2D attacker, Vector2 center, int count, float searchRadius)

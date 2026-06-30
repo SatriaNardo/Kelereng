@@ -44,6 +44,7 @@ public class ProgressionManager : MonoBehaviour
     public CombinedElementSO sandFusionAsset;
     public CombinedElementSO steamFusionAsset;
     public CombinedElementSO lavaFusionAsset;
+    public CombinedElementSO mudFusionAsset;
 
     // Menyimpan data belanja sementara antar scene
     [HideInInspector] public MarbleElementSO pendingElementFromShop = null;
@@ -307,6 +308,7 @@ public class ProgressionManager : MonoBehaviour
         if (IsFusionPair(first, second, "Earth", "Wind")) return sandFusionAsset;
         if (IsFusionPair(first, second, "Water", "Fire")) return steamFusionAsset;
         if (IsFusionPair(first, second, "Earth", "Fire")) return lavaFusionAsset;
+        if (IsFusionPair(first, second, "Earth", "Water")) return mudFusionAsset;
 
         return null;
     }

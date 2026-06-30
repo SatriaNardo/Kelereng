@@ -453,7 +453,22 @@ MonoBehaviour:
   maxDragDistance: 2
   launchForceMultiplier: 5
   trajectoryLine: {fileID: 63652943}
+  aimArrowSprite: {fileID: 8330284279530052741, guid: 3b39e7f6524984b9ab23ec63584a3311, type: 3}
+  standbyArrowSprite: {fileID: -3916823844641938589, guid: 1d30393fddade4ec7bb35c5da77cdd9e, type: 3}
+  aimDotColor: {r: 1, g: 1, b: 1, a: 0.85}
+  aimDotSpacing: 0.22
+  aimDotSize: 0.08
+  aimArrowSize: 0.05
+  aimArrowEndOffset: 0.12
+  aimArrowRotationOffset: -90
+  standbyArrowOffset: {x: 0, y: 0.45}
+  standbyArrowSize: 0.06
+  aimPreviewSortingOrder: 55
   bottomScreenPercentage: 0.3
+  showDragZoneGuide: 1
+  dragZoneGuideColor: {r: 1, g: 1, b: 1, a: 0.45}
+  dragZoneGuideWidth: 0.035
+  dragZoneSidePadding: 0.35
   marblePreviewRadius: 0.13
   marblePhysicsMaterial: {fileID: 0}
 --- !u!120 &63652943
@@ -1849,15 +1864,15 @@ RectTransform:
   m_GameObject: {fileID: 719455111}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 736935372}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 640}
-  m_SizeDelta: {x: 0, y: -1894.5596}
+  m_AnchoredPosition: {x: 0, y: -927.8601}
+  m_SizeDelta: {x: 0, y: -1904.2798}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &719455113
 MonoBehaviour:
@@ -1898,7 +1913,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4364,6 +4379,7 @@ MonoBehaviour:
   quickSlotPrefab: {fileID: 4991589172142247220, guid: 0146390a305954126b6b20e8f8036880, type: 3}
   containerGrid: {fileID: 719455112}
   marbleLauncher: {fileID: 63652942}
+<<<<<<< Updated upstream
 --- !u!1 &2067141018
 GameObject:
   m_ObjectHideFlags: 0
@@ -4545,6 +4561,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2071363938}
   m_CullTransparentMesh: 1
+=======
+  commonMarbleSprite: {fileID: 0}
+  useCarouselLayout: 1
+  showActiveMarbleInCenter: 1
+  carouselCenter: {x: 0, y: 110}
+  reserveCircleCenter: {x: 0, y: -70}
+  reserveCircleRadius: {x: 170, y: 115}
+  reserveStartAngle: 270
+  activeSlotSize: {x: 92, y: 92}
+  reserveSlotSize: {x: 62, y: 62}
+  farSlotScale: 0.78
+  scrollDegreesPerStep: 18
+  dragDegreesPerPixel: 0.35
+  invertCarouselScroll: 0
+  startPanelOpen: 0
+  toggleButtonSize: {x: 96, y: 44}
+  toggleButtonOffsetFromRight: {x: -24, y: 0}
+  toggleButtonColor: {r: 0.95, g: 0.18, b: 0.16, a: 1}
+>>>>>>> Stashed changes
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

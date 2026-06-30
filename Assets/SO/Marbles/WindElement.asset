@@ -27,13 +27,14 @@ MonoBehaviour:
   - {fileID: 1939249770437049915, guid: 24692adf729c04634b15ec132ad6fd47, type: 3}
   - {fileID: -1806717725142685388, guid: 24692adf729c04634b15ec132ad6fd47, type: 3}
   - {fileID: -1454266138754985544, guid: 24692adf729c04634b15ec132ad6fd47, type: 3}
+  visualRotationZ: 0
   energyCost: 1
   aoeRadius: 0.5
-  pushForce: 5
-  useMovementTrail: 0
+  pushForce: 3
+  useMovementTrail: 1
   particleMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  trailStartColor: {r: 0.69455355, g: 1, b: 0.5707547, a: 1}
-  trailEndColor: {r: 0.58871967, g: 1, b: 0.34901965, a: 0}
+  trailStartColor: {r: 0.65, g: 1, b: 0.15, a: 1}
+  trailEndColor: {r: 0.35, g: 1, b: 0.05, a: 0}
   trailParticlesPerSecond: 24
   trailLifetime: 0.25
   trailStartSize: 0.09

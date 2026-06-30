@@ -60,7 +60,7 @@ public class IceTrailEffect : MonoBehaviour
         renderer.sortingOrder = -2;
 
         IceTrailSpot iceSpot = spot.AddComponent<IceTrailSpot>();
-        iceSpot.Configure(0.5f, spotLinearDampingMultiplier, spotAngularDampingMultiplier, spotFriction);
+        iceSpot.Configure(0.5f, spotLinearDampingMultiplier, spotAngularDampingMultiplier, spotFriction, rb);
     }
 
     private Sprite GetRandomSpotSprite()

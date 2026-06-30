@@ -29,6 +29,17 @@ MonoBehaviour:
   - {fileID: -4499667855299576961, guid: 6758bfb538d4c400c88c56b73dc32e60, type: 3}
   energyCost: 2
   fusionType: 6
+  useMovementTrail: 1
+  movementParticleMaterial: {fileID: 0}
+  movementParticleSprite: {fileID: 0}
+  movementTrailParticlesPerSecond: 24
+  movementTrailLifetime: 0.32
+  movementTrailStartSize: 0.1
+  movementTrailSpeed: 0.45
+  movementTrailSortingOrder: 18
+  movementTrailStartColor: {r: 0.9, g: 0.74, b: 0.45, a: 1}
+  movementTrailMidColor: {r: 0.72, g: 0.55, b: 0.28, a: 1}
+  movementTrailEndColor: {r: 0.42, g: 0.3, b: 0.14, a: 0}
   cycloneRadius: 0.5
   cycloneForce: 5
   explosionRadius: 1

@@ -124,10 +124,10 @@ public class SpriteSheetEffect : MonoBehaviour
                 renderer.sortingOrder = sortingOrder + 1;
             }
 
-            if (prefabLifetime > 0f && effectObject.GetComponent<TimedEffectDestroy>() == null)
+            if (prefabLifetime > 0f && effectObject.GetComponent<PrefabEffectAutoDestroy>() == null)
             {
-                TimedEffectDestroy destroyer = effectObject.AddComponent<TimedEffectDestroy>();
-                destroyer.lifetime = prefabLifetime;
+                PrefabEffectAutoDestroy destroyer = effectObject.AddComponent<PrefabEffectAutoDestroy>();
+                destroyer.fallbackLifetime = prefabLifetime;
             }
 
             return;

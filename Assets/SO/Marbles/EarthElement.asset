@@ -27,7 +27,28 @@ MonoBehaviour:
   - {fileID: 8529070403429349287, guid: 80ac83dda9357426c80dda0144cbe33b, type: 3}
   - {fileID: -7847389852032670985, guid: 80ac83dda9357426c80dda0144cbe33b, type: 3}
   - {fileID: 8346589263112569562, guid: 80ac83dda9357426c80dda0144cbe33b, type: 3}
+  visualRotationZ: 0
   energyCost: 1
   searchRadius: 1
-  chainedMarbleCount: 2
-  randomLaunchForce: 6
+  chainedMarbleCount: 3
+  randomLaunchForce: 3
+  useMovementTrail: 1
+  particleMaterial: {fileID: 0}
+  particleSprite: {fileID: 0}
+  trailStartColor: {r: 0.55, g: 0.5, b: 0.43, a: 1}
+  trailMidColor: {r: 0.35, g: 0.25, b: 0.16, a: 1}
+  trailEndColor: {r: 0.2, g: 0.16, b: 0.12, a: 0}
+  trailParticlesPerSecond: 24
+  trailLifetime: 0.3
+  trailStartSize: 0.1
+  trailSpeed: 0.55
+  trailSortingOrder: 18
+  earthClashEffectPrefab: {fileID: 6555462001918036656, guid: 64ce144047292477e9b2756fa4c13452, type: 3}
+  earthChainEffectPrefab: {fileID: 1014050652214355437, guid: 6188e7e6599e44222825d1a6f2379f10, type: 3}
+  earthChainEffectFrames: []
+  earthEffectFramesPerSecond: 60
+  earthClashEffectScale: 0.35
+  earthChainEffectScale: 0.25
+  earthEffectLifetime: 1
+  earthEffectSortingOrder: -1
+  chainStepDelay: 0.12
