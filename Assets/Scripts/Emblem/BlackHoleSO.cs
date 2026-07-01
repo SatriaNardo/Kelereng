@@ -26,8 +26,10 @@ public class BlackHoleSO : BaseEmblemSO
             }
 
             // Black Hole selalu muncul di area tengah arena
+            // Radius kecil agar posisi dekat pusat dan
+            // tidak mendorong kelereng musuh keluar
             float safeRadius =
-                ArenaManager.Instance.circleRadius * 0.35f;
+                ArenaManager.Instance.circleRadius * 0.2f;
 
             Vector2 spawnPosition =
                 (Vector2)ArenaManager.Instance.arenaCenter.position +
