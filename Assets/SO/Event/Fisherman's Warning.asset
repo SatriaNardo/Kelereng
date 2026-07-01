@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cfd4f33bf814da2a8b5c07bbf7689ec, type: 3}
+  m_Name: Fisherman's Warning
+  m_EditorClassIdentifier: Assembly-CSharp::GameEventSO
+  eventName: Fisherman's Warning
+  conversationNodes:
+  - speakerName: Fisherman
+    bodyText: The lake is too still. An old fisherman keeps his boat tied tight and mutters about something huge under the water.
+    choices:
+    - choiceText: Pay for the boat
+      action: 2
+      nextNodeIndex: -1
+      reward:
+        currencyMin: -12
+        currencyMax: -8
+        ammoMin: 0
+        ammoMax: 0
+        removeAmmo: 0
+        removeAmmoChance: 0
+        removeRandomEmblem: 0
+        removeRandomEmblemChance: 0
+        randomElementRewards: []
+        randomEmblemRewards: []
+      fightEnemyPool: []
+      randomOutcomes: []
+    - choiceText: Help him fish
+      action: 4
+      nextNodeIndex: -1
+      reward: {currencyMin: 0, currencyMax: 0, ammoMin: 0, ammoMax: 0, removeAmmo: 0, removeAmmoChance: 0, removeRandomEmblem: 0, removeRandomEmblemChance: 0, randomElementRewards: [], randomEmblemRewards: []}
+      fightEnemyPool: []
+      randomOutcomes:
+      - outcomeText: The line snaps hard. You save the boat, but one marble sinks into the lake.
+        weight: 1
+        action: 2
+        reward:
+          currencyMin: 0
+          currencyMax: 0
+          ammoMin: 0
+          ammoMax: 0
+          removeAmmo: 1
+          removeAmmoChance: 0
+          removeRandomEmblem: 0
+          removeRandomEmblemChance: 0
+          randomElementRewards: []
+          randomEmblemRewards: []
+        fightEnemyPool: []
+      - outcomeText: Something under the water tugs at your bag. An emblem is gone before you can blink.
+        weight: 1
+        action: 2
+        reward:
+          currencyMin: 0
+          currencyMax: 0
+          ammoMin: 0
+          ammoMax: 0
+          removeAmmo: 0
+          removeAmmoChance: 0
+          removeRandomEmblem: 1
+          removeRandomEmblemChance: 0
+          randomElementRewards: []
+          randomEmblemRewards: []
+        fightEnemyPool: []
+      - outcomeText: You haul up a dead-white fish with a marble in its mouth. The fisherman refuses to look at it.
+        weight: 1
+        action: 2
+        reward:
+          currencyMin: 0
+          currencyMax: 0
+          ammoMin: 1
+          ammoMax: 1
+          removeAmmo: 0
+          removeAmmoChance: 0
+          removeRandomEmblem: 0
+          removeRandomEmblemChance: 0
+          randomElementRewards: []
+          randomEmblemRewards: []
+        fightEnemyPool: []
+    - choiceText: 
+      action: 1
+      nextNodeIndex: -1
+      reward: {currencyMin: 0, currencyMax: 0, ammoMin: 0, ammoMax: 0, removeAmmo: 0, removeAmmoChance: 0, removeRandomEmblem: 0, removeRandomEmblemChance: 0, randomElementRewards: [], randomEmblemRewards: []}
+      fightEnemyPool: []
+      randomOutcomes: []

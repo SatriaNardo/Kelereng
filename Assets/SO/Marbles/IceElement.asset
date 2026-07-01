@@ -13,28 +13,88 @@ MonoBehaviour:
   m_Name: IceElement
   m_EditorClassIdentifier: Assembly-CSharp::CombinedElementSO
   elementName: Ice
-  elementColor: {r: 0.55, g: 0.9, b: 1, a: 0.7}
+  elementColor: {r: 1, g: 1, b: 1, a: 1}
+  idleSprite: {fileID: -2490727437254233159, guid: fba573c420ca64bedb8e6803df65e588, type: 3}
+  rollingSprites:
+  - {fileID: -781879212961591622, guid: fba573c420ca64bedb8e6803df65e588, type: 3}
+  - {fileID: -3535002358855986262, guid: fba573c420ca64bedb8e6803df65e588, type: 3}
+  - {fileID: 6788129188162293095, guid: fba573c420ca64bedb8e6803df65e588, type: 3}
+  - {fileID: 3117930553392829837, guid: fba573c420ca64bedb8e6803df65e588, type: 3}
+  - {fileID: 420250877338654485, guid: fba573c420ca64bedb8e6803df65e588, type: 3}
+  - {fileID: -8377790175172045152, guid: fba573c420ca64bedb8e6803df65e588, type: 3}
+  - {fileID: 4098392893891189145, guid: fba573c420ca64bedb8e6803df65e588, type: 3}
+  - {fileID: 7066432222010068858, guid: fba573c420ca64bedb8e6803df65e588, type: 3}
+  - {fileID: 382666417915653515, guid: fba573c420ca64bedb8e6803df65e588, type: 3}
+  - {fileID: -1852630767190755517, guid: fba573c420ca64bedb8e6803df65e588, type: 3}
+  - {fileID: -4859407529730640312, guid: fba573c420ca64bedb8e6803df65e588, type: 3}
+  visualRotationZ: 0
   energyCost: 2
   fusionType: 4
+  useMovementTrail: 1
+  movementParticleMaterial: {fileID: 0}
+  movementParticleSprite: {fileID: -1206457260079896047, guid: e7f9308e5082c41c78a20ddda0843bd1, type: 3}
+  movementTrailParticlesPerSecond: 22
+  movementTrailLifetime: 0.3
+  movementTrailStartSize: 0.1
+  movementTrailSpeed: 0.45
+  movementTrailSortingOrder: 18
+  movementTrailStartColor: {r: 1, g: 1, b: 1, a: 1}
+  movementTrailMidColor: {r: 1, g: 1, b: 1, a: 1}
+  movementTrailEndColor: {r: 1, g: 1, b: 1, a: 0}
   cycloneRadius: 0.5
   cycloneForce: 5
   explosionRadius: 1
   explosionForce: 3
+  explosionClashEffectPrefab: {fileID: 0}
+  explosionClashEffectFrames: []
+  explosionClashEffectFramesPerSecond: 18
+  explosionClashEffectScale: 1
+  explosionClashEffectLifetime: 1
+  explosionClashEffectSortingOrder: 20
   quakeChainCount: 5
-  quakeLaunchForce: 1
   quakeSmallAoeRadius: 0.65
   quakeSmallAoeForce: 1
   quakeSearchRadius: 6
-  iceTrailSpotSpacing: 0.25
-  iceTrailSpotSize: 0.45
+  quakeImpactEffectPrefab: {fileID: 0}
+  quakeImpactEffectScale: 1
+  quakeAffectedMarbleEffectPrefab: {fileID: 0}
+  quakeAffectedMarbleEffectFrames: []
+  quakeEffectFramesPerSecond: 18
+  quakeAffectedMarbleEffectScale: 0.8
+  quakeEffectLifetime: 1
+  quakeEffectSortingOrder: -1
+  quakeChainStepDelay: 0.12
+  useQuakeDustBurst: 1
+  quakeParticleMaterial: {fileID: 0}
+  quakeDustStartColor: {r: 0.65, g: 0.52, b: 0.32, a: 1}
+  quakeDustEndColor: {r: 0.25, g: 0.18, b: 0.1, a: 0}
+  quakeDustLifetime: 0.45
+  quakeDustSpeed: 1.8
+  quakeDustStartSize: 0.16
+  quakeDustParticleCount: 20
+  iceTrailSpotSpacing: 0.15
+  iceTrailSpotSize: 0.1
+  iceTrailSprites:
+  - {fileID: -1183842806, guid: 868a671a75a57491b8e2b7a788a12254, type: 3}
+  - {fileID: -105558172, guid: 868a671a75a57491b8e2b7a788a12254, type: 3}
+  - {fileID: -811587633, guid: 868a671a75a57491b8e2b7a788a12254, type: 3}
+  iceTrailLinearDampingMultiplier: 0.08
+  iceTrailAngularDampingMultiplier: 0.15
+  iceTrailFriction: 0
+  blazeLaunchSpeedMultiplier: 2
   blazeChainCount: 6
   blazeChainForce: 5
   blazeSearchRadius: 7
+  blazeChainStepDelay: 0.12
   steamChainCount: 6
-  steamChainForce: 8
   steamSearchRadius: 7
   steamMassMultiplier: 0.5
   steamBuffDuration: 8
+  steamLinearDampingMultiplier: 0.2
+  steamAngularDampingMultiplier: 0.35
+  steamFriction: 0
   lavaLaunchMultiplier: 1.2
-  lavaPreserveSpeedMultiplier: 0.95
   lavaClashForce: 5
+  lavaPreserveSpeedMultiplier: 0.95
+  mudMaxStickCount: 5
+  mudImmediateVelocityMultiplier: 0.2

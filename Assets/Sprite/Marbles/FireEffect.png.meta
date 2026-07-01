@@ -1,0 +1,918 @@
+fileFormatVersion: 2
+guid: 1e949be4c18584d08947285d7385a759
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2739568660550919791
+    second: Fire_Standard_0
+  - first:
+      213: -2914387285068995980
+    second: Fire_Standard_1
+  - first:
+      213: 5362167546644128330
+    second: Fire_Standard_2
+  - first:
+      213: -3177473047389222413
+    second: Fire_Standard_3
+  - first:
+      213: -6504958040859329143
+    second: Fire_Standard_4
+  - first:
+      213: 8882638170804690682
+    second: Fire_Standard_5
+  - first:
+      213: -6431725599257105890
+    second: Fire_Standard_6
+  - first:
+      213: 3248355632019598220
+    second: Fire_Standard_7
+  - first:
+      213: -7229060181360140061
+    second: Fire_Standard_8
+  - first:
+      213: 1233565821801174888
+    second: Fire_Standard_9
+  - first:
+      213: 7667401231224462091
+    second: Fire_Standard_10
+  - first:
+      213: -2146883047465759136
+    second: Fire_Standard_11
+  - first:
+      213: 3445777379774455881
+    second: Fire_Standard_12
+  - first:
+      213: 1130425195330754511
+    second: Fire_Standard_13
+  - first:
+      213: 445349573933048985
+    second: Fire_Standard_14
+  - first:
+      213: 8557815515123443843
+    second: Fire_Standard_15
+  - first:
+      213: 2303300541138238341
+    second: Fire_Standard_16
+  - first:
+      213: -6911453291324267798
+    second: Fire_Standard_17
+  - first:
+      213: -7325005739320350396
+    second: Fire_Standard_18
+  - first:
+      213: -8334480071570993151
+    second: Fire_Standard_19
+  - first:
+      213: -6476392602168807905
+    second: Fire_Standard_20
+  - first:
+      213: 3327081848729635392
+    second: Fire_Standard_21
+  - first:
+      213: 8196948721959025969
+    second: Fire_Standard_22
+  - first:
+      213: -4021980510431804849
+    second: Fire_Standard_23
+  - first:
+      213: -1569049006281664086
+    second: Fire_Standard_24
+  - first:
+      213: -4398833866755545424
+    second: Fire_Standard_25
+  - first:
+      213: -7077906013424452598
+    second: Fire_Standard_26
+  - first:
+      213: -3202561087892725106
+    second: Fire_Standard_27
+  - first:
+      213: -787242484264890459
+    second: Fire_Standard_28
+  - first:
+      213: -711548048599155004
+    second: Fire_Standard_29
+  - first:
+      213: -2662990715894009210
+    second: Fire_Standard_30
+  - first:
+      213: 8397703244990201470
+    second: Fire_Standard_31
+  - first:
+      213: 6219240075935183689
+    second: Fire_Standard_32
+  - first:
+      213: -5632324377537939657
+    second: Fire_Standard_33
+  - first:
+      213: -7644863259873812089
+    second: Fire_Standard_34
+  - first:
+      213: -4963047494567808437
+    second: Fire_Standard_35
+  - first:
+      213: 3633392448526806684
+    second: Fire_Standard_36
+  - first:
+      213: 7072987799277715888
+    second: Fire_Standard_37
+  - first:
+      213: 6130192591471561255
+    second: Fire_Standard_38
+  - first:
+      213: -5602023067743682632
+    second: Fire_Standard_39
+  - first:
+      213: -655610746385271367
+    second: Fire_Standard_40
+  - first:
+      213: 678823966359418630
+    second: Fire_Standard_41
+  - first:
+      213: -1778762421486075881
+    second: Fire_Standard_42
+  - first:
+      213: 5948135267471496910
+    second: Fire_Standard_43
+  - first:
+      213: -9118118511188602787
+    second: Fire_Standard_44
+  - first:
+      213: -3373436874038526870
+    second: Fire_Standard_45
+  - first:
+      213: -8064070005213705263
+    second: Fire_Standard_46
+  - first:
+      213: 3196358100757477276
+    second: Fire_Standard_47
+  - first:
+      213: 2257593653122693804
+    second: Fire_Standard_48
+  - first:
+      213: -1529580764490050433
+    second: Fire_Standard_49
+  - first:
+      213: -8191169048457285370
+    second: Fire_Standard_50
+  - first:
+      213: 4513798032317275012
+    second: Fire_Standard_51
+  - first:
+      213: 754685955113606873
+    second: Fire_Standard_52
+  - first:
+      213: 8086183074781813905
+    second: Fire_Standard_53
+  - first:
+      213: -2816823799137306208
+    second: Fire_Standard_54
+  - first:
+      213: 8079350550363849363
+    second: Fire_Standard_55
+  - first:
+      213: -5919896048238744859
+    second: Fire_Standard_56
+  - first:
+      213: 6236023765381365739
+    second: Fire_Standard_57
+  - first:
+      213: -1838802451528481890
+    second: Fire_Standard_58
+  - first:
+      213: -3080286227481987068
+    second: Fire_Standard_59
+  - first:
+      213: -8441251228278711191
+    second: Fire_Standard_60
+  - first:
+      213: -8444853562685789344
+    second: Fire_Standard_61
+  - first:
+      213: -5878834326568781526
+    second: Fire_Standard_62
+  - first:
+      213: -365580579663634775
+    second: Fire_Standard_63
+  - first:
+      213: 8041300844549340311
+    second: Fire_Standard_64
+  - first:
+      213: -1492981954536379906
+    second: Fire_Standard_65
+  - first:
+      213: -1411241013059613498
+    second: Fire_Standard_66
+  - first:
+      213: 4159212488458969299
+    second: Fire_Standard_67
+  - first:
+      213: -3170442648929924842
+    second: Fire_Standard_68
+  - first:
+      213: 752339868868085548
+    second: Fire_Standard_69
+  - first:
+      213: 390668796137750332
+    second: Fire_Standard_70
+  - first:
+      213: 6093843369219656224
+    second: Fire_Standard_71
+  - first:
+      213: -415173750524144205
+    second: Fire_Standard_72
+  - first:
+      213: -5054423440725430849
+    second: Fire_Standard_73
+  - first:
+      213: 757067519169405456
+    second: Fire_Standard_74
+  - first:
+      213: -853332106908782399
+    second: Fire_Standard_75
+  - first:
+      213: 6396643632666772891
+    second: Fire_Standard_76
+  - first:
+      213: 2601175481901582616
+    second: Fire_Standard_77
+  - first:
+      213: 6424114766700126337
+    second: Fire_Standard_78
+  - first:
+      213: 6714694803286227582
+    second: Fire_Standard_79
+  - first:
+      213: 4830728587038333899
+    second: Fire_Standard_80
+  - first:
+      213: 5574993144854366865
+    second: Fire_Standard_81
+  - first:
+      213: 7989112454592237808
+    second: Fire_Standard_82
+  - first:
+      213: -6878494355705336336
+    second: Fire_Standard_83
+  - first:
+      213: 1604767286566087624
+    second: Fire_Standard_84
+  - first:
+      213: -1329867264083152280
+    second: Fire_Standard_85
+  - first:
+      213: -8707016136063342232
+    second: Fire_Standard_86
+  - first:
+      213: 445130363909226438
+    second: Fire_Standard_87
+  - first:
+      213: 689048322284580568
+    second: Fire_Standard_88
+  - first:
+      213: 8206468087205852522
+    second: Fire_Standard_89
+  - first:
+      213: 4341374070780784369
+    second: Fire_Standard_90
+  - first:
+      213: 8342361654266206205
+    second: Fire_Standard_91
+  - first:
+      213: -7812408724453269786
+    second: Fire_Standard_92
+  - first:
+      213: -1053840250424244075
+    second: Fire_Standard_93
+  - first:
+      213: -5361395125088141132
+    second: Fire_Standard_94
+  - first:
+      213: -6038547620128606734
+    second: Fire_Standard_95
+  - first:
+      213: -9172852151183734149
+    second: Fire_Standard_96
+  - first:
+      213: 2840039360844050557
+    second: Fire_Standard_97
+  - first:
+      213: 2914152995609460002
+    second: Fire_Standard_98
+  - first:
+      213: 3937901704803386363
+    second: Fire_Standard_99
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Fire_Standard_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2700
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f662ee19e27e40620800000000000000
+      internalID: 2739568660550919791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Standard_1
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 2700
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4722c8f84340e87d0800000000000000
+      internalID: -2914387285068995980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Standard_2
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 2700
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a42e9d349fe3a6a40800000000000000
+      internalID: 5362167546644128330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Standard_3
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 2700
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f9ccfe291957e3d0800000000000000
+      internalID: -3177473047389222413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Standard_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2160
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98d32c7602fb9b5a0800000000000000
+      internalID: -6504958040859329143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Standard_5
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 2160
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afe9327aa58754b70800000000000000
+      internalID: 8882638170804690682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Standard_6
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 2160
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1a6e7be4abedb6a0800000000000000
+      internalID: -6431725599257105890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Standard_7
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 2160
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8beaae9c3a741d20800000000000000
+      internalID: 3248355632019598220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Standard_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1620
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e0ab16f0183dab90800000000000000
+      internalID: -7229060181360140061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Standard_9
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 1620
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 867958744918e1110800000000000000
+      internalID: 1233565821801174888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Standard_10
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 1620
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0bd681dbc4186a60800000000000000
+      internalID: 7667401231224462091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Standard_11
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 1620
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06ece753e3db432e0800000000000000
+      internalID: -2146883047465759136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Standard_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1080
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9406888354cd1df20800000000000000
+      internalID: 3445777379774455881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Standard_13
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 1080
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc757d4d9b310bf00800000000000000
+      internalID: 1130425195330754511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Standard_14
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 1080
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 994a623f3133e2600800000000000000
+      internalID: 445349573933048985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Standard_15
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 1080
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3886248aed773c670800000000000000
+      internalID: 8557815515123443843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Standard_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 540
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58b728583a7f6ff10800000000000000
+      internalID: 2303300541138238341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Standard_17
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 540
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae2a9e899d59510a0800000000000000
+      internalID: -6911453291324267798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Standard_18
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 540
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 449ec12f61a585a90800000000000000
+      internalID: -7325005739320350396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Standard_19
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 540
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 100507a688af55c80800000000000000
+      internalID: -8334480071570993151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 54e31aaa6fe9c4cf09bc6374d27757c1
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":6.0},"gridSpriteSize":{"x":720.0,"y":540.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Fire_Standard_0: 2739568660550919791
+      Fire_Standard_1: -2914387285068995980
+      Fire_Standard_10: 7667401231224462091
+      Fire_Standard_11: -2146883047465759136
+      Fire_Standard_12: 3445777379774455881
+      Fire_Standard_13: 1130425195330754511
+      Fire_Standard_14: 445349573933048985
+      Fire_Standard_15: 8557815515123443843
+      Fire_Standard_16: 2303300541138238341
+      Fire_Standard_17: -6911453291324267798
+      Fire_Standard_18: -7325005739320350396
+      Fire_Standard_19: -8334480071570993151
+      Fire_Standard_2: 5362167546644128330
+      Fire_Standard_3: -3177473047389222413
+      Fire_Standard_4: -6504958040859329143
+      Fire_Standard_5: 8882638170804690682
+      Fire_Standard_6: -6431725599257105890
+      Fire_Standard_7: 3248355632019598220
+      Fire_Standard_8: -7229060181360140061
+      Fire_Standard_9: 1233565821801174888
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

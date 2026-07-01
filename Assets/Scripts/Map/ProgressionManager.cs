@@ -41,9 +41,10 @@ public class ProgressionManager : MonoBehaviour
     public CombinedElementSO quakeFusionAsset;
     public CombinedElementSO iceFusionAsset;
     public CombinedElementSO blazeFusionAsset;
-    public CombinedElementSO dustFusionAsset;
+    public CombinedElementSO sandFusionAsset;
     public CombinedElementSO steamFusionAsset;
     public CombinedElementSO lavaFusionAsset;
+    public CombinedElementSO mudFusionAsset;
 
     // Menyimpan data belanja sementara antar scene
     [HideInInspector] public MarbleElementSO pendingElementFromShop = null;
@@ -53,6 +54,7 @@ public class ProgressionManager : MonoBehaviour
     [HideInInspector] public bool hasPendingEventFightReward = false;
     [HideInInspector] public EventRewardData pendingEventFightReward = null;
     [HideInInspector] public EnemySO pendingFightEnemy = null;
+    [HideInInspector] public List<string> usedEventIds = new List<string>();
 
     [Header("Energy System")]
     public int currentEnergy = 0;
@@ -60,6 +62,9 @@ public class ProgressionManager : MonoBehaviour
 
     [Header("Emblem System")]
     public List<EmblemSO> equippedEmblems = new List<EmblemSO>();
+
+    [Header("Playable Emblem Inventory")]
+    public List<BaseEmblemSO> ownedPlayableEmblems = new List<BaseEmblemSO>();
 
     [Header("Persistent Map Data")]
     public bool isMapAlreadyGenerated = false;
@@ -101,6 +106,15 @@ public class ProgressionManager : MonoBehaviour
     {
         equippedChamber.Add(element);
         Debug.Log($"📥 Kelereng baru masuk inventory! Total Antrean: {equippedChamber.Count}");
+    }
+
+    public void AddAmmoToChamber(int amount)
+    {
+        int safeAmount = Mathf.Max(amount, 0);
+        for (int i = 0; i < safeAmount; i++)
+        {
+            AddAmmoToChamber(null);
+        }
     }
 
     public bool TryRemoveAmmoFromChamber()
@@ -150,16 +164,30 @@ public class ProgressionManager : MonoBehaviour
     {
         if (reward == null) return true;
 
-        if (reward.removeAmmo && !TryRemoveAmmoFromChamber())
+        bool shouldRemoveAmmo = reward.removeAmmo || (reward.removeAmmoChance > 0f && Random.value < reward.removeAmmoChance);
+        if (shouldRemoveAmmo && !TryRemoveAmmoFromChamber())
         {
             return false;
         }
 
-        if (reward.currencyMax > 0 || reward.currencyMin > 0)
+        bool shouldRemoveEmblem = reward.removeRandomEmblem || (reward.removeRandomEmblemChance > 0f && Random.value < reward.removeRandomEmblemChance);
+        if (shouldRemoveEmblem)
+        {
+            TryRemoveRandomEmblem();
+        }
+
+        if (reward.currencyMax != 0 || reward.currencyMin != 0)
         {
             int min = Mathf.Min(reward.currencyMin, reward.currencyMax);
             int max = Mathf.Max(reward.currencyMin, reward.currencyMax);
             AddCurrency(Random.Range(min, max + 1));
+        }
+
+        if (reward.ammoMax > 0 || reward.ammoMin > 0)
+        {
+            int min = Mathf.Min(reward.ammoMin, reward.ammoMax);
+            int max = Mathf.Max(reward.ammoMin, reward.ammoMax);
+            AddAmmoToChamber(Random.Range(min, max + 1));
         }
 
         if (reward.randomElementRewards != null && reward.randomElementRewards.Count > 0)
@@ -173,6 +201,20 @@ public class ProgressionManager : MonoBehaviour
             if (validElements.Count > 0)
             {
                 GrantElementToChamber(validElements[Random.Range(0, validElements.Count)]);
+            }
+        }
+
+        if (reward.randomEmblemRewards != null && reward.randomEmblemRewards.Count > 0)
+        {
+            List<EmblemSO> validEmblems = new List<EmblemSO>();
+            foreach (EmblemSO emblem in reward.randomEmblemRewards)
+            {
+                if (emblem != null) validEmblems.Add(emblem);
+            }
+
+            if (validEmblems.Count > 0)
+            {
+                AddEmblem(validEmblems[Random.Range(0, validEmblems.Count)]);
             }
         }
 
@@ -212,6 +254,28 @@ public class ProgressionManager : MonoBehaviour
         return enemy;
     }
 
+    public bool HasEventBeenUsed(GameEventSO gameEvent)
+    {
+        if (gameEvent == null) return false;
+        return usedEventIds.Contains(GetEventId(gameEvent));
+    }
+
+    public void MarkEventUsed(GameEventSO gameEvent)
+    {
+        if (gameEvent == null) return;
+
+        string eventId = GetEventId(gameEvent);
+        if (!usedEventIds.Contains(eventId))
+        {
+            usedEventIds.Add(eventId);
+        }
+    }
+
+    private string GetEventId(GameEventSO gameEvent)
+    {
+        return gameEvent.name;
+    }
+
     public void LoadElementToSlot(int slotIndex, MarbleElementSO newElement)
     {
         if (slotIndex < 0 || slotIndex >= equippedChamber.Count) return;
@@ -244,9 +308,10 @@ public class ProgressionManager : MonoBehaviour
         if (IsFusionPair(first, second, "Earth", "Earth")) return quakeFusionAsset;
         if (IsFusionPair(first, second, "Water", "Wind")) return iceFusionAsset;
         if (IsFusionPair(first, second, "Fire", "Wind")) return blazeFusionAsset;
-        if (IsFusionPair(first, second, "Earth", "Wind")) return dustFusionAsset;
+        if (IsFusionPair(first, second, "Earth", "Wind")) return sandFusionAsset;
         if (IsFusionPair(first, second, "Water", "Fire")) return steamFusionAsset;
         if (IsFusionPair(first, second, "Earth", "Fire")) return lavaFusionAsset;
+        if (IsFusionPair(first, second, "Earth", "Water")) return mudFusionAsset;
 
         return null;
     }
@@ -262,7 +327,7 @@ public class ProgressionManager : MonoBehaviour
     public void ResetEnergyForNewMatch()
     {
         maxEnergyThisTurn = 1;
-        currentEnergy = maxEnergyThisTurn; // Memulai match baru dengan modal 1 Energi
+        currentEnergy = 0; // Memulai match baru tanpa energi gratis
         Debug.Log($"⚡ Match Baru! Energi direset awal ke: {currentEnergy}/{maxEnergyThisTurn}");
     }
 
@@ -317,6 +382,63 @@ public class ProgressionManager : MonoBehaviour
         equippedEmblems.Add(emblem);
         ApplyEmblemPassiveOnAcquire(emblem);
         Debug.Log($"Emblem acquired: {emblem.emblemName}");
+    }
+
+    public bool HasPlayableEmblem(BaseEmblemSO emblem)
+    {
+        return emblem != null && ownedPlayableEmblems.Contains(emblem);
+    }
+
+    public bool AddPlayableEmblem(BaseEmblemSO emblem)
+    {
+        if (emblem == null || ownedPlayableEmblems.Contains(emblem))
+        {
+            return false;
+        }
+
+        ownedPlayableEmblems.Add(emblem);
+        Debug.Log($"Playable emblem acquired: {GetPlayableEmblemDisplayName(emblem)}");
+        return true;
+    }
+
+    private string GetPlayableEmblemDisplayName(BaseEmblemSO emblem)
+    {
+        if (emblem == null) return "Unknown";
+        return !string.IsNullOrWhiteSpace(emblem.emblemName) ? emblem.emblemName : emblem.name;
+    }
+
+    public bool TryRemoveRandomEmblem()
+    {
+        List<EmblemSO> removableEmblems = new List<EmblemSO>();
+        foreach (EmblemSO emblem in equippedEmblems)
+        {
+            if (emblem != null)
+            {
+                removableEmblems.Add(emblem);
+            }
+        }
+
+        if (removableEmblems.Count == 0)
+        {
+            return false;
+        }
+
+        EmblemSO removedEmblem = removableEmblems[Random.Range(0, removableEmblems.Count)];
+        equippedEmblems.Remove(removedEmblem);
+        RemoveEmblemPassive(removedEmblem);
+        Debug.Log($"Emblem lost: {removedEmblem.emblemName}");
+        return true;
+    }
+
+    private void RemoveEmblemPassive(EmblemSO emblem)
+    {
+        if (emblem == null || emblem.bonusAmmoSlot <= 0) return;
+
+        BASE_AMMO = Mathf.Max(1, BASE_AMMO - emblem.bonusAmmoSlot);
+        for (int i = 0; i < emblem.bonusAmmoSlot && equippedChamber.Count > BASE_AMMO; i++)
+        {
+            equippedChamber.RemoveAt(equippedChamber.Count - 1);
+        }
     }
 
     private void ApplyEmblemPassiveOnAcquire(EmblemSO emblem)
@@ -409,8 +531,10 @@ public class ProgressionManager : MonoBehaviour
         hasPendingEventFightReward = false;
         pendingEventFightReward = null;
         pendingFightEnemy = null;
+        usedEventIds.Clear();
         
         equippedEmblems.Clear();
+        ownedPlayableEmblems.Clear();
         ResetChamberToDefault();
         Debug.Log("🧼 Seluruh struktur peta persisten telah direset bersih!");
     }

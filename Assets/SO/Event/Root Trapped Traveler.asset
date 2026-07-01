@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cfd4f33bf814da2a8b5c07bbf7689ec, type: 3}
+  m_Name: Root Trapped Traveler
+  m_EditorClassIdentifier: Assembly-CSharp::GameEventSO
+  eventName: Root Trapped Traveler
+  conversationNodes:
+  - speakerName: Trapped Traveler
+    bodyText: A traveler hangs knee-deep in living roots. The vines tighten each time they breathe.
+    choices:
+    - choiceText: Free them
+      action: 4
+      nextNodeIndex: -1
+      reward: {currencyMin: 0, currencyMax: 0, ammoMin: 0, ammoMax: 0, removeAmmo: 0, removeAmmoChance: 0, removeRandomEmblem: 0, removeRandomEmblemChance: 0, randomElementRewards: [], randomEmblemRewards: []}
+      fightEnemyPool: []
+      randomOutcomes:
+      - outcomeText: The traveler presses a small purse into your hand.
+        weight: 1
+        action: 2
+        reward:
+          currencyMin: 8
+          currencyMax: 14
+          ammoMin: 0
+          ammoMax: 0
+          removeAmmo: 0
+          removeAmmoChance: 0
+          removeRandomEmblem: 0
+          removeRandomEmblemChance: 0
+          randomElementRewards: []
+          randomEmblemRewards: []
+        fightEnemyPool: []
+      - outcomeText: A strange marble drops from the torn roots.
+        weight: 1
+        action: 2
+        reward:
+          currencyMin: 0
+          currencyMax: 0
+          ammoMin: 0
+          ammoMax: 0
+          removeAmmo: 0
+          removeAmmoChance: 0
+          removeRandomEmblem: 0
+          removeRandomEmblemChance: 0
+          randomElementRewards:
+          - {fileID: 11400000, guid: 835bc8f40cdfc4909bb4fe1da31c48d7, type: 2}
+          - {fileID: 11400000, guid: 36edd8b7019bb469da53a8277c613c1f, type: 2}
+          - {fileID: 11400000, guid: 628b9bf4788842b1a4563d94ecc55fae, type: 2}
+          - {fileID: 11400000, guid: 2eab0a1e33334e6a8003bb95c8c1ebe3, type: 2}
+          randomEmblemRewards: []
+        fightEnemyPool: []
+    - choiceText: Use a Fire marble
+      action: 4
+      nextNodeIndex: -1
+      reward: {currencyMin: 0, currencyMax: 0, ammoMin: 0, ammoMax: 0, removeAmmo: 0, removeAmmoChance: 0, removeRandomEmblem: 0, removeRandomEmblemChance: 0, randomElementRewards: [], randomEmblemRewards: []}
+      fightEnemyPool: []
+      randomOutcomes:
+      - outcomeText: The roots burn away. The traveler gives you spare marble ammo.
+        weight: 1
+        action: 2
+        reward:
+          currencyMin: 0
+          currencyMax: 0
+          ammoMin: 1
+          ammoMax: 2
+          removeAmmo: 0
+          removeAmmoChance: 0
+          removeRandomEmblem: 0
+          removeRandomEmblemChance: 0
+          randomElementRewards: []
+          randomEmblemRewards: []
+        fightEnemyPool: []
+      - outcomeText: In the ash, a charm-like emblem is left behind.
+        weight: 1
+        action: 2
+        reward:
+          currencyMin: 0
+          currencyMax: 0
+          ammoMin: 0
+          ammoMax: 0
+          removeAmmo: 0
+          removeAmmoChance: 0
+          removeRandomEmblem: 0
+          removeRandomEmblemChance: 0
+          randomElementRewards: []
+          randomEmblemRewards:
+          - {fileID: 11400000, guid: cba703fe911ad41d0a93d58bdfbbbe7b, type: 2}
+          - {fileID: 11400000, guid: f7a8b9c0d1e24356a7b8c9d0e1f23456, type: 2}
+        fightEnemyPool: []
+    - choiceText: 
+      action: 1
+      nextNodeIndex: -1
+      reward: {currencyMin: 0, currencyMax: 0, ammoMin: 0, ammoMax: 0, removeAmmo: 0, removeAmmoChance: 0, removeRandomEmblem: 0, removeRandomEmblemChance: 0, randomElementRewards: [], randomEmblemRewards: []}
+      fightEnemyPool: []
+      randomOutcomes: []

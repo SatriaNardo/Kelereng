@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cfd4f33bf814da2a8b5c07bbf7689ec, type: 3}
+  m_Name: Burning Storage Shed
+  m_EditorClassIdentifier: Assembly-CSharp::GameEventSO
+  eventName: Burning Storage Shed
+  conversationNodes:
+  - speakerName: Burning Shed
+    bodyText: A storage shed burns beside the road. Heat pops through the wooden walls, but something inside keeps clattering like loose supplies.
+    choices:
+    - choiceText: Search the burning shed
+      action: 4
+      nextNodeIndex: -1
+      reward: {currencyMin: 0, currencyMax: 0, ammoMin: 0, ammoMax: 0, removeAmmo: 0, removeAmmoChance: 0, removeRandomEmblem: 0, removeRandomEmblemChance: 0, randomElementRewards: [], randomEmblemRewards: []}
+      fightEnemyPool: []
+      randomOutcomes:
+      - outcomeText: You pull a half-burned pouch from the smoke. Some currency survived.
+        weight: 1
+        action: 2
+        reward:
+          currencyMin: 8
+          currencyMax: 14
+          ammoMin: 0
+          ammoMax: 0
+          removeAmmo: 0
+          removeAmmoChance: 0
+          removeRandomEmblem: 0
+          removeRandomEmblemChance: 0
+          randomElementRewards: []
+          randomEmblemRewards: []
+        fightEnemyPool: []
+      - outcomeText: A sealed crate cracks open. One usable marble rolls out.
+        weight: 1
+        action: 2
+        reward:
+          currencyMin: 0
+          currencyMax: 0
+          ammoMin: 1
+          ammoMax: 1
+          removeAmmo: 0
+          removeAmmoChance: 0
+          removeRandomEmblem: 0
+          removeRandomEmblemChance: 0
+          randomElementRewards: []
+          randomEmblemRewards: []
+        fightEnemyPool: []
+      - outcomeText: Smoke blinds you. You stumble out lighter than before.
+        weight: 1
+        action: 2
+        reward:
+          currencyMin: -10
+          currencyMax: -5
+          ammoMin: 0
+          ammoMax: 0
+          removeAmmo: 0
+          removeAmmoChance: 0.5
+          removeRandomEmblem: 0
+          removeRandomEmblemChance: 0
+          randomElementRewards: []
+          randomEmblemRewards: []
+        fightEnemyPool: []
+    - choiceText: Leave it burning
+      action: 1
+      nextNodeIndex: -1
+      reward: {currencyMin: 0, currencyMax: 0, ammoMin: 0, ammoMax: 0, removeAmmo: 0, removeAmmoChance: 0, removeRandomEmblem: 0, removeRandomEmblemChance: 0, randomElementRewards: [], randomEmblemRewards: []}
+      fightEnemyPool: []
+      randomOutcomes: []
+    - choiceText: 
+      action: 1
+      nextNodeIndex: -1
+      reward: {currencyMin: 0, currencyMax: 0, ammoMin: 0, ammoMax: 0, removeAmmo: 0, removeAmmoChance: 0, removeRandomEmblem: 0, removeRandomEmblemChance: 0, randomElementRewards: [], randomEmblemRewards: []}
+      fightEnemyPool: []
+      randomOutcomes: []

@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cfd4f33bf814da2a8b5c07bbf7689ec, type: 3}
+  m_Name: Whispering Sounds
+  m_EditorClassIdentifier: Assembly-CSharp::GameEventSO
+  eventName: Whispering Sounds
+  conversationNodes:
+  - speakerName: Whispering Sounds
+    bodyText: A voice threads between the trees and names a path no map remembers.
+    choices:
+    - choiceText: Follow the whisper
+      action: 4
+      nextNodeIndex: -1
+      reward: {currencyMin: 0, currencyMax: 0, ammoMin: 0, ammoMax: 0, removeAmmo: 0, removeAmmoChance: 0, removeRandomEmblem: 0, removeRandomEmblemChance: 0, randomElementRewards: [], randomEmblemRewards: []}
+      fightEnemyPool: []
+      randomOutcomes:
+      - outcomeText: The whisper leads you to a buried cache.
+        weight: 1
+        action: 2
+        reward:
+          currencyMin: 10
+          currencyMax: 16
+          ammoMin: 0
+          ammoMax: 0
+          removeAmmo: 0
+          removeAmmoChance: 0
+          removeRandomEmblem: 0
+          removeRandomEmblemChance: 0
+          randomElementRewards:
+          - {fileID: 11400000, guid: 36edd8b7019bb469da53a8277c613c1f, type: 2}
+          - {fileID: 11400000, guid: 2eab0a1e33334e6a8003bb95c8c1ebe3, type: 2}
+          randomEmblemRewards: []
+        fightEnemyPool: []
+      - outcomeText: The whisper was a lure. Roots rise around you.
+        weight: 1
+        action: 3
+        reward: {currencyMin: 0, currencyMax: 0, ammoMin: 0, ammoMax: 0, removeAmmo: 0, removeAmmoChance: 0, removeRandomEmblem: 0, removeRandomEmblemChance: 0, randomElementRewards: [], randomEmblemRewards: []}
+        fightEnemyPool:
+        - {fileID: 11400000, guid: c3d4e5f60718293a4b5c6d7e8f9012ab, type: 2}
+    - choiceText: Mark your path
+      action: 2
+      nextNodeIndex: -1
+      reward:
+        currencyMin: 3
+        currencyMax: 5
+        ammoMin: 0
+        ammoMax: 0
+        removeAmmo: 0
+        removeAmmoChance: 0
+        removeRandomEmblem: 0
+        removeRandomEmblemChance: 0
+        randomElementRewards: []
+        randomEmblemRewards: []
+      fightEnemyPool: []
+      randomOutcomes: []
+    - choiceText: 
+      action: 1
+      nextNodeIndex: -1
+      reward: {currencyMin: 0, currencyMax: 0, ammoMin: 0, ammoMax: 0, removeAmmo: 0, removeAmmoChance: 0, removeRandomEmblem: 0, removeRandomEmblemChance: 0, randomElementRewards: [], randomEmblemRewards: []}
+      fightEnemyPool: []
+      randomOutcomes: []

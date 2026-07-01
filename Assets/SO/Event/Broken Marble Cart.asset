@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cfd4f33bf814da2a8b5c07bbf7689ec, type: 3}
+  m_Name: Broken Marble Cart
+  m_EditorClassIdentifier: Assembly-CSharp::GameEventSO
+  eventName: Broken Marble Cart
+  conversationNodes:
+  - speakerName: Broken Cart
+    bodyText: A marble merchant's cart lies broken in the mud. Boxes of supplies are still strapped to it.
+    choices:
+    - choiceText: Repair the cart
+      action: 4
+      nextNodeIndex: -1
+      reward: {currencyMin: 0, currencyMax: 0, ammoMin: 0, ammoMax: 0, removeAmmo: 0, removeAmmoChance: 0, removeRandomEmblem: 0, removeRandomEmblemChance: 0, randomElementRewards: [], randomEmblemRewards: []}
+      fightEnemyPool: []
+      randomOutcomes:
+      - outcomeText: The owner thanks you with spare currency.
+        weight: 1
+        action: 2
+        reward:
+          currencyMin: 8
+          currencyMax: 12
+          ammoMin: 0
+          ammoMax: 0
+          removeAmmo: 0
+          removeAmmoChance: 0
+          removeRandomEmblem: 0
+          removeRandomEmblemChance: 0
+          randomElementRewards: []
+          randomEmblemRewards: []
+        fightEnemyPool: []
+      - outcomeText: You fix the axle and find a useful elemental marble under the seat.
+        weight: 1
+        action: 2
+        reward:
+          currencyMin: 0
+          currencyMax: 0
+          ammoMin: 0
+          ammoMax: 0
+          removeAmmo: 0
+          removeAmmoChance: 0
+          removeRandomEmblem: 0
+          removeRandomEmblemChance: 0
+          randomElementRewards:
+          - {fileID: 11400000, guid: 835bc8f40cdfc4909bb4fe1da31c48d7, type: 2}
+          - {fileID: 11400000, guid: 36edd8b7019bb469da53a8277c613c1f, type: 2}
+          - {fileID: 11400000, guid: 628b9bf4788842b1a4563d94ecc55fae, type: 2}
+          - {fileID: 11400000, guid: 2eab0a1e33334e6a8003bb95c8c1ebe3, type: 2}
+          randomEmblemRewards: []
+        fightEnemyPool: []
+    - choiceText: Steal the supplies
+      action: 4
+      nextNodeIndex: -1
+      reward: {currencyMin: 0, currencyMax: 0, ammoMin: 0, ammoMax: 0, removeAmmo: 0, removeAmmoChance: 0, removeRandomEmblem: 0, removeRandomEmblemChance: 0, randomElementRewards: [], randomEmblemRewards: []}
+      fightEnemyPool: []
+      randomOutcomes:
+      - outcomeText: You lift a pouch and a spare marble before anyone notices.
+        weight: 2
+        action: 2
+        reward:
+          currencyMin: 6
+          currencyMax: 10
+          ammoMin: 1
+          ammoMax: 1
+          removeAmmo: 0
+          removeAmmoChance: 0
+          removeRandomEmblem: 0
+          removeRandomEmblemChance: 0
+          randomElementRewards: []
+          randomEmblemRewards: []
+        fightEnemyPool: []
+      - outcomeText: The cart guard catches you. A fight breaks out.
+        weight: 1
+        action: 3
+        reward: {currencyMin: 0, currencyMax: 0, ammoMin: 0, ammoMax: 0, removeAmmo: 0, removeAmmoChance: 0, removeRandomEmblem: 0, removeRandomEmblemChance: 0, randomElementRewards: [], randomEmblemRewards: []}
+        fightEnemyPool:
+        - {fileID: 11400000, guid: 1a693be7b3a1e4e53bf9a234c670c3ae, type: 2}
+        - {fileID: 11400000, guid: c862b06c823c477f992a16423cfbb942, type: 2}
+    - choiceText: 
+      action: 1
+      nextNodeIndex: -1
+      reward: {currencyMin: 0, currencyMax: 0, ammoMin: 0, ammoMax: 0, removeAmmo: 0, removeAmmoChance: 0, removeRandomEmblem: 0, removeRandomEmblemChance: 0, randomElementRewards: [], randomEmblemRewards: []}
+      fightEnemyPool: []
+      randomOutcomes: []

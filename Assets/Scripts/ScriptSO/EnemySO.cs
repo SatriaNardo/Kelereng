@@ -12,6 +12,7 @@ public abstract class EnemySO : ScriptableObject
     [Header("Visual Display")]
     public Sprite enemySprite;
     public Color themeColor = Color.white;
+    [Min(0.01f)] public float enemyVisualScale = 1f;
 
     // Fungsi aksi abstrak yang WAJIB diisi oleh setiap jenis musuh unik
     public abstract void ExecuteEnemyAction(ArenaManager arena);

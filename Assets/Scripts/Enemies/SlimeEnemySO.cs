@@ -3,13 +3,38 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewSlimeEnemy", menuName = "Enemies/Slime Enemy")]
 public class SlimeEnemySO : EnemySO
 {
+    [Header("Slime Animation")]
+    public Sprite[] idleAnimationSprites;
+    public Sprite[] attackAnimationSprites;
+    public float idleAnimationFramesPerSecond = 6f;
+    public float attackAnimationFramesPerSecond = 10f;
+
     [Header("Slime Special Skill")]
     [Tooltip("Prefab genangan lendir yang memiliki Trigger Collider2D dan skrip GooPool.")]
     public GameObject gooPoolPrefab;
     public int spawnCountPerTurn = 2;
 
+    public void ApplyIdleAnimation(EnemySpriteAnimator animator)
+    {
+        if (animator == null) return;
+
+        animator.SetIdleAnimation(idleAnimationSprites, idleAnimationFramesPerSecond, enemySprite);
+    }
+
+    public void PlayAttackAnimation(EnemySpriteAnimator animator)
+    {
+        if (animator == null) return;
+
+        animator.PlayAttackAnimation(attackAnimationSprites, attackAnimationFramesPerSecond);
+    }
+
     public override void ExecuteEnemyAction(ArenaManager arena)
     {
+        if (arena != null)
+        {
+            PlayAttackAnimation(arena.GetEnemySpriteAnimator());
+        }
+
         if (gooPoolPrefab == null) return;
 
         // ========================================================

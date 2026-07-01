@@ -6,6 +6,10 @@ public class IceTrailEffect : MonoBehaviour
     public float spotSize = 0.45f;
     public float stopSpeed = 0.08f;
     public Color iceColor = new Color(0.55f, 0.9f, 1f, 0.45f);
+    public Sprite[] spotSprites;
+    [Range(0f, 1f)] public float spotLinearDampingMultiplier = 0.08f;
+    [Range(0f, 1f)] public float spotAngularDampingMultiplier = 0.15f;
+    [Range(0f, 1f)] public float spotFriction = 0f;
 
     private static Sprite iceSpotSprite;
     private Rigidbody2D rb;
@@ -51,11 +55,27 @@ public class IceTrailEffect : MonoBehaviour
         spot.transform.localScale = Vector3.one * spotSize;
 
         SpriteRenderer renderer = spot.AddComponent<SpriteRenderer>();
-        renderer.sprite = iceSpotSprite;
+        renderer.sprite = GetRandomSpotSprite();
         renderer.color = iceColor;
         renderer.sortingOrder = -2;
 
-        spot.AddComponent<IceTrailSpot>();
+        IceTrailSpot iceSpot = spot.AddComponent<IceTrailSpot>();
+        iceSpot.Configure(0.5f, spotLinearDampingMultiplier, spotAngularDampingMultiplier, spotFriction, rb);
+    }
+
+    private Sprite GetRandomSpotSprite()
+    {
+        if (spotSprites != null && spotSprites.Length > 0)
+        {
+            int startIndex = Random.Range(0, spotSprites.Length);
+            for (int i = 0; i < spotSprites.Length; i++)
+            {
+                Sprite sprite = spotSprites[(startIndex + i) % spotSprites.Length];
+                if (sprite != null) return sprite;
+            }
+        }
+
+        return iceSpotSprite;
     }
 
     private static Sprite CreateCircleSprite()

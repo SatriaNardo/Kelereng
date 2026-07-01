@@ -30,4 +30,9 @@ public abstract class BaseEmblemSO : ScriptableObject
     {
         return false;
     }
+
+    public virtual bool IsPassiveEmblem()
+    {
+        return usageType == EmblemUsageType.Passive;
+    }
 }

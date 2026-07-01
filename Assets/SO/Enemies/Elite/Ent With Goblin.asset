@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84f714b45f6954644bc5813a116d8685, type: 3}
+  m_Name: Ent With Goblin
+  m_EditorClassIdentifier: Assembly-CSharp::DualEnemySO
+  enemyName: Ent + Goblin
+  enemyType: 1
+  baseHP: 150
+  enemySprite: {fileID: 3955008839091464340, guid: f2e30ff2d770a418cba6bcedf289ca4a, type: 3}
+  themeColor: {r: 0.34, g: 0.34, b: 0.15, a: 1}
+  firstEnemy: {fileID: 11400000, guid: c3d4e5f60718293a4b5c6d7e8f9012ab, type: 2}
+  secondEnemy: {fileID: 11400000, guid: c862b06c823c477f992a16423cfbb942, type: 2}

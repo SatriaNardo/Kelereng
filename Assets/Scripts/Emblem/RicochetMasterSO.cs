@@ -10,8 +10,13 @@ public class RicochetMasterSO : BaseEmblemSO
 
     public override void Activate(GameObject marble)
     {
-        RicochetBuff buff =
-            marble.AddComponent<RicochetBuff>();
+        if (marble == null) return;
+
+        RicochetBuff buff = marble.GetComponent<RicochetBuff>();
+        if (buff == null)
+        {
+            buff = marble.AddComponent<RicochetBuff>();
+        }
 
         buff.bounceMultiplier = bounceMultiplier;
 

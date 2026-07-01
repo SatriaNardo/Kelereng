@@ -92,12 +92,11 @@ public class EventManager : MonoBehaviour
                 break;
 
             case EventChoiceAction.StartFightWithReward:
-                if (ProgressionManager.Instance != null)
-                {
-                    ProgressionManager.Instance.SetPendingEventFightReward(choice.reward);
-                    ProgressionManager.Instance.selectedEventForEventScene = null;
-                }
-                SceneManager.LoadScene("FightScene");
+                StartFight(choice.reward, choice.fightEnemyPool);
+                break;
+
+            case EventChoiceAction.ResolveRandomOutcome:
+                ResolveRandomOutcome(choice);
                 break;
 
             case EventChoiceAction.EndEvent:
@@ -105,6 +104,102 @@ public class EventManager : MonoBehaviour
                 EndEvent();
                 break;
         }
+    }
+
+    private void ResolveRandomOutcome(EventChoiceData choice)
+    {
+        EventRandomOutcomeData outcome = PickRandomOutcome(choice.randomOutcomes);
+        if (outcome == null)
+        {
+            EndEvent();
+            return;
+        }
+
+        switch (outcome.action)
+        {
+            case EventChoiceAction.StartFightWithReward:
+                StartFight(outcome.reward, outcome.fightEnemyPool);
+                break;
+
+            case EventChoiceAction.GoToNextNode:
+                ShowNode(choice.nextNodeIndex);
+                break;
+
+            case EventChoiceAction.ApplyRewardAndEnd:
+                if (TryApplyReward(outcome.reward))
+                {
+                    ShowOutcomeMessageOrEnd(outcome.outcomeText);
+                }
+                else
+                {
+                    ShowMessageAndEnd("Kamu tidak bisa memberikan kelereng terakhirmu.");
+                }
+                break;
+
+            case EventChoiceAction.EndEvent:
+            default:
+                ShowOutcomeMessageOrEnd(outcome.outcomeText);
+                break;
+        }
+    }
+
+    private EventRandomOutcomeData PickRandomOutcome(System.Collections.Generic.List<EventRandomOutcomeData> outcomes)
+    {
+        if (outcomes == null || outcomes.Count == 0) return null;
+
+        int totalWeight = 0;
+        foreach (EventRandomOutcomeData outcome in outcomes)
+        {
+            if (outcome != null)
+            {
+                totalWeight += Mathf.Max(outcome.weight, 1);
+            }
+        }
+
+        if (totalWeight <= 0) return null;
+
+        int roll = Random.Range(0, totalWeight);
+        foreach (EventRandomOutcomeData outcome in outcomes)
+        {
+            if (outcome == null) continue;
+
+            roll -= Mathf.Max(outcome.weight, 1);
+            if (roll < 0)
+            {
+                return outcome;
+            }
+        }
+
+        return null;
+    }
+
+    private void StartFight(EventRewardData reward, System.Collections.Generic.List<EnemySO> fightEnemyPool)
+    {
+        if (ProgressionManager.Instance != null)
+        {
+            ProgressionManager.Instance.SetPendingEventFightReward(reward);
+            ProgressionManager.Instance.SetPendingFightEnemy(PickRandomEnemy(fightEnemyPool));
+            ProgressionManager.Instance.selectedEventForEventScene = null;
+        }
+
+        SceneManager.LoadScene("FightScene");
+    }
+
+    private EnemySO PickRandomEnemy(System.Collections.Generic.List<EnemySO> fightEnemyPool)
+    {
+        if (fightEnemyPool == null || fightEnemyPool.Count == 0) return null;
+
+        System.Collections.Generic.List<EnemySO> validEnemies = new System.Collections.Generic.List<EnemySO>();
+        foreach (EnemySO enemy in fightEnemyPool)
+        {
+            if (enemy != null)
+            {
+                validEnemies.Add(enemy);
+            }
+        }
+
+        if (validEnemies.Count == 0) return null;
+        return validEnemies[Random.Range(0, validEnemies.Count)];
     }
 
     private bool TryApplyReward(EventRewardData reward)
@@ -138,6 +233,17 @@ public class EventManager : MonoBehaviour
                 choiceButtons[i].onClick.AddListener(EndEvent);
             }
         }
+    }
+
+    private void ShowOutcomeMessageOrEnd(string message)
+    {
+        if (string.IsNullOrEmpty(message))
+        {
+            EndEvent();
+            return;
+        }
+
+        ShowMessageAndEnd(message);
     }
 
     private void EndEvent()

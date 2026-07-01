@@ -1,0 +1,1502 @@
+fileFormatVersion: 2
+guid: 9e15f4e578c7a47f4bfc174d8c640123
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3936026718985747243
+    second: Blaze_rev_0
+  - first:
+      213: -7659309818249256349
+    second: Blaze_rev_1
+  - first:
+      213: 1038179060762471337
+    second: Blaze_rev_2
+  - first:
+      213: 5780544873025068361
+    second: Blaze_rev_3
+  - first:
+      213: -4525259108899940518
+    second: Blaze_rev_4
+  - first:
+      213: -5305463458622730061
+    second: Blaze_rev_5
+  - first:
+      213: -8323009439506430987
+    second: Blaze_rev_6
+  - first:
+      213: -1999682031439792377
+    second: Blaze_rev_7
+  - first:
+      213: 2499554615052616713
+    second: Blaze_rev_8
+  - first:
+      213: 5090161356224829446
+    second: Blaze_rev_9
+  - first:
+      213: 2676416823683010535
+    second: Blaze_rev_10
+  - first:
+      213: -4073837684473368429
+    second: Blaze_rev_11
+  - first:
+      213: -7296945564361408317
+    second: Blaze_rev_12
+  - first:
+      213: -46153942587888273
+    second: Blaze_rev_13
+  - first:
+      213: 5451705224007969701
+    second: Blaze_rev_14
+  - first:
+      213: 3301192158197037707
+    second: Blaze_rev_15
+  - first:
+      213: 2615091818830791106
+    second: Blaze_rev_16
+  - first:
+      213: -7273186468027630363
+    second: Blaze_rev_17
+  - first:
+      213: -6114779138618544818
+    second: Blaze_rev_18
+  - first:
+      213: 4666327353435535006
+    second: Blaze_rev_19
+  - first:
+      213: 4467856414334024148
+    second: Blaze_rev_20
+  - first:
+      213: 8888317353574772143
+    second: Blaze_rev_21
+  - first:
+      213: -6734477313466526566
+    second: Blaze_rev_22
+  - first:
+      213: -7186783246224938222
+    second: Blaze_rev_23
+  - first:
+      213: -2853455642720269318
+    second: Blaze_rev_24
+  - first:
+      213: 3363635600918206770
+    second: Blaze_rev_25
+  - first:
+      213: -3162719393545047156
+    second: Blaze_rev_26
+  - first:
+      213: -7442617500306440555
+    second: Blaze_rev_27
+  - first:
+      213: -4272192251839669883
+    second: Blaze_rev_28
+  - first:
+      213: 6680773165015894687
+    second: Blaze_rev_29
+  - first:
+      213: 3900113544887888180
+    second: Blaze_rev_30
+  - first:
+      213: -6724537388097673240
+    second: Blaze_rev_31
+  - first:
+      213: -2930331858149153241
+    second: Blaze_rev_32
+  - first:
+      213: -1524426140427130765
+    second: Blaze_rev_33
+  - first:
+      213: -3687342774159766874
+    second: Blaze_rev_34
+  - first:
+      213: 3260685883768728188
+    second: Blaze_rev_35
+  - first:
+      213: 8122600871565013336
+    second: Blaze_rev_36
+  - first:
+      213: -7942903092572029694
+    second: Blaze_rev_37
+  - first:
+      213: 5951816921671572023
+    second: Blaze_rev_38
+  - first:
+      213: -3895224492546738505
+    second: Blaze_rev_39
+  - first:
+      213: -5085888182482242399
+    second: Blaze_rev_40
+  - first:
+      213: -5486113353047280409
+    second: Blaze_rev_41
+  - first:
+      213: -8855621017149386
+    second: Blaze_rev_42
+  - first:
+      213: -5190747163021358073
+    second: Blaze_rev_43
+  - first:
+      213: 5837974833307452371
+    second: Blaze_rev_44
+  - first:
+      213: -8798282996523899834
+    second: Blaze_rev_45
+  - first:
+      213: 1317744475587006484
+    second: Blaze_rev_46
+  - first:
+      213: -8342938876263410915
+    second: Blaze_rev_47
+  - first:
+      213: -8268469730537666540
+    second: Blaze_rev_48
+  - first:
+      213: -2421563338923585573
+    second: Blaze_rev_49
+  - first:
+      213: 2073077822630647952
+    second: Blaze_rev_50
+  - first:
+      213: -7682816846966592887
+    second: Blaze_rev_51
+  - first:
+      213: 4881500267035634498
+    second: Blaze_rev_52
+  - first:
+      213: 6674730835499792923
+    second: Blaze_rev_53
+  - first:
+      213: -347097105982031808
+    second: Blaze_rev_54
+  - first:
+      213: 8455933049165084755
+    second: Blaze_rev_55
+  - first:
+      213: 4132727325466083286
+    second: Blaze_rev_56
+  - first:
+      213: -1813685094569019809
+    second: Blaze_rev_57
+  - first:
+      213: -3699288470159219615
+    second: Blaze_rev_58
+  - first:
+      213: -7254976303914115804
+    second: Blaze_rev_59
+  - first:
+      213: -3462115134321625330
+    second: Blaze_rev_60
+  - first:
+      213: -9186606883203705774
+    second: Blaze_rev_61
+  - first:
+      213: -5781671834938256155
+    second: Blaze_rev_62
+  - first:
+      213: 3215715526631577811
+    second: Blaze_rev_63
+  - first:
+      213: 8565927327384529503
+    second: Blaze_rev_64
+  - first:
+      213: -1820390374481852552
+    second: Blaze_rev_65
+  - first:
+      213: 4691144612868318455
+    second: Blaze_rev_66
+  - first:
+      213: 147831252492350876
+    second: Blaze_rev_67
+  - first:
+      213: -5046705586809087378
+    second: Blaze_rev_68
+  - first:
+      213: -4235920349575757576
+    second: Blaze_rev_69
+  - first:
+      213: -5944664089824009153
+    second: Blaze_rev_70
+  - first:
+      213: -6379836973838719253
+    second: Blaze_rev_71
+  - first:
+      213: -7330180082577620033
+    second: Blaze_rev_72
+  - first:
+      213: -4393921218655300319
+    second: Blaze_rev_73
+  - first:
+      213: 131653888647518215
+    second: Blaze_rev_74
+  - first:
+      213: -2768172903403814346
+    second: Blaze_rev_75
+  - first:
+      213: -2584936583736712411
+    second: Blaze_rev_76
+  - first:
+      213: -1959587602416272997
+    second: Blaze_rev_77
+  - first:
+      213: 9116723009951868534
+    second: Blaze_rev_78
+  - first:
+      213: -5897217919500239598
+    second: Blaze_rev_79
+  - first:
+      213: 8461712495440646398
+    second: Blaze_rev_80
+  - first:
+      213: -52716252527970314
+    second: Blaze_rev_81
+  - first:
+      213: -5193452723045044185
+    second: Blaze_rev_82
+  - first:
+      213: 6607938879518406061
+    second: Blaze_rev_83
+  - first:
+      213: 7642270640486196435
+    second: Blaze_rev_84
+  - first:
+      213: 4015811135038565681
+    second: Blaze_rev_85
+  - first:
+      213: -9137003008197407984
+    second: Blaze_rev_86
+  - first:
+      213: 694317289152558519
+    second: Blaze_rev_87
+  - first:
+      213: -3675650634628906932
+    second: Blaze_rev_88
+  - first:
+      213: -1700584663880358367
+    second: Blaze_rev_89
+  - first:
+      213: -4526725990143470729
+    second: Blaze_rev_90
+  - first:
+      213: -7689759889931214353
+    second: Blaze_rev_91
+  - first:
+      213: -176889526616534680
+    second: Blaze_rev_92
+  - first:
+      213: -1319777605197786170
+    second: Blaze_rev_93
+  - first:
+      213: -2495726716716624888
+    second: Blaze_rev_94
+  - first:
+      213: -3618372725303259455
+    second: Blaze_rev_95
+  - first:
+      213: 1015265036263403264
+    second: Blaze_rev_96
+  - first:
+      213: -6971116781074466198
+    second: Blaze_rev_97
+  - first:
+      213: -8462839551881583268
+    second: Blaze_rev_98
+  - first:
+      213: -4624522979451020932
+    second: Blaze_rev_99
+  - first:
+      213: 3219844004286079986
+    second: Blaze_rev_100
+  - first:
+      213: -4685018168485945066
+    second: Blaze_rev_101
+  - first:
+      213: 21805700846565833
+    second: Blaze_rev_102
+  - first:
+      213: 8247388229007791158
+    second: Blaze_rev_103
+  - first:
+      213: -3703065408558719371
+    second: Blaze_rev_104
+  - first:
+      213: -1256673429949911143
+    second: Blaze_rev_105
+  - first:
+      213: 8717287914025174372
+    second: Blaze_rev_106
+  - first:
+      213: -6452442760170402851
+    second: Blaze_rev_107
+  - first:
+      213: -8670313417278411276
+    second: Blaze_rev_108
+  - first:
+      213: -1774391654317386784
+    second: Blaze_rev_109
+  - first:
+      213: 603782069793880241
+    second: Blaze_rev_110
+  - first:
+      213: 3586848775429194892
+    second: Blaze_rev_111
+  - first:
+      213: -1781761345588304314
+    second: Blaze_rev_112
+  - first:
+      213: 7410204665790788055
+    second: Blaze_rev_113
+  - first:
+      213: 8357280427691497192
+    second: Blaze_rev_114
+  - first:
+      213: 7439221141897506419
+    second: Blaze_rev_115
+  - first:
+      213: 7102562585097415444
+    second: Blaze_rev_116
+  - first:
+      213: 4957885356085625615
+    second: Blaze_rev_117
+  - first:
+      213: 7446421878276365773
+    second: Blaze_rev_118
+  - first:
+      213: 2126048662101987127
+    second: Blaze_rev_119
+  - first:
+      213: 1283003050766324013
+    second: Blaze_rev_120
+  - first:
+      213: 8123114748841330867
+    second: Blaze_rev_121
+  - first:
+      213: -266582327993830718
+    second: Blaze_rev_122
+  - first:
+      213: -4795658934104502146
+    second: Blaze_rev_123
+  - first:
+      213: 2055946725041771399
+    second: Blaze_rev_124
+  - first:
+      213: -5687372962521866520
+    second: Blaze_rev_125
+  - first:
+      213: -5534447730686655277
+    second: Blaze_rev_126
+  - first:
+      213: 6247037427145366832
+    second: Blaze_rev_127
+  - first:
+      213: 4539320200961340924
+    second: Blaze_rev_128
+  - first:
+      213: 8796669044021194053
+    second: Blaze_rev_129
+  - first:
+      213: 6824130080761735251
+    second: Blaze_rev_130
+  - first:
+      213: -9198847023000495697
+    second: Blaze_rev_131
+  - first:
+      213: -8749367520534362122
+    second: Blaze_rev_132
+  - first:
+      213: -7382770663508071540
+    second: Blaze_rev_133
+  - first:
+      213: 8266226359644769791
+    second: Blaze_rev_134
+  - first:
+      213: 2563072768921259848
+    second: Blaze_rev_135
+  - first:
+      213: 7035837424102916389
+    second: Blaze_rev_136
+  - first:
+      213: -1159870780368940120
+    second: Blaze_rev_137
+  - first:
+      213: 2423765692391658065
+    second: Blaze_rev_138
+  - first:
+      213: -8566984374898556290
+    second: Blaze_rev_139
+  - first:
+      213: 3830155378352111286
+    second: Blaze_rev_140
+  - first:
+      213: -6676095345700741968
+    second: Blaze_rev_141
+  - first:
+      213: -5454141900647252915
+    second: Blaze_rev_142
+  - first:
+      213: 6063190341930280210
+    second: Blaze_rev_143
+  - first:
+      213: 9138069805291141834
+    second: Blaze_rev_144
+  - first:
+      213: -2580255242757907347
+    second: Blaze_rev_145
+  - first:
+      213: 2115107168868110236
+    second: Blaze_rev_146
+  - first:
+      213: -6319771863139788603
+    second: Blaze_rev_147
+  - first:
+      213: -7034681456157838585
+    second: Blaze_rev_148
+  - first:
+      213: -515949740360460199
+    second: Blaze_rev_149
+  - first:
+      213: -499505887028776510
+    second: Blaze_rev_150
+  - first:
+      213: 411051409444040800
+    second: Blaze_rev_151
+  - first:
+      213: -3464422582254243264
+    second: Blaze_rev_152
+  - first:
+      213: -4051493776145953635
+    second: Blaze_rev_153
+  - first:
+      213: -6506050448176401158
+    second: Blaze_rev_154
+  - first:
+      213: -2146577647395417972
+    second: Blaze_rev_155
+  - first:
+      213: 2619985651456714270
+    second: Blaze_rev_156
+  - first:
+      213: 1328140103068903184
+    second: Blaze_rev_157
+  - first:
+      213: -2049947149395997713
+    second: Blaze_rev_158
+  - first:
+      213: -6693763678750094039
+    second: Blaze_rev_159
+  - first:
+      213: 7532033522392486476
+    second: Blaze_rev_160
+  - first:
+      213: 8517932493665086851
+    second: Blaze_rev_161
+  - first:
+      213: 33866486287713834
+    second: Blaze_rev_162
+  - first:
+      213: -6838174179927449371
+    second: Blaze_rev_163
+  - first:
+      213: -5766835307844868401
+    second: Blaze_rev_164
+  - first:
+      213: -5493960384989596654
+    second: Blaze_rev_165
+  - first:
+      213: -8505497516209170806
+    second: Blaze_rev_166
+  - first:
+      213: -9201301767926063174
+    second: Blaze_rev_167
+  - first:
+      213: 7775599358757184596
+    second: Blaze_rev_168
+  - first:
+      213: -4742154413254578188
+    second: Blaze_rev_169
+  - first:
+      213: -6504523326813573492
+    second: Blaze_rev_170
+  - first:
+      213: -3607678210491867620
+    second: Blaze_rev_171
+  - first:
+      213: 4486574215973982275
+    second: Blaze_rev_172
+  - first:
+      213: 6825509380876421783
+    second: Blaze_rev_173
+  - first:
+      213: 4796385121166846370
+    second: Blaze_rev_174
+  - first:
+      213: -4356781925995235390
+    second: Blaze_rev_175
+  - first:
+      213: 7496724433014700377
+    second: Blaze_rev_176
+  - first:
+      213: 8297989047882112407
+    second: Blaze_rev_177
+  - first:
+      213: -2520251426386436593
+    second: Blaze_rev_178
+  - first:
+      213: 7368561225609294484
+    second: Blaze_rev_179
+  - first:
+      213: 1033173278483200937
+    second: Blaze_rev_180
+  - first:
+      213: -1470257527006250181
+    second: Blaze_rev_181
+  - first:
+      213: 5525595849188112927
+    second: Blaze_rev_182
+  - first:
+      213: -6971849995816005678
+    second: Blaze_rev_183
+  - first:
+      213: 813405874489311242
+    second: Blaze_rev_184
+  - first:
+      213: -2228089616911200658
+    second: Blaze_rev_185
+  - first:
+      213: 4445725348293855611
+    second: Blaze_rev_186
+  - first:
+      213: -4622253592010580315
+    second: Blaze_rev_187
+  - first:
+      213: 1853463847953347620
+    second: Blaze_rev_188
+  - first:
+      213: 3912061245235146094
+    second: Blaze_rev_189
+  - first:
+      213: -7919030774470743083
+    second: Blaze_rev_190
+  - first:
+      213: -4065800520958645899
+    second: Blaze_rev_191
+  - first:
+      213: 3742971227563937816
+    second: Blaze_rev_192
+  - first:
+      213: -6237909150490763571
+    second: Blaze_rev_193
+  - first:
+      213: 1640075743607909507
+    second: Blaze_rev_194
+  - first:
+      213: -8625270420767709395
+    second: Blaze_rev_195
+  - first:
+      213: -3245887627644224390
+    second: Blaze_rev_196
+  - first:
+      213: -8829012974394291396
+    second: Blaze_rev_197
+  - first:
+      213: 2851984120905638736
+    second: Blaze_rev_198
+  - first:
+      213: 3430014876297947146
+    second: Blaze_rev_199
+  - first:
+      213: -5466947687336205751
+    second: Blaze_rev_200
+  - first:
+      213: -3191655833832232569
+    second: Blaze_rev_201
+  - first:
+      213: 7019927946416278190
+    second: Blaze_rev_202
+  - first:
+      213: 202610829022973630
+    second: Blaze_rev_203
+  - first:
+      213: 4509699988028197461
+    second: Blaze_rev_204
+  - first:
+      213: -9077926996133795721
+    second: Blaze_rev_205
+  - first:
+      213: 2634294315239495915
+    second: Blaze_rev_206
+  - first:
+      213: 6261309397305445993
+    second: Blaze_rev_207
+  - first:
+      213: 6485019839764920093
+    second: Blaze_rev_208
+  - first:
+      213: 7631776356339152953
+    second: Blaze_rev_209
+  - first:
+      213: 6888072289731870559
+    second: Blaze_rev_210
+  - first:
+      213: -2846377182234584831
+    second: Blaze_rev_211
+  - first:
+      213: 510603855503546171
+    second: Blaze_rev_212
+  - first:
+      213: 9125240232404328532
+    second: Blaze_rev_213
+  - first:
+      213: 4021077857289055419
+    second: Blaze_rev_214
+  - first:
+      213: -660096345692318942
+    second: Blaze_rev_215
+  - first:
+      213: -5445116889923606952
+    second: Blaze_rev_216
+  - first:
+      213: -3765819047128582110
+    second: Blaze_rev_217
+  - first:
+      213: -5726429999203826260
+    second: Blaze_rev_218
+  - first:
+      213: 4753680781127535588
+    second: Blaze_rev_219
+  - first:
+      213: -5729109220060676600
+    second: Blaze_rev_220
+  - first:
+      213: 2623630684121983307
+    second: Blaze_rev_221
+  - first:
+      213: -4720675367224547578
+    second: Blaze_rev_222
+  - first:
+      213: 3825206610347462410
+    second: Blaze_rev_223
+  - first:
+      213: -6930540242380335919
+    second: Blaze_rev_224
+  - first:
+      213: -6346077423006722522
+    second: Blaze_rev_225
+  - first:
+      213: 5908420066194683369
+    second: Blaze_rev_226
+  - first:
+      213: -2192664269030664809
+    second: Blaze_rev_227
+  - first:
+      213: -6979323078480146862
+    second: Blaze_rev_228
+  - first:
+      213: 280397512635022723
+    second: Blaze_rev_229
+  - first:
+      213: -2898216768777172417
+    second: Blaze_rev_230
+  - first:
+      213: 7245934620537732751
+    second: Blaze_rev_231
+  - first:
+      213: 3786316868571119992
+    second: Blaze_rev_232
+  - first:
+      213: 1390031997263822703
+    second: Blaze_rev_233
+  - first:
+      213: -2673345033889155451
+    second: Blaze_rev_234
+  - first:
+      213: 4158958441289597090
+    second: Blaze_rev_235
+  - first:
+      213: -2476270039597015105
+    second: Blaze_rev_236
+  - first:
+      213: 4798805640391180191
+    second: Blaze_rev_237
+  - first:
+      213: -8993283634315652011
+    second: Blaze_rev_238
+  - first:
+      213: 3286502224751206457
+    second: Blaze_rev_239
+  - first:
+      213: -5395873824274100045
+    second: Blaze_rev_240
+  - first:
+      213: -4637200055345608553
+    second: Blaze_rev_241
+  - first:
+      213: 2952592696438379876
+    second: Blaze_rev_242
+  - first:
+      213: 1516157068297245066
+    second: Blaze_rev_243
+  - first:
+      213: -274799472934762743
+    second: Blaze_rev_244
+  - first:
+      213: 3848117687880588833
+    second: Blaze_rev_245
+  - first:
+      213: -7186709422774015269
+    second: Blaze_rev_246
+  - first:
+      213: 2822382853246491309
+    second: Blaze_rev_247
+  - first:
+      213: 4753651547609841232
+    second: Blaze_rev_248
+  - first:
+      213: -1624003380382541220
+    second: Blaze_rev_249
+  - first:
+      213: -756086407719730629
+    second: Blaze_rev_250
+  - first:
+      213: -236213750217260756
+    second: Blaze_rev_251
+  - first:
+      213: -3900212253103874944
+    second: Blaze_rev_252
+  - first:
+      213: -3069938010216461932
+    second: Blaze_rev_253
+  - first:
+      213: 6435999720590797100
+    second: Blaze_rev_254
+  - first:
+      213: -4477082816222873800
+    second: Blaze_rev_255
+  - first:
+      213: -579170409071788115
+    second: Blaze_rev_256
+  - first:
+      213: 7705228270198357283
+    second: Blaze_rev_257
+  - first:
+      213: -99984493848583680
+    second: Blaze_rev_258
+  - first:
+      213: 3539516017447063772
+    second: Blaze_rev_259
+  - first:
+      213: -1984680535999531957
+    second: Blaze_rev_260
+  - first:
+      213: -8842158181453799791
+    second: Blaze_rev_261
+  - first:
+      213: 7363412338416980784
+    second: Blaze_rev_262
+  - first:
+      213: -7346298069789751032
+    second: Blaze_rev_263
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BlazeWallEffect_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2700
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08cd4b098011e44f7b3c1b9a8d4e8b76
+      internalID: -255721077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_1
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 2700
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1c00df38f02741ac90d2db37ee192ea
+      internalID: 747749818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_2
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 2700
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eab1208b569bc4b129d800ab244170d5
+      internalID: -1314463101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_3
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 2700
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb2a5ccc5b2924f0cba2e72523d98fbb
+      internalID: -2025570563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2160
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a63cbdb7a05345748c690282104dcea
+      internalID: 1986702598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_5
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 2160
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f63e8c63502194d48b8bc391d1ac5a0b
+      internalID: -2040524221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_6
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 2160
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b6ebf0e690e14c4fbd6ba147869df43
+      internalID: -1722818231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_7
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 2160
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 157954611d9204efe9c60e9811ffbccd
+      internalID: -1026063541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1620
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b87068aa814db4d6c840ba6e65d407db
+      internalID: -1391058003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_9
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 1620
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fe58bcd74f424f8591e1344da91aa65
+      internalID: -582511828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_10
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 1620
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53a98786edb8a48c08e7c602a6bd4d5b
+      internalID: 1766768173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_11
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 1620
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27525aa28c4c34b518a9268904bb3e7d
+      internalID: -528229089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1080
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c9722b145ae54c52b48e1082e89322d
+      internalID: -623348644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_13
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 1080
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3bf32d96c5944360bbc2bad59e2e9e1
+      internalID: 2108742360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_14
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 1080
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 240dfaef74a624778bc1299a20afe9b2
+      internalID: -894999857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_15
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 1080
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55baba81e66454142b91dea90700bc8a
+      internalID: -418915971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 540
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e87812d08fdf642578fe86c2b0772a4f
+      internalID: -1617593162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_17
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 540
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3971af2ff53634255b5a8c2d47b1cb10
+      internalID: -2016444947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_18
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 540
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 260e077a4918642c5a73dd3ee4b179a1
+      internalID: -891750055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_19
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 540
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 760db3d6d262546ac9067a2643a79c72
+      internalID: -179149266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39daed814515b4968ada7feb372321bb
+      internalID: 15857232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_21
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 0
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6af415a063e7b4e7d9ba78183ad9d3a6
+      internalID: -1823220350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_22
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 0
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d10f8e9c619346d3965259ef4a17ea0
+      internalID: -285468150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlazeWallEffect_23
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 0
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b054be51eb642499d8c8fc22de64a5d8
+      internalID: -1192378147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 116bb5501aa284599a850b6fd558a4b0
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":6.0},"gridSpriteSize":{"x":720.0,"y":540.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      BlazeWallEffect_0: -255721077
+      BlazeWallEffect_1: 747749818
+      BlazeWallEffect_10: 1766768173
+      BlazeWallEffect_11: -528229089
+      BlazeWallEffect_12: -623348644
+      BlazeWallEffect_13: 2108742360
+      BlazeWallEffect_14: -894999857
+      BlazeWallEffect_15: -418915971
+      BlazeWallEffect_16: -1617593162
+      BlazeWallEffect_17: -2016444947
+      BlazeWallEffect_18: -891750055
+      BlazeWallEffect_19: -179149266
+      BlazeWallEffect_2: -1314463101
+      BlazeWallEffect_20: 15857232
+      BlazeWallEffect_21: -1823220350
+      BlazeWallEffect_22: -285468150
+      BlazeWallEffect_23: -1192378147
+      BlazeWallEffect_3: -2025570563
+      BlazeWallEffect_4: 1986702598
+      BlazeWallEffect_5: -2040524221
+      BlazeWallEffect_6: -1722818231
+      BlazeWallEffect_7: -1026063541
+      BlazeWallEffect_8: -1391058003
+      BlazeWallEffect_9: -582511828
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

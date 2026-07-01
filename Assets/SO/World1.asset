@@ -17,9 +17,9 @@ MonoBehaviour:
   - floorLabel: 1
     columns:
     - columnPosition: -1
-      roomType: 5
-    - columnPosition: 0
       roomType: 1
+    - columnPosition: 0
+      roomType: 4
     - columnPosition: 1
       roomType: 1
   - floorLabel: 2
@@ -60,6 +60,10 @@ MonoBehaviour:
       roomType: 0
   - floorLabel: 5
     columns:
+    - columnPosition: 0
+      roomType: 2
+  - floorLabel: 6
+    columns:
     - columnPosition: -2
       roomType: 0
     - columnPosition: -1
@@ -70,10 +74,6 @@ MonoBehaviour:
       roomType: 0
     - columnPosition: 2
       roomType: 0
-  - floorLabel: 6
-    columns:
-    - columnPosition: 0
-      roomType: 2
   - floorLabel: 7
     columns:
     - columnPosition: -2
@@ -118,3 +118,7 @@ MonoBehaviour:
   minNodesPerFloor: 2
   maxNodesPerFloor: 4
   keepSingleNodeFloors: 1
+  eliteMinFloor: 6
+  eliteMaxFloor: 9
+  minEliteNodesPerMap: 1
+  maxEliteNodesPerMap: 2

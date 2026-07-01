@@ -420,11 +420,11 @@ MonoBehaviour:
   autoFindChildNodes: 1
   worldMapConfigs:
   - {fileID: 11400000, guid: e970ad71f905b4dccb381bb8365f3224, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: e970ad71f905b4dccb381bb8365f3224, type: 2}
+  - {fileID: 11400000, guid: e970ad71f905b4dccb381bb8365f3224, type: 2}
+  - {fileID: 11400000, guid: e970ad71f905b4dccb381bb8365f3224, type: 2}
+  - {fileID: 11400000, guid: e970ad71f905b4dccb381bb8365f3224, type: 2}
+  - {fileID: 11400000, guid: e970ad71f905b4dccb381bb8365f3224, type: 2}
   pathMapSceneName: MapScene
   zoomDuration: 0.35
   zoomScale: 1.2

@@ -3,15 +3,25 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using TMPro;
 
+[System.Serializable]
+public class FloorEventPool
+{
+    public string poolName;
+    public int minFloor = 1;
+    public int maxFloor = 1;
+    public List<GameEventSO> events = new List<GameEventSO>();
+}
+
 public class MapManager : MonoBehaviour
 {
-    public enum NodeType { Random, Fight, Event, Treasure, Store, Boss }
+    public enum NodeType { Random, Fight, Event, Treasure, Store, Boss, Elite }
 
     [Header("UI Display")]
     public TMP_Text currencyText;
 
     [Header("Event Pool")]
     public List<GameEventSO> possibleEvents = new List<GameEventSO>();
+    public List<FloorEventPool> floorEventPools = new List<FloorEventPool>();
 
     [Header("Inventory UI Connection")]
     public UIInventoryManager uiInventoryManager;
@@ -20,7 +30,6 @@ public class MapManager : MonoBehaviour
     public EnemySO bossEnemy;
     public List<EnemySO> normalFightPool = new List<EnemySO>();
     public List<EnemySO> eliteFightPool = new List<EnemySO>();
-    [Range(0f, 1f)] public float eliteFightChance = 0.2f;
 
     private void Start()
     {
@@ -51,6 +60,11 @@ public class MapManager : MonoBehaviour
         switch (selectedType)
         {
             case NodeType.Fight:
+                PrepareFightEncounter(selectedType);
+                LoadCombatScene();
+                break;
+
+            case NodeType.Elite:
                 PrepareFightEncounter(selectedType);
                 LoadCombatScene();
                 break;
@@ -96,11 +110,14 @@ public class MapManager : MonoBehaviour
             return;
         }
 
-        EnemySO selectedEnemy = PickRandomFightEnemy();
+        EnemySO selectedEnemy = nodeType == NodeType.Elite
+            ? PickRandomEnemyFromPool(eliteFightPool, EnemyType.Elite)
+            : PickRandomEnemyFromPool(normalFightPool, EnemyType.Normal);
+
         if (selectedEnemy != null)
         {
             ProgressionManager.Instance.SetPendingFightEnemy(selectedEnemy);
-            Debug.Log($"Fight encounter queued: {selectedEnemy.enemyName}");
+            Debug.Log($"{nodeType} encounter queued: {selectedEnemy.enemyName}");
         }
         else
         {
@@ -108,20 +125,14 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    private EnemySO PickRandomFightEnemy()
+    private EnemySO PickRandomEnemyFromPool(List<EnemySO> sourcePool, EnemyType expectedType)
     {
-        bool useElite = eliteFightPool.Count > 0 && Random.value < eliteFightChance;
-        List<EnemySO> sourcePool = useElite ? eliteFightPool : normalFightPool;
-
-        if (sourcePool.Count == 0)
-        {
-            sourcePool = useElite ? normalFightPool : eliteFightPool;
-        }
+        if (sourcePool == null || sourcePool.Count == 0) return null;
 
         List<EnemySO> validEnemies = new List<EnemySO>();
         foreach (EnemySO enemy in sourcePool)
         {
-            if (enemy != null && enemy.enemyType != EnemyType.Boss)
+            if (enemy != null && enemy.enemyType == expectedType)
             {
                 validEnemies.Add(enemy);
             }
@@ -153,22 +164,65 @@ public class MapManager : MonoBehaviour
     {
         if (ProgressionManager.Instance == null) return;
 
+        List<GameEventSO> validEvents = GetValidEventsForCurrentFloor();
+
+        if (validEvents.Count == 0)
+        {
+            Debug.LogWarning("No unused events are available for this floor.");
+            ProgressionManager.Instance.currentFloor++;
+            SceneManager.LoadScene("MapScene");
+            return;
+        }
+
+        GameEventSO selectedEvent = validEvents[Random.Range(0, validEvents.Count)];
+        ProgressionManager.Instance.MarkEventUsed(selectedEvent);
+        ProgressionManager.Instance.selectedEventForEventScene = selectedEvent;
+        SceneManager.LoadScene("EventScene");
+    }
+
+    private List<GameEventSO> GetValidEventsForCurrentFloor()
+    {
+        int currentFloor = ProgressionManager.Instance != null ? ProgressionManager.Instance.currentFloor : 1;
         List<GameEventSO> validEvents = new List<GameEventSO>();
+        bool hasMatchingFloorPool = false;
+
+        foreach (FloorEventPool floorPool in floorEventPools)
+        {
+            if (floorPool == null || currentFloor < floorPool.minFloor || currentFloor > floorPool.maxFloor)
+            {
+                continue;
+            }
+
+            hasMatchingFloorPool = true;
+            foreach (GameEventSO gameEvent in floorPool.events)
+            {
+                if (IsUnusedEvent(gameEvent))
+                {
+                    validEvents.Add(gameEvent);
+                }
+            }
+        }
+
+        if (hasMatchingFloorPool)
+        {
+            return validEvents;
+        }
+
         foreach (GameEventSO gameEvent in possibleEvents)
         {
-            if (gameEvent != null)
+            if (IsUnusedEvent(gameEvent))
             {
                 validEvents.Add(gameEvent);
             }
         }
 
-        if (validEvents.Count == 0)
-        {
-            Debug.LogWarning("No possible events assigned to MapManager.");
-            return;
-        }
+        return validEvents;
+    }
 
-        ProgressionManager.Instance.selectedEventForEventScene = validEvents[Random.Range(0, validEvents.Count)];
-        SceneManager.LoadScene("EventScene");
+    private bool IsUnusedEvent(GameEventSO gameEvent)
+    {
+        if (gameEvent == null) return false;
+        if (ProgressionManager.Instance == null) return true;
+        return !ProgressionManager.Instance.HasEventBeenUsed(gameEvent);
     }
 }

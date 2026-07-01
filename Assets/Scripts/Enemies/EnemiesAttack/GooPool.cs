@@ -13,6 +13,11 @@ public class GooPool : MonoBehaviour
         
         if (rb != null && rb.bodyType == RigidbodyType2D.Dynamic)
         {
+            if (SteamLaunchBuff.IsActive(collision.gameObject))
+            {
+                return;
+            }
+
             // Kurangi kecepatan gerak kelereng secara halus berbasis DeltaTime
             rb.linearVelocity *= (1f - (gooLinearDrag * Time.deltaTime));
 

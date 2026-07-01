@@ -75,6 +75,7 @@ public class QuicksandPool : MonoBehaviour
     {
         Rigidbody2D rb = collision.GetComponent<Rigidbody2D>();
         if (rb == null || rb.bodyType != RigidbodyType2D.Dynamic) return;
+        if (SteamLaunchBuff.IsActive(collision.gameObject)) return;
 
         rb.linearVelocity *= 1f - (quicksandLinearDrag * Time.deltaTime);
 

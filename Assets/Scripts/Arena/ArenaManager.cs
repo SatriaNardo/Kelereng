@@ -36,6 +36,9 @@ public class ArenaManager : MonoBehaviour
     public List<EnemySO> enemyPool = new List<EnemySO>();
     public EnemySO activeEnemyData;
 
+    [Header("Enemy Visual")]
+    public EnemySpriteAnimator enemySpriteAnimator;
+
     [Header("Enemy Overlord Stats Dynamic")]
     public int enemyHP = 100;
     public int maxEnemyHP = 100;
@@ -53,6 +56,8 @@ public class ArenaManager : MonoBehaviour
     private bool skipNextEnemyTurn = false;
     public bool phoenixAvailable = false;
     private bool isGameOver = false;
+    private bool isVictoryPending = false;
+    private bool isVictoryRecoveryTurn = false;
 
     public int EnemyActionCount { get; private set; }
 
@@ -77,6 +82,8 @@ public class ArenaManager : MonoBehaviour
 
         currentAmmo = ProgressionManager.Instance.BASE_AMMO;
         isGameOver = false;
+        isVictoryPending = false;
+        isVictoryRecoveryTurn = false;
         currentTurnCount = 0;
         EnemyActionCount = 0;
 
@@ -97,6 +104,7 @@ public class ArenaManager : MonoBehaviour
             maxEnemyHP = 100;
         }
 
+        ApplyActiveEnemyVisual();
         UpdateAmmoUI();
 
         // Lock launcher and trigger enemy first action setup
@@ -205,6 +213,45 @@ public class ArenaManager : MonoBehaviour
         Debug.Log("Enemy next turn will be skipped.");
     }
 
+    public void ConfigurePlaygroundMode(int availableShots, int dummyEnemyHp)
+    {
+        StopAllCoroutines();
+
+        isGameOver = false;
+        isVictoryPending = false;
+        isVictoryRecoveryTurn = false;
+        skipNextEnemyTurn = false;
+        activeGacoan = null;
+        activeGacoanHitTarget = false;
+
+        activeEnemyData = null;
+        enemyHP = Mathf.Max(1, dummyEnemyHp);
+        maxEnemyHP = enemyHP;
+        currentAmmo = Mathf.Max(1, availableShots);
+        IsTurnActive = false;
+        IsPlayerTurn = true;
+
+        UpdateAmmoUI();
+    }
+
+    public void ExecutePlaygroundEnemyAction(EnemySO enemy)
+    {
+        if (enemy == null) return;
+
+        isGameOver = false;
+        isVictoryPending = false;
+        isVictoryRecoveryTurn = false;
+        activeEnemyData = enemy;
+        ApplyActiveEnemyVisual();
+        enemyHP = Mathf.Max(1, Mathf.Max(enemyHP, enemy.baseHP));
+        maxEnemyHP = Mathf.Max(enemyHP, maxEnemyHP);
+        EnemyActionCount++;
+        enemy.ExecuteEnemyAction(this);
+        IsPlayerTurn = true;
+        IsTurnActive = false;
+        UpdateAmmoUI();
+    }
+
     public void ClearEnemyHazards()
     {
         GooPool[] activeGooPools = Object.FindObjectsByType<GooPool>(FindObjectsSortMode.None);
@@ -223,6 +270,32 @@ public class ArenaManager : MonoBehaviour
         CorruptedGolemEnemySO.ClearGolemHazards();
 
         Debug.Log($"Cleared enemy hazards. Goo: {activeGooPools.Length}, Smoke: {activeSmokeBombs.Length}");
+    }
+
+    public EnemySpriteAnimator GetEnemySpriteAnimator()
+    {
+        if (enemySpriteAnimator == null)
+        {
+            enemySpriteAnimator = Object.FindFirstObjectByType<EnemySpriteAnimator>();
+        }
+
+        return enemySpriteAnimator;
+    }
+
+    private void ApplyActiveEnemyVisual()
+    {
+        EnemySpriteAnimator animator = GetEnemySpriteAnimator();
+        if (animator == null) return;
+
+        animator.SetVisualScale(activeEnemyData != null ? activeEnemyData.enemyVisualScale : 1f);
+
+        if (activeEnemyData is SlimeEnemySO slimeEnemy)
+        {
+            slimeEnemy.ApplyIdleAnimation(animator);
+            return;
+        }
+
+        animator.SetStaticSprite(activeEnemyData != null ? activeEnemyData.enemySprite : null);
     }
 
     public float GetEnemyHpRatio()
@@ -336,7 +409,7 @@ public class ArenaManager : MonoBehaviour
 
             if (distance > circleRadius)
             {
-                if (activeGacoanHitTarget)
+                if (activeGacoanHitTarget || isVictoryRecoveryTurn)
                 {
                     OnMarbleExited(activeGacoan.gameObject);
                 }
@@ -344,7 +417,7 @@ public class ArenaManager : MonoBehaviour
                 {
                     allMarblesInArena.Remove(activeGacoan);
                     UpdateAmmoUI();
-                    Debug.Log("⚫ Player Marble keluar tanpa mengenai target. Amunisi hilang.");
+                    Debug.Log("⚫ Player Marble keluar tanpa mengenai target di giliran normal. Amunisi hilang.");
                 }
 
                 StartCoroutine(AnimateGacoanToPocket(activeGacoan.gameObject));
@@ -360,9 +433,16 @@ public class ArenaManager : MonoBehaviour
             activeGacoan = null; 
         }
 
-        if (enemyHP <= 0)
+        if (enemyHP <= 0 || isVictoryPending)
         {
-            DetermineGameOver(true, "Enemy defeated!");
+            if (isVictoryRecoveryTurn)
+            {
+                DetermineGameOver(true, "Enemy defeated after recovery turn!");
+            }
+            else
+            {
+                BeginVictoryRecoveryTurn("Enemy defeated!");
+            }
             return;
         }
 
@@ -370,9 +450,16 @@ public class ArenaManager : MonoBehaviour
         // Cek kehabisan ammo
         if (currentAmmo <= 0)
         {
-            // Apakah emblem yang aktif adalah Phoenix?
-            if (CurrentEmblemManager.Instance != null &&
-                CurrentEmblemManager.Instance.currentEmblem is PhoenixSO phoenix)
+            // Apakah player punya Phoenix?
+            PhoenixSO phoenix = CurrentEmblemManager.Instance != null
+                ? CurrentEmblemManager.Instance.GetPassiveEmblem<PhoenixSO>()
+                : null;
+            if (phoenix == null && CurrentEmblemManager.Instance != null)
+            {
+                phoenix = CurrentEmblemManager.Instance.currentEmblem as PhoenixSO;
+            }
+
+            if (phoenix != null)
             {
                 currentAmmo += phoenix.bonusAmmo;
 
@@ -380,8 +467,15 @@ public class ArenaManager : MonoBehaviour
 
                 Debug.Log("🔥 Phoenix Activated! +1 Ammo");
 
-                // Hapus emblem setelah dipakai
-                CurrentEmblemManager.Instance.ConsumeCurrentEmblem();
+                if (CurrentEmblemManager.Instance != null &&
+                    CurrentEmblemManager.Instance.currentEmblem == phoenix)
+                {
+                    CurrentEmblemManager.Instance.ConsumeCurrentEmblem();
+                }
+                else if (CurrentEmblemManager.Instance != null)
+                {
+                    CurrentEmblemManager.Instance.ConsumePassiveEmblem(phoenix);
+                }
 
                 return; // Jangan lanjut ganti turn dulu
             }
@@ -404,12 +498,25 @@ public class ArenaManager : MonoBehaviour
     {
         if (isGameOver) return;
 
+        if (isVictoryPending)
+        {
+            if (isVictoryRecoveryTurn)
+            {
+                DetermineGameOver(true, "Enemy defeated after recovery turn!");
+            }
+            else
+            {
+                BeginVictoryRecoveryTurn("Enemy defeated!");
+            }
+
+            return;
+        }
+
         IsPlayerTurn = !IsPlayerTurn;
 
         if (IsPlayerTurn)
         {
             currentTurnCount++; 
-            ClearIceTrails();
             TopUpTargetMarblesForPlayerTurn();
 
             if (ProgressionManager.Instance != null)
@@ -438,7 +545,7 @@ public class ArenaManager : MonoBehaviour
             {
                 skipNextEnemyTurn = false;
                 ClearEnemyHazards();
-                Debug.Log("Dust effect skipped the enemy turn.");
+                Debug.Log("Sand effect skipped the enemy turn.");
                 StartCoroutine(EnemyTurnEndDelay());
                 return;
             }
@@ -603,7 +710,7 @@ public class ArenaManager : MonoBehaviour
 
     public void DamageEnemy(int damage)
     {
-        if (isGameOver) return; 
+        if (isGameOver || isVictoryPending) return;
 
         enemyHP -= damage;
         Debug.Log($"💥 Musuh terkena damage! HP tersisa: {enemyHP}");
@@ -611,8 +718,47 @@ public class ArenaManager : MonoBehaviour
         if (enemyHP <= 0)
         {
             enemyHP = 0;
-            DetermineGameOver(true, "Enemy defeated!");
+            BeginVictoryRecoveryTurn("Enemy defeated!");
         }
+    }
+
+    private void BeginVictoryRecoveryTurn(string reason)
+    {
+        if (isGameOver) return;
+        if (isVictoryRecoveryTurn) return;
+
+        isVictoryPending = true;
+        enemyHP = 0;
+
+        if (IsTurnActive)
+        {
+            Debug.Log($"{reason} Victory pending. Waiting for current marbles to stop before recovery turn.");
+            return;
+        }
+
+        isVictoryRecoveryTurn = true;
+        IsPlayerTurn = true;
+        ClearEnemyHazards();
+        TopUpTargetMarblesForPlayerTurn();
+
+        if (ProgressionManager.Instance != null)
+        {
+            ProgressionManager.Instance.StartNewTurnEnergySetup();
+        }
+
+        if (!HasAnyAvailablePlayerShot())
+        {
+            DetermineGameOver(true, $"{reason} No recovery shot available.");
+            return;
+        }
+
+        UpdateAmmoUI();
+        if (uiFightInventory != null)
+        {
+            uiFightInventory.RefreshAvailableElementsUI();
+        }
+
+        Debug.Log($"{reason} Recovery turn started so player can retrieve marbles before leaving.");
     }
 
     public void RecallAllPlayerMarbles()

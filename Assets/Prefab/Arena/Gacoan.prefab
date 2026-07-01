@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 3955008839091464340, guid: f2e30ff2d770a418cba6bcedf289ca4a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -94,7 +94,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!50 &-1271406115441161138
 Rigidbody2D:
@@ -122,7 +122,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &-3602732921527586864
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -172,6 +172,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   activeElement: {fileID: 0}
+  commonIdleSprite: {fileID: 4189587368449256723, guid: 2d061294c8e8048f298a300e6ca4da4a, type: 3}
+  commonRollingSprites:
+  - {fileID: 709635651827528129, guid: 2d061294c8e8048f298a300e6ca4da4a, type: 3}
+  - {fileID: 6363534613465041425, guid: 2d061294c8e8048f298a300e6ca4da4a, type: 3}
+  - {fileID: -7889368012531197387, guid: 2d061294c8e8048f298a300e6ca4da4a, type: 3}
+  - {fileID: -495066692660367900, guid: 2d061294c8e8048f298a300e6ca4da4a, type: 3}
+  - {fileID: 8988991985769770662, guid: 2d061294c8e8048f298a300e6ca4da4a, type: 3}
+  - {fileID: -5213393833606597013, guid: 2d061294c8e8048f298a300e6ca4da4a, type: 3}
+  - {fileID: 8004266969378961669, guid: 2d061294c8e8048f298a300e6ca4da4a, type: 3}
+  - {fileID: 1398125171284079303, guid: 2d061294c8e8048f298a300e6ca4da4a, type: 3}
+  - {fileID: 2181641982535371230, guid: 2d061294c8e8048f298a300e6ca4da4a, type: 3}
+  - {fileID: 4993622160355448929, guid: 2d061294c8e8048f298a300e6ca4da4a, type: 3}
+  - {fileID: -6244996517654078754, guid: 2d061294c8e8048f298a300e6ca4da4a, type: 3}
+  shadowSprite: {fileID: -6320280583280106153, guid: 175d37235a5f84c328cbb88f7b9aaa3c, type: 3}
 --- !u!114 &4255964443235803652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,7 +201,7 @@ MonoBehaviour:
   m_ShadowGroup: 0
   m_Priority: 0
   m_ComponentVersion: 5
-  m_HasRenderer: 0
+  m_HasRenderer: 1
   m_UseRendererSilhouette: 1
   m_CastsShadows: 1
   m_SelfShadows: 0
@@ -208,17 +222,17 @@ MonoBehaviour:
     m_Mesh: {fileID: 0}
     m_LocalBounds:
       m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0.11999512, y: 0.11999512, z: 0}
+      m_Extent: {x: 0.11979675, y: 0.11979675, z: 0}
     m_EdgeProcessing: 1
     m_TrimEdge: 0.01
     m_FlipX: 0
     m_FlipY: 0
-    m_InitialTrim: 0.01
+    m_InitialTrim: 0
   m_CastingOption: 1
-  m_PreviousTrimEdge: 0
-  m_PreviousEdgeProcessing: -1
-  m_PreviousShadowCastingSource: -1
-  m_PreviousShadowShape2DSource: {fileID: 0}
+  m_PreviousTrimEdge: 0.01
+  m_PreviousEdgeProcessing: 1
+  m_PreviousShadowCastingSource: 2
+  m_PreviousShadowShape2DSource: {fileID: -3602732921527586864}
   references:
     version: 2
     RefIds:
