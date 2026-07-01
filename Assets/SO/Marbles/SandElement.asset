@@ -27,6 +27,7 @@ MonoBehaviour:
   - {fileID: 8727520089512789084, guid: 6758bfb538d4c400c88c56b73dc32e60, type: 3}
   - {fileID: -2844041680762512118, guid: 6758bfb538d4c400c88c56b73dc32e60, type: 3}
   - {fileID: -4499667855299576961, guid: 6758bfb538d4c400c88c56b73dc32e60, type: 3}
+  visualRotationZ: 0
   energyCost: 2
   fusionType: 6
   useMovementTrail: 1
@@ -44,16 +45,25 @@ MonoBehaviour:
   cycloneForce: 5
   explosionRadius: 1
   explosionForce: 3
+  explosionClashEffectPrefab: {fileID: 0}
+  explosionClashEffectFrames: []
+  explosionClashEffectFramesPerSecond: 18
+  explosionClashEffectScale: 1
+  explosionClashEffectLifetime: 1
+  explosionClashEffectSortingOrder: 20
   quakeChainCount: 5
   quakeSmallAoeRadius: 0.65
   quakeSmallAoeForce: 1
   quakeSearchRadius: 6
+  quakeImpactEffectPrefab: {fileID: 0}
+  quakeImpactEffectScale: 1
   quakeAffectedMarbleEffectPrefab: {fileID: 0}
   quakeAffectedMarbleEffectFrames: []
   quakeEffectFramesPerSecond: 18
   quakeAffectedMarbleEffectScale: 0.8
   quakeEffectLifetime: 1
   quakeEffectSortingOrder: -1
+  quakeChainStepDelay: 0.12
   useQuakeDustBurst: 1
   quakeParticleMaterial: {fileID: 0}
   quakeDustStartColor: {r: 0.65, g: 0.52, b: 0.32, a: 1}
@@ -65,14 +75,35 @@ MonoBehaviour:
   iceTrailSpotSpacing: 0.25
   iceTrailSpotSize: 0.45
   iceTrailSprites: []
+  iceTrailLinearDampingMultiplier: 0.08
+  iceTrailAngularDampingMultiplier: 0.15
+  iceTrailFriction: 0
+  blazeLaunchSpeedMultiplier: 2
   blazeChainCount: 6
   blazeChainForce: 5
   blazeSearchRadius: 7
+  blazeChainStepDelay: 0.12
+  blazeClashEffectPrefab: {fileID: 0}
+  blazeChainEffectPrefab: {fileID: 0}
+  blazeEffectFramesPerSecond: 18
+  blazeClashEffectScale: 1
+  blazeChainEffectScale: 1
+  blazeEffectLifetime: 1
+  blazeEffectSortingOrder: 20
+  sandClashEffectPrefab: {fileID: 8145097525282970294, guid: cb9111ae1c6574b8f81d8f21748eb4d4, type: 3}
+  sandEffectFramesPerSecond: 60
+  sandClashEffectScale: 1
+  sandEffectLifetime: 1
+  sandEffectSortingOrder: 20
   steamChainCount: 6
-  steamChainForce: 8
   steamSearchRadius: 7
   steamMassMultiplier: 0.5
   steamBuffDuration: 8
+  steamLinearDampingMultiplier: 0.2
+  steamAngularDampingMultiplier: 0.35
+  steamFriction: 0
   lavaLaunchMultiplier: 1.2
   lavaClashForce: 5
   lavaPreserveSpeedMultiplier: 0.95
+  mudMaxStickCount: 5
+  mudImmediateVelocityMultiplier: 0.2

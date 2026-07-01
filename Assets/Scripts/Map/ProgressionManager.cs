@@ -63,6 +63,9 @@ public class ProgressionManager : MonoBehaviour
     [Header("Emblem System")]
     public List<EmblemSO> equippedEmblems = new List<EmblemSO>();
 
+    [Header("Playable Emblem Inventory")]
+    public List<BaseEmblemSO> ownedPlayableEmblems = new List<BaseEmblemSO>();
+
     [Header("Persistent Map Data")]
     public bool isMapAlreadyGenerated = false;
     // PUSAT PENYIMPANAN DATA PETA: Menyimpan seluruh cetak biru node pertualangan
@@ -381,6 +384,29 @@ public class ProgressionManager : MonoBehaviour
         Debug.Log($"Emblem acquired: {emblem.emblemName}");
     }
 
+    public bool HasPlayableEmblem(BaseEmblemSO emblem)
+    {
+        return emblem != null && ownedPlayableEmblems.Contains(emblem);
+    }
+
+    public bool AddPlayableEmblem(BaseEmblemSO emblem)
+    {
+        if (emblem == null || ownedPlayableEmblems.Contains(emblem))
+        {
+            return false;
+        }
+
+        ownedPlayableEmblems.Add(emblem);
+        Debug.Log($"Playable emblem acquired: {GetPlayableEmblemDisplayName(emblem)}");
+        return true;
+    }
+
+    private string GetPlayableEmblemDisplayName(BaseEmblemSO emblem)
+    {
+        if (emblem == null) return "Unknown";
+        return !string.IsNullOrWhiteSpace(emblem.emblemName) ? emblem.emblemName : emblem.name;
+    }
+
     public bool TryRemoveRandomEmblem()
     {
         List<EmblemSO> removableEmblems = new List<EmblemSO>();
@@ -508,6 +534,7 @@ public class ProgressionManager : MonoBehaviour
         usedEventIds.Clear();
         
         equippedEmblems.Clear();
+        ownedPlayableEmblems.Clear();
         ResetChamberToDefault();
         Debug.Log("🧼 Seluruh struktur peta persisten telah direset bersih!");
     }

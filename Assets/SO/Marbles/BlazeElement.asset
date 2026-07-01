@@ -83,6 +83,18 @@ MonoBehaviour:
   blazeChainForce: 6
   blazeSearchRadius: 7
   blazeChainStepDelay: 0.12
+  blazeClashEffectPrefab: {fileID: 3542060388210304713, guid: e649c6cf6cdb448b1a024be7f17a3a97, type: 3}
+  blazeChainEffectPrefab: {fileID: 4926935312239217197, guid: 0c3c54ccbd4504f84a7484dceff111c8, type: 3}
+  blazeEffectFramesPerSecond: 60
+  blazeClashEffectScale: 0.25
+  blazeChainEffectScale: 0.25
+  blazeEffectLifetime: 1
+  blazeEffectSortingOrder: 20
+  sandClashEffectPrefab: {fileID: 0}
+  sandEffectFramesPerSecond: 18
+  sandClashEffectScale: 1
+  sandEffectLifetime: 1
+  sandEffectSortingOrder: 20
   steamChainCount: 6
   steamSearchRadius: 7
   steamMassMultiplier: 0.5
@@ -93,3 +105,5 @@ MonoBehaviour:
   lavaLaunchMultiplier: 1.2
   lavaClashForce: 6
   lavaPreserveSpeedMultiplier: 0.95
+  mudMaxStickCount: 5
+  mudImmediateVelocityMultiplier: 0.2

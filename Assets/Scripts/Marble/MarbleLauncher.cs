@@ -153,8 +153,7 @@ public class MarbleLauncher : MonoBehaviour
         Vector2 pullVector = ClampPullVector(currentTouchWorld - dragStartPos);
 
         // Kelereng tetap diam; hanya garis bidik yang memanjang mengikuti tarikan jari.
-        if (CurrentEmblemManager.Instance != null &&
-            CurrentEmblemManager.Instance.currentEmblem is EagleEyeSO)
+        if (HasEagleEyePreview())
         {
             UpdateRicochetTrajectory(-pullVector);
         }
@@ -250,6 +249,14 @@ public class MarbleLauncher : MonoBehaviour
             activeElement.OnLaunch(currentGacoanRb);
         }
 
+        RicochetMasterSO passiveRicochet = CurrentEmblemManager.Instance != null
+            ? CurrentEmblemManager.Instance.GetPassiveEmblem<RicochetMasterSO>()
+            : null;
+        if (passiveRicochet != null)
+        {
+            passiveRicochet.Activate(currentGacoan);
+        }
+
         currentGacoanRb.AddForce(launchForce, ForceMode2D.Impulse);
 
         if (CurrentEmblemManager.Instance != null &&
@@ -273,6 +280,14 @@ public class MarbleLauncher : MonoBehaviour
         currentGacoan = null;
         currentGacoanRb = null;
         UpdateStandbyAimArrow();
+    }
+
+    private bool HasEagleEyePreview()
+    {
+        if (CurrentEmblemManager.Instance == null) return false;
+
+        return CurrentEmblemManager.Instance.currentEmblem is EagleEyeSO
+            || CurrentEmblemManager.Instance.HasPassiveEmblem<EagleEyeSO>();
     }
 
 
@@ -595,12 +610,13 @@ public class MarbleLauncher : MonoBehaviour
             GetMarbleCollidersForPrediction(ignoreCollider),
             marblePhysicsMaterial);
 
-        trajectoryLine.positionCount = points.Count;
-
-        for (int i = 0; i < points.Count; i++)
+        if (trajectoryLine != null)
         {
-            trajectoryLine.SetPosition(i, points[i]);
+            trajectoryLine.enabled = false;
+            trajectoryLine.positionCount = 0;
         }
+
+        DrawDottedAimPreview(points, launchDirection);
     }
 
     private List<CircleCollider2D> GetMarbleCollidersForPrediction(Collider2D ignoreCollider)

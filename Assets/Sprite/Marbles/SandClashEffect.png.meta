@@ -1,0 +1,929 @@
+fileFormatVersion: 2
+guid: d5b857c580ad441199aff53e974c330c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1672155449358470254
+    second: Sand_Blast_0
+  - first:
+      213: -5838491088065775418
+    second: Sand_Blast_1
+  - first:
+      213: 2096273849455412410
+    second: Sand_Blast_2
+  - first:
+      213: 4031072920007071572
+    second: Sand_Blast_3
+  - first:
+      213: 3683169187401655456
+    second: Sand_Blast_4
+  - first:
+      213: -4247662552680098639
+    second: Sand_Blast_5
+  - first:
+      213: 3541415953573230164
+    second: Sand_Blast_6
+  - first:
+      213: -7382913335886713586
+    second: Sand_Blast_7
+  - first:
+      213: 5218566492666596185
+    second: Sand_Blast_8
+  - first:
+      213: -1229529516448994420
+    second: Sand_Blast_9
+  - first:
+      213: 316518414149114668
+    second: Sand_Blast_10
+  - first:
+      213: 291565986828996960
+    second: Sand_Blast_11
+  - first:
+      213: 5793249075809647144
+    second: Sand_Blast_12
+  - first:
+      213: -8677656527552611333
+    second: Sand_Blast_13
+  - first:
+      213: 1689111331609165901
+    second: Sand_Blast_14
+  - first:
+      213: 8792644214712576128
+    second: Sand_Blast_15
+  - first:
+      213: 210537928688409492
+    second: Sand_Blast_16
+  - first:
+      213: -7189736897315216404
+    second: Sand_Blast_17
+  - first:
+      213: 2186704400432483728
+    second: Sand_Blast_18
+  - first:
+      213: -1133863012617302286
+    second: Sand_Blast_19
+  - first:
+      213: 8611547823839032403
+    second: Sand_Blast_20
+  - first:
+      213: 2148815799046436853
+    second: Sand_Blast_21
+  - first:
+      213: -3599955742991777397
+    second: Sand_Blast_22
+  - first:
+      213: 465879270747294795
+    second: Sand_Blast_23
+  - first:
+      213: 1731757303689511791
+    second: Sand_Blast_24
+  - first:
+      213: 306498853523858943
+    second: Sand_Blast_25
+  - first:
+      213: -1799950447314801809
+    second: Sand_Blast_26
+  - first:
+      213: -8015245388465748572
+    second: Sand_Blast_27
+  - first:
+      213: 5694117761548247281
+    second: Sand_Blast_28
+  - first:
+      213: 2600379299177121639
+    second: Sand_Blast_29
+  - first:
+      213: 4586522827170930697
+    second: Sand_Blast_30
+  - first:
+      213: 3500401935945568967
+    second: Sand_Blast_31
+  - first:
+      213: 2885584446257686377
+    second: Sand_Blast_32
+  - first:
+      213: 421096626862488391
+    second: Sand_Blast_33
+  - first:
+      213: 717984071035582746
+    second: Sand_Blast_34
+  - first:
+      213: 384778328037555682
+    second: Sand_Blast_35
+  - first:
+      213: 8468716874947609269
+    second: Sand_Blast_36
+  - first:
+      213: 6788890390414573040
+    second: Sand_Blast_37
+  - first:
+      213: -3799321380248914209
+    second: Sand_Blast_38
+  - first:
+      213: 3142233858527884081
+    second: Sand_Blast_39
+  - first:
+      213: 1275815083409955856
+    second: Sand_Blast_40
+  - first:
+      213: -1178876358434593835
+    second: Sand_Blast_41
+  - first:
+      213: 8060056086365334363
+    second: Sand_Blast_42
+  - first:
+      213: -4499378100726437321
+    second: Sand_Blast_43
+  - first:
+      213: -8961116638124554560
+    second: Sand_Blast_44
+  - first:
+      213: -3497923902172041297
+    second: Sand_Blast_45
+  - first:
+      213: -5981969788676952751
+    second: Sand_Blast_46
+  - first:
+      213: -9062660735230013649
+    second: Sand_Blast_47
+  - first:
+      213: 5247937100779138421
+    second: Sand_Blast_48
+  - first:
+      213: -8711473788059041153
+    second: Sand_Blast_49
+  - first:
+      213: -4986077660907401011
+    second: Sand_Blast_50
+  - first:
+      213: -9088956177263119623
+    second: Sand_Blast_51
+  - first:
+      213: 7671780050204512742
+    second: Sand_Blast_52
+  - first:
+      213: -3349425634483910068
+    second: Sand_Blast_53
+  - first:
+      213: -5453229919460644063
+    second: Sand_Blast_54
+  - first:
+      213: -7903069583639721596
+    second: Sand_Blast_55
+  - first:
+      213: -6006907385443199035
+    second: Sand_Blast_56
+  - first:
+      213: 2317012282124744828
+    second: Sand_Blast_57
+  - first:
+      213: -6656371725662148109
+    second: Sand_Blast_58
+  - first:
+      213: -7548948324401977854
+    second: Sand_Blast_59
+  - first:
+      213: 7162745853860188779
+    second: Sand_Blast_60
+  - first:
+      213: -8528405121301818972
+    second: Sand_Blast_61
+  - first:
+      213: 4705741433790359146
+    second: Sand_Blast_62
+  - first:
+      213: -6253511029468512610
+    second: Sand_Blast_63
+  - first:
+      213: -6078088305751048805
+    second: Sand_Blast_64
+  - first:
+      213: 173704909184849827
+    second: Sand_Blast_65
+  - first:
+      213: -5034969975464421067
+    second: Sand_Blast_66
+  - first:
+      213: -7527025264343553454
+    second: Sand_Blast_67
+  - first:
+      213: -9053356171706417258
+    second: Sand_Blast_68
+  - first:
+      213: -8970243295993412632
+    second: Sand_Blast_69
+  - first:
+      213: 6463532037965964429
+    second: Sand_Blast_70
+  - first:
+      213: -7144127817991785403
+    second: Sand_Blast_71
+  - first:
+      213: -4848762757268848501
+    second: Sand_Blast_72
+  - first:
+      213: 2161303611115854961
+    second: Sand_Blast_73
+  - first:
+      213: 6790389639556267946
+    second: Sand_Blast_74
+  - first:
+      213: 3507843727078613587
+    second: Sand_Blast_75
+  - first:
+      213: -1270555732912305129
+    second: Sand_Blast_76
+  - first:
+      213: -6000316247782986381
+    second: Sand_Blast_77
+  - first:
+      213: -899554890523810
+    second: Sand_Blast_78
+  - first:
+      213: -7345390526146132386
+    second: Sand_Blast_79
+  - first:
+      213: 3922569029449985898
+    second: Sand_Blast_80
+  - first:
+      213: -2987608396194179840
+    second: Sand_Blast_81
+  - first:
+      213: -1370037851409261
+    second: Sand_Blast_82
+  - first:
+      213: -8253492900849106525
+    second: Sand_Blast_83
+  - first:
+      213: 8008473995226693294
+    second: Sand_Blast_84
+  - first:
+      213: 7187104194421162477
+    second: Sand_Blast_85
+  - first:
+      213: -4394744193751970340
+    second: Sand_Blast_86
+  - first:
+      213: 1947956278723759003
+    second: Sand_Blast_87
+  - first:
+      213: -6891158460341270199
+    second: Sand_Blast_88
+  - first:
+      213: -6791513360822021113
+    second: Sand_Blast_89
+  - first:
+      213: 7428826484635711325
+    second: Sand_Blast_90
+  - first:
+      213: -7881524615990895914
+    second: Sand_Blast_91
+  - first:
+      213: 5831262056908458893
+    second: Sand_Blast_92
+  - first:
+      213: -7277063040650934690
+    second: Sand_Blast_93
+  - first:
+      213: -326340735194793131
+    second: Sand_Blast_94
+  - first:
+      213: -5769504505570190153
+    second: Sand_Blast_95
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SandClashEffect_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2700
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58e14e2b20a2a40fbabf83d57334cbe6
+      internalID: -1142394645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandClashEffect_1
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 2700
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1a8c9e9f3f7249a7b406fd7fcb3f005
+      internalID: -886678555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandClashEffect_2
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 2700
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1746987c8e39f45b6a110119671dcab8
+      internalID: -526835843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandClashEffect_3
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 2700
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 171576c084d84465788b93ce786bc9ee
+      internalID: -38708743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandClashEffect_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2160
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32db0c3e9c4e0464aa81d2c98e56bf7c
+      internalID: 433523972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandClashEffect_5
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 2160
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2670440b4f3ef49df8c3e4fca8fcb5cb
+      internalID: -543292945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandClashEffect_6
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 2160
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ba351436c88a4876a3f98b0219b5f8c
+      internalID: -1840844079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandClashEffect_7
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 2160
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcbdc8e839bdb4c209e69a44df2219e6
+      internalID: -1769686211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandClashEffect_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1620
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa946e59c50c647da9f0adc854542bbd
+      internalID: -1279650039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandClashEffect_9
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 1620
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d6a7e9a1be4d4f33845e3220463882b
+      internalID: -2105786583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandClashEffect_10
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 1620
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bf6bf756284f465d832e1dfc57d7e88
+      internalID: 1252054903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandClashEffect_11
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 1620
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a4f7a8199b1b435d882625e136f9650
+      internalID: 1644016033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandClashEffect_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1080
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48a4d9c4c02294f4095f6aeb5da2ff84
+      internalID: -772253443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandClashEffect_13
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 1080
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e06d8eb5ec365408389822f92b8b626d
+      internalID: -1088507923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandClashEffect_14
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 1080
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7dc81efadae24e05b6c74fcf9f612be
+      internalID: 140143942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandClashEffect_15
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 1080
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0400ee6331ebc4fd8ac91200b3fa2c0b
+      internalID: 1944763944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandClashEffect_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 540
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c720940a7504e4814aa5dbac8b0e9b16
+      internalID: 1294895879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandClashEffect_17
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 540
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff7bc2dea2de5464f8c770fe63d45f3b
+      internalID: -1492874700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandClashEffect_18
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 540
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbc00ac6afa6b4d4e9eb0eb2d75001f4
+      internalID: -1855067602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandClashEffect_19
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 540
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf8689251d50d4951871bfded57fbdcb
+      internalID: 1294942533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SandClashEffect_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc8249720aedb41898bf48f7db5db4a7
+      internalID: -1193089092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: e24a8c14805a2413fa93068556390fa2
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":6.0},"gridSpriteSize":{"x":720.0,"y":540.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      SandClashEffect_0: -1142394645
+      SandClashEffect_1: -886678555
+      SandClashEffect_10: 1252054903
+      SandClashEffect_11: 1644016033
+      SandClashEffect_12: -772253443
+      SandClashEffect_13: -1088507923
+      SandClashEffect_14: 140143942
+      SandClashEffect_15: 1944763944
+      SandClashEffect_16: 1294895879
+      SandClashEffect_17: -1492874700
+      SandClashEffect_18: -1855067602
+      SandClashEffect_19: 1294942533
+      SandClashEffect_2: -526835843
+      SandClashEffect_20: -1193089092
+      SandClashEffect_3: -38708743
+      SandClashEffect_4: 433523972
+      SandClashEffect_5: -543292945
+      SandClashEffect_6: -1840844079
+      SandClashEffect_7: -1769686211
+      SandClashEffect_8: -1279650039
+      SandClashEffect_9: -2105786583
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

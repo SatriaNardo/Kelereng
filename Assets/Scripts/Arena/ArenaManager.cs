@@ -36,6 +36,9 @@ public class ArenaManager : MonoBehaviour
     public List<EnemySO> enemyPool = new List<EnemySO>();
     public EnemySO activeEnemyData;
 
+    [Header("Enemy Visual")]
+    public EnemySpriteAnimator enemySpriteAnimator;
+
     [Header("Enemy Overlord Stats Dynamic")]
     public int enemyHP = 100;
     public int maxEnemyHP = 100;
@@ -101,6 +104,7 @@ public class ArenaManager : MonoBehaviour
             maxEnemyHP = 100;
         }
 
+        ApplyActiveEnemyVisual();
         UpdateAmmoUI();
 
         // Lock launcher and trigger enemy first action setup
@@ -238,6 +242,7 @@ public class ArenaManager : MonoBehaviour
         isVictoryPending = false;
         isVictoryRecoveryTurn = false;
         activeEnemyData = enemy;
+        ApplyActiveEnemyVisual();
         enemyHP = Mathf.Max(1, Mathf.Max(enemyHP, enemy.baseHP));
         maxEnemyHP = Mathf.Max(enemyHP, maxEnemyHP);
         EnemyActionCount++;
@@ -265,6 +270,32 @@ public class ArenaManager : MonoBehaviour
         CorruptedGolemEnemySO.ClearGolemHazards();
 
         Debug.Log($"Cleared enemy hazards. Goo: {activeGooPools.Length}, Smoke: {activeSmokeBombs.Length}");
+    }
+
+    public EnemySpriteAnimator GetEnemySpriteAnimator()
+    {
+        if (enemySpriteAnimator == null)
+        {
+            enemySpriteAnimator = Object.FindFirstObjectByType<EnemySpriteAnimator>();
+        }
+
+        return enemySpriteAnimator;
+    }
+
+    private void ApplyActiveEnemyVisual()
+    {
+        EnemySpriteAnimator animator = GetEnemySpriteAnimator();
+        if (animator == null) return;
+
+        animator.SetVisualScale(activeEnemyData != null ? activeEnemyData.enemyVisualScale : 1f);
+
+        if (activeEnemyData is SlimeEnemySO slimeEnemy)
+        {
+            slimeEnemy.ApplyIdleAnimation(animator);
+            return;
+        }
+
+        animator.SetStaticSprite(activeEnemyData != null ? activeEnemyData.enemySprite : null);
     }
 
     public float GetEnemyHpRatio()
@@ -419,9 +450,16 @@ public class ArenaManager : MonoBehaviour
         // Cek kehabisan ammo
         if (currentAmmo <= 0)
         {
-            // Apakah emblem yang aktif adalah Phoenix?
-            if (CurrentEmblemManager.Instance != null &&
-                CurrentEmblemManager.Instance.currentEmblem is PhoenixSO phoenix)
+            // Apakah player punya Phoenix?
+            PhoenixSO phoenix = CurrentEmblemManager.Instance != null
+                ? CurrentEmblemManager.Instance.GetPassiveEmblem<PhoenixSO>()
+                : null;
+            if (phoenix == null && CurrentEmblemManager.Instance != null)
+            {
+                phoenix = CurrentEmblemManager.Instance.currentEmblem as PhoenixSO;
+            }
+
+            if (phoenix != null)
             {
                 currentAmmo += phoenix.bonusAmmo;
 
@@ -429,8 +467,15 @@ public class ArenaManager : MonoBehaviour
 
                 Debug.Log("🔥 Phoenix Activated! +1 Ammo");
 
-                // Hapus emblem setelah dipakai
-                CurrentEmblemManager.Instance.ConsumeCurrentEmblem();
+                if (CurrentEmblemManager.Instance != null &&
+                    CurrentEmblemManager.Instance.currentEmblem == phoenix)
+                {
+                    CurrentEmblemManager.Instance.ConsumeCurrentEmblem();
+                }
+                else if (CurrentEmblemManager.Instance != null)
+                {
+                    CurrentEmblemManager.Instance.ConsumePassiveEmblem(phoenix);
+                }
 
                 return; // Jangan lanjut ganti turn dulu
             }

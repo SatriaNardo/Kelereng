@@ -15,9 +15,19 @@ public class MapNode : MonoBehaviour
     [HideInInspector] public List<int> incomingConnections = new List<int>(); 
 
     public Button nodeButton;
+    public Image nodeImage;
     public TMP_Text nodeText;
 
     private MapManager mapManager;
+
+    private void Awake()
+    {
+        if (nodeButton == null) nodeButton = GetComponent<Button>();
+        if (nodeImage == null)
+        {
+            nodeImage = nodeButton != null ? nodeButton.image : GetComponent<Image>();
+        }
+    }
 
     public void SetupNode(MapManager.NodeType type, int floor, int column, MapManager manager, Vector2 position)
     {
@@ -31,6 +41,27 @@ public class MapNode : MonoBehaviour
         nodeButton.onClick.AddListener(OnNodeClicked);
         
         // Catatan: UpdateNodeInteractivity() dihapus dari sini karena harus menunggu garis digambar dahulu
+    }
+
+    public void SetNodeSprite(Sprite nodeSprite, bool hideTextWhenSpriteExists)
+    {
+        if (nodeImage == null)
+        {
+            nodeImage = nodeButton != null ? nodeButton.image : GetComponent<Image>();
+        }
+
+        if (nodeImage != null && nodeSprite != null)
+        {
+            nodeImage.sprite = nodeSprite;
+            nodeImage.type = Image.Type.Simple;
+            nodeImage.preserveAspect = true;
+            nodeImage.color = Color.white;
+        }
+
+        if (nodeText != null)
+        {
+            nodeText.gameObject.SetActive(nodeSprite == null || !hideTextWhenSpriteExists);
+        }
     }
 
     // LOGIKA BARU: Mengecek apakah node ini valid untuk diklik oleh pemain

@@ -75,9 +75,9 @@ MonoBehaviour:
   iceTrailSpotSpacing: 0.15
   iceTrailSpotSize: 0.1
   iceTrailSprites:
-  - {fileID: -981643386, guid: dc52b7db8f57a4e60b0e9aceaf25a642, type: 3}
-  - {fileID: 858740688, guid: dc52b7db8f57a4e60b0e9aceaf25a642, type: 3}
-  - {fileID: 5897151, guid: dc52b7db8f57a4e60b0e9aceaf25a642, type: 3}
+  - {fileID: -1183842806, guid: 868a671a75a57491b8e2b7a788a12254, type: 3}
+  - {fileID: -105558172, guid: 868a671a75a57491b8e2b7a788a12254, type: 3}
+  - {fileID: -811587633, guid: 868a671a75a57491b8e2b7a788a12254, type: 3}
   iceTrailLinearDampingMultiplier: 0.08
   iceTrailAngularDampingMultiplier: 0.15
   iceTrailFriction: 0
@@ -96,3 +96,5 @@ MonoBehaviour:
   lavaLaunchMultiplier: 1.2
   lavaClashForce: 5
   lavaPreserveSpeedMultiplier: 0.95
+  mudMaxStickCount: 5
+  mudImmediateVelocityMultiplier: 0.2

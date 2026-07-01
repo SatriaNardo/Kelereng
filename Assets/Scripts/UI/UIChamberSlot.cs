@@ -11,9 +11,15 @@ public class UIChamberSlot : MonoBehaviour
     public Sprite commonMarbleSprite;
 
     private UIInventoryManager manager;
+    private Color defaultBackgroundColor = Color.white;
 
     private void Awake()
     {
+        if (backgroundImage != null)
+        {
+            defaultBackgroundColor = backgroundImage.color;
+        }
+
         if (marbleImage == null)
         {
             Transform marbleImageTransform = transform.Find("MarbleImage");
@@ -47,31 +53,30 @@ public class UIChamberSlot : MonoBehaviour
         if (elementLabelText != null)
         {
             elementLabelText.gameObject.SetActive(true);
+            elementLabelText.enableAutoSizing = true;
+            elementLabelText.fontSizeMin = 12f;
+            elementLabelText.fontSizeMax = 28f;
+            elementLabelText.textWrappingMode = TextWrappingModes.Normal;
         }
 
         if (element != null)
         {
             if (elementLabelText != null)
             {
-                elementLabelText.text = element.elementName[0].ToString().ToUpper();
-            }
-
-            if (backgroundImage != null)
-            {
-                backgroundImage.color = element.elementColor;
+                elementLabelText.text = element.elementName;
             }
         }
         else
         {
             if (elementLabelText != null)
             {
-                elementLabelText.text = "0";
+                elementLabelText.text = "Common Marble";
             }
+        }
 
-            if (backgroundImage != null)
-            {
-                backgroundImage.color = Color.gray;
-            }
+        if (backgroundImage != null)
+        {
+            backgroundImage.color = defaultBackgroundColor;
         }
     }
 

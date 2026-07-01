@@ -131,9 +131,7 @@ public class UIFightInventory : MonoBehaviour
         {
             img.sprite = marbleSprite;
             img.preserveAspect = true;
-            img.color = marbleSprite != null
-                ? Color.white
-                : (element != null ? element.elementColor : Color.white);
+            img.color = Color.white;
         }
 
         if (txt != null)

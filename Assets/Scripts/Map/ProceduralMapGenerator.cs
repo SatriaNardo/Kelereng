@@ -39,6 +39,12 @@ public class ProceduralMapGenerator : MonoBehaviour
     public GameObject linePrefab;       
     public Transform mapContainer;      
 
+    [Header("Node Sprites")]
+    public Sprite normalNodeSprite;
+    public Sprite eliteNodeSprite;
+    public Sprite eventNodeSprite;
+    public bool hideNodeTextWhenSpriteExists = true;
+
     [Header("Map Layout Configuration")]
     public Vector2 spacing = new Vector2(150f, 120f); 
     [Min(0.1f)] public float mapVisualScale = 2f;
@@ -192,6 +198,7 @@ public class ProceduralMapGenerator : MonoBehaviour
                 // Kosongkan jalur sementara, biar fungsi DrawAllConnections merajut jembatannya secara bersih
                 nodeScript.incomingConnections = new List<int>();
                 nodeScript.SetupNode(savedType, bp.floorNumber, bp.columnNumber, mapManager, recalculatedPosition);
+                ApplyNodeSprite(nodeScript, savedType);
                 
                 nodesByFloor[bp.floorNumber].Add(nodeScript);
             }
@@ -473,9 +480,32 @@ public class ProceduralMapGenerator : MonoBehaviour
         if (rect != null) SetBottomAnchoredPosition(rect, finalAnchoredPos);
 
         nodeScript.SetupNode(type, floor, columnOffset, mapManager, finalAnchoredPos);
+        ApplyNodeSprite(nodeScript, type);
         nodesByFloor[floor].Add(nodeScript);
 
         return nodeScript;
+    }
+
+    private void ApplyNodeSprite(MapNode node, MapManager.NodeType type)
+    {
+        if (node == null) return;
+
+        node.SetNodeSprite(GetNodeSprite(type), hideNodeTextWhenSpriteExists);
+    }
+
+    private Sprite GetNodeSprite(MapManager.NodeType type)
+    {
+        switch (type)
+        {
+            case MapManager.NodeType.Fight:
+                return normalNodeSprite;
+            case MapManager.NodeType.Elite:
+                return eliteNodeSprite;
+            case MapManager.NodeType.Event:
+                return eventNodeSprite;
+            default:
+                return null;
+        }
     }
 
     private Vector2 CalculateNodePosition(MapManager.NodeType type, int floor, int columnOffset)

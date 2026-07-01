@@ -15,7 +15,25 @@ MonoBehaviour:
   enemyName: Slime
   enemyType: 0
   baseHP: 50
-  enemySprite: {fileID: 3955008839091464340, guid: f2e30ff2d770a418cba6bcedf289ca4a, type: 3}
+  enemySprite: {fileID: 3905958173420394357, guid: 24ef8350b270349879dfc84efada0d7b, type: 3}
   themeColor: {r: 1, g: 1, b: 1, a: 1}
+  enemyVisualScale: 2
+  idleAnimationSprites:
+  - {fileID: 3905958173420394357, guid: 24ef8350b270349879dfc84efada0d7b, type: 3}
+  - {fileID: -6346538416994026631, guid: 24ef8350b270349879dfc84efada0d7b, type: 3}
+  attackAnimationSprites:
+  - {fileID: -366608879963256176, guid: 0395271536be14f5db1e37245b9f9721, type: 3}
+  - {fileID: 7461358220166084367, guid: 0395271536be14f5db1e37245b9f9721, type: 3}
+  - {fileID: 1101676587370906656, guid: 0395271536be14f5db1e37245b9f9721, type: 3}
+  - {fileID: -6724656216354262363, guid: 0395271536be14f5db1e37245b9f9721, type: 3}
+  - {fileID: -455377894321438866, guid: 0395271536be14f5db1e37245b9f9721, type: 3}
+  - {fileID: -9092262515072513364, guid: 0395271536be14f5db1e37245b9f9721, type: 3}
+  - {fileID: -7954675933967044795, guid: 0395271536be14f5db1e37245b9f9721, type: 3}
+  - {fileID: 2045461764206634840, guid: 0395271536be14f5db1e37245b9f9721, type: 3}
+  - {fileID: 3910242520184623053, guid: 0395271536be14f5db1e37245b9f9721, type: 3}
+  - {fileID: -4069555622683096511, guid: 0395271536be14f5db1e37245b9f9721, type: 3}
+  - {fileID: -1093274064702785739, guid: 0395271536be14f5db1e37245b9f9721, type: 3}
+  idleAnimationFramesPerSecond: 2
+  attackAnimationFramesPerSecond: 30
   gooPoolPrefab: {fileID: 1916739456777005738, guid: 055e6449359fc4f10b34a7301c4ca50e, type: 3}
   spawnCountPerTurn: 2

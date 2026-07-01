@@ -15,5 +15,5 @@ MonoBehaviour:
   emblemName: 
   icon: {fileID: 0}
   description: 
-  usageType: 0
+  usageType: 2
   cooldown: 0

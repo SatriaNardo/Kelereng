@@ -87,6 +87,20 @@ public class CombinedElementSO : MarbleElementSO
     public float blazeChainForce = 5f;
     public float blazeSearchRadius = 7f;
     public float blazeChainStepDelay = 0.12f;
+    public GameObject blazeClashEffectPrefab;
+    public GameObject blazeChainEffectPrefab;
+    public float blazeEffectFramesPerSecond = 18f;
+    public float blazeClashEffectScale = 1f;
+    public float blazeChainEffectScale = 1f;
+    public float blazeEffectLifetime = 1f;
+    public int blazeEffectSortingOrder = 20;
+
+    [Header("Sand")]
+    public GameObject sandClashEffectPrefab;
+    public float sandEffectFramesPerSecond = 18f;
+    public float sandClashEffectScale = 1f;
+    public float sandEffectLifetime = 1f;
+    public int sandEffectSortingOrder = 20;
 
     [Header("Steam")]
     public int steamChainCount = 6;
@@ -208,10 +222,12 @@ public class CombinedElementSO : MarbleElementSO
                 break;
 
             case FusionType.Blaze:
+                SpriteSheetEffect.SpawnEffect(collisionPoint, blazeClashEffectPrefab, null, elementColor, blazeEffectFramesPerSecond, blazeClashEffectScale, impactDirection, blazeEffectLifetime, blazeEffectSortingOrder);
                 ChainLaunch(attacker, collisionPoint, blazeChainCount, blazeSearchRadius, blazeChainForce, blazeChainStepDelay);
                 break;
 
             case FusionType.Sand:
+                SpriteSheetEffect.SpawnEffect(collisionPoint, sandClashEffectPrefab, null, elementColor, sandEffectFramesPerSecond, sandClashEffectScale, impactDirection, sandEffectLifetime, sandEffectSortingOrder);
                 if (ArenaManager.Instance != null)
                 {
                     ArenaManager.Instance.RequestSkipNextEnemyTurn();
@@ -270,6 +286,8 @@ public class CombinedElementSO : MarbleElementSO
         {
             Vector2 randomDirection = Random.insideUnitCircle.normalized;
             if (randomDirection == Vector2.zero) randomDirection = Vector2.up;
+
+            SpriteSheetEffect.SpawnEffect(rb.position, blazeChainEffectPrefab, null, elementColor, blazeEffectFramesPerSecond, blazeChainEffectScale, blazeEffectLifetime, blazeEffectSortingOrder);
             rb.AddForce(randomDirection * force, ForceMode2D.Impulse);
         });
     }

@@ -403,6 +403,7 @@ MonoBehaviour:
   currentEnergy: 99
   maxEnergyThisTurn: 99
   equippedEmblems: []
+  ownedPlayableEmblems: []
   isMapAlreadyGenerated: 0
   savedMapNodes: []
 --- !u!1 &140000
@@ -468,6 +469,7 @@ MonoBehaviour:
   normalEnemyRewardRange: {x: 0, y: 0}
   eliteEnemyRewardRange: {x: 0, y: 0}
   bossEnemyRewardRange: {x: 0, y: 0}
+  phoenixAvailable: 0
 --- !u!1 &150000
 GameObject:
   m_ObjectHideFlags: 0
