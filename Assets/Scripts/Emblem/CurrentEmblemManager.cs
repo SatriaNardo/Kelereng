@@ -8,6 +8,7 @@ public class CurrentEmblemManager : MonoBehaviour
     public BaseEmblemSO currentEmblem;
     private readonly List<BaseEmblemSO> passiveEmblems = new List<BaseEmblemSO>();
     private readonly List<BaseEmblemSO> consumedPassiveEmblems = new List<BaseEmblemSO>();
+    private readonly List<BaseEmblemSO> playgroundPassiveEmblems = new List<BaseEmblemSO>();
 
     private void Awake()
     {
@@ -26,21 +27,29 @@ public class CurrentEmblemManager : MonoBehaviour
     {
         passiveEmblems.Clear();
 
+        foreach (BaseEmblemSO emblem in playgroundPassiveEmblems)
+        {
+            AddPassiveEmblemIfAvailable(emblem);
+        }
+
         EmblemButtonUI[] emblemButtons = FindObjectsByType<EmblemButtonUI>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (EmblemButtonUI button in emblemButtons)
         {
             if (button == null || button.emblem == null || !button.emblem.IsPassiveEmblem()) continue;
             if (!button.IsOwned()) continue;
-            if (consumedPassiveEmblems.Contains(button.emblem)) continue;
-            if (!passiveEmblems.Contains(button.emblem))
-            {
-                passiveEmblems.Add(button.emblem);
-            }
+            AddPassiveEmblemIfAvailable(button.emblem);
         }
     }
 
     public void SelectEmblem(BaseEmblemSO emblem)
     {
+        if (emblem == null)
+        {
+            currentEmblem = null;
+            Debug.Log("Selected Emblem: None");
+            return;
+        }
+
         if (emblem != null && emblem.IsPassiveEmblem())
         {
             RefreshPassiveEmblems();
@@ -51,6 +60,27 @@ public class CurrentEmblemManager : MonoBehaviour
         currentEmblem = emblem;
 
         Debug.Log("Selected Emblem: " + emblem.emblemName);
+    }
+
+    public void SetPlaygroundPassiveEmblem(BaseEmblemSO emblem)
+    {
+        playgroundPassiveEmblems.Clear();
+        consumedPassiveEmblems.Clear();
+
+        if (emblem != null && emblem.IsPassiveEmblem())
+        {
+            playgroundPassiveEmblems.Add(emblem);
+        }
+
+        RefreshPassiveEmblems();
+    }
+
+    public void ClearPlaygroundEmblems()
+    {
+        playgroundPassiveEmblems.Clear();
+        consumedPassiveEmblems.Clear();
+        currentEmblem = null;
+        RefreshPassiveEmblems();
     }
 
     public void ConsumeCurrentEmblem()
@@ -95,5 +125,15 @@ public class CurrentEmblemManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    private void AddPassiveEmblemIfAvailable(BaseEmblemSO emblem)
+    {
+        if (emblem == null || !emblem.IsPassiveEmblem()) return;
+        if (consumedPassiveEmblems.Contains(emblem)) return;
+        if (!passiveEmblems.Contains(emblem))
+        {
+            passiveEmblems.Add(emblem);
+        }
     }
 }

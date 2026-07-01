@@ -819,6 +819,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7b1a2c3d4e5f4a6b8c9d0e1f23456789, type: 2}
   - {fileID: 11400000, guid: e6f708192a3b4c5d6e7f8091a2b3c4d5, type: 2}
   selectedEnemyIndex: 0
+  testEmblems:
+  - {fileID: 11400000, guid: 5bdd52415bd064f8aa7430f9ad8f94d8, type: 2}
+  - {fileID: 11400000, guid: 2f8927bde46e64669a063b08a3f9a543, type: 2}
+  - {fileID: 11400000, guid: 280bb53db8bad48ac88bb435218c1c2f, type: 2}
+  - {fileID: 11400000, guid: a72e04f574bfd432d9a48f8ef92ba84f, type: 2}
+  - {fileID: 11400000, guid: 50f09f2fc11dc47bd92af454a716ee1f, type: 2}
+  - {fileID: 11400000, guid: 7d69844e85fd649bda6ea76f0f8ebc7a, type: 2}
+  - {fileID: 11400000, guid: 2d3abd7eba3134df3b3c370bb01cd3b5, type: 2}
+  - {fileID: 11400000, guid: 43dc787f43e7b4098b4367786b94f18e, type: 2}
+  - {fileID: 11400000, guid: 51932792a1977416fbd76848573684ef, type: 2}
+  selectedEmblemIndex: 0
+  includeNoEmblem: 1
   ammoSlots: 12
   targetCount: 12
   visibleArenaRadius: 1.8

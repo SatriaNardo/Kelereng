@@ -4259,6 +4259,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c862b06c823c477f992a16423cfbb942, type: 2}
   - {fileID: 11400000, guid: c3d4e5f60718293a4b5c6d7e8f9012ab, type: 2}
   activeEnemyData: {fileID: 0}
+  enemyPlace: {fileID: 1877479732}
   enemySpriteAnimator: {fileID: 1877479733}
   enemyHP: 100
   maxEnemyHP: 100

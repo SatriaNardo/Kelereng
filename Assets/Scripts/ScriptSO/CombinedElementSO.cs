@@ -97,8 +97,10 @@ public class CombinedElementSO : MarbleElementSO
 
     [Header("Sand")]
     public GameObject sandClashEffectPrefab;
+    public GameObject sandAreaEffectPrefab;
     public float sandEffectFramesPerSecond = 18f;
     public float sandClashEffectScale = 1f;
+    public float sandAreaEffectScale = 1f;
     public float sandEffectLifetime = 1f;
     public int sandEffectSortingOrder = 20;
 
@@ -230,7 +232,12 @@ public class CombinedElementSO : MarbleElementSO
                 SpriteSheetEffect.SpawnEffect(collisionPoint, sandClashEffectPrefab, null, elementColor, sandEffectFramesPerSecond, sandClashEffectScale, impactDirection, sandEffectLifetime, sandEffectSortingOrder);
                 if (ArenaManager.Instance != null)
                 {
+                    ArenaManager.Instance.SpawnSandAreaEffectAtEnemyPlace(sandAreaEffectPrefab, sandAreaEffectScale, sandEffectSortingOrder);
                     ArenaManager.Instance.RequestSkipNextEnemyTurn();
+                }
+                else
+                {
+                    SpawnSandAreaEffectFallback(victim, collisionPoint);
                 }
                 break;
 
@@ -253,6 +260,12 @@ public class CombinedElementSO : MarbleElementSO
         }
 
         Debug.Log($"{fusionType} fusion triggered.");
+    }
+
+    private void SpawnSandAreaEffectFallback(Rigidbody2D victim, Vector2 fallbackPosition)
+    {
+        Vector2 spawnPosition = victim != null ? victim.position : fallbackPosition;
+        SpriteSheetEffect.SpawnEffect(spawnPosition, sandAreaEffectPrefab, null, Color.white, sandEffectFramesPerSecond, sandAreaEffectScale, sandEffectLifetime, sandEffectSortingOrder);
     }
 
     private void PushAoe(Rigidbody2D attacker, Vector2 center, float radius, float force, bool resetVelocity)

@@ -125,4 +125,9 @@ public class UIInventoryManager : MonoBehaviour
     {
         if (feedbackStatusText != null) feedbackStatusText.text = message;
     }
+
+    public void ShowFeedback(string message)
+    {
+        UpdateFeedbackText(message);
+    }
 }

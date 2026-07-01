@@ -37,6 +37,7 @@ public class ArenaManager : MonoBehaviour
     public EnemySO activeEnemyData;
 
     [Header("Enemy Visual")]
+    public Transform enemyPlace;
     public EnemySpriteAnimator enemySpriteAnimator;
 
     [Header("Enemy Overlord Stats Dynamic")]
@@ -54,6 +55,7 @@ public class ArenaManager : MonoBehaviour
     private Rigidbody2D lastPlayerMarbleThatHitTarget;
     private bool activeGacoanHitTarget = false;
     private bool skipNextEnemyTurn = false;
+    private GameObject activeSandAreaEffect;
     public bool phoenixAvailable = false;
     private bool isGameOver = false;
     private bool isVictoryPending = false;
@@ -546,7 +548,7 @@ public class ArenaManager : MonoBehaviour
                 skipNextEnemyTurn = false;
                 ClearEnemyHazards();
                 Debug.Log("Sand effect skipped the enemy turn.");
-                StartCoroutine(EnemyTurnEndDelay());
+                StartCoroutine(EnemyTurnEndDelay(true));
                 return;
             }
             
@@ -560,10 +562,71 @@ public class ArenaManager : MonoBehaviour
         }
     }
 
-    private IEnumerator EnemyTurnEndDelay()
+    private IEnumerator EnemyTurnEndDelay(bool clearSandAreaEffect = false)
     {
         yield return new WaitForSeconds(0.6f);
+
+        if (clearSandAreaEffect)
+        {
+            ClearActiveSandAreaEffect();
+        }
+
         SwitchTurns(); 
+    }
+
+    public void SpawnSandAreaEffectAtEnemyPlace(GameObject sandAreaEffectPrefab, float scale, int sortingOrder)
+    {
+        if (sandAreaEffectPrefab == null) return;
+
+        ClearActiveSandAreaEffect();
+
+        Transform targetPlace = GetEnemyPlace();
+        Vector3 spawnPosition = targetPlace != null ? targetPlace.position : Vector3.zero;
+        activeSandAreaEffect = Instantiate(sandAreaEffectPrefab, spawnPosition, Quaternion.identity);
+        activeSandAreaEffect.transform.localScale = Vector3.one * Mathf.Max(0.01f, scale);
+        ApplySortingOrder(activeSandAreaEffect, sortingOrder);
+    }
+
+    private Transform GetEnemyPlace()
+    {
+        if (enemyPlace != null) return enemyPlace;
+
+        if (enemySpriteAnimator != null)
+        {
+            enemyPlace = enemySpriteAnimator.transform;
+            return enemyPlace;
+        }
+
+        GameObject enemyPlaceObject = GameObject.Find("EnemyPlace");
+        if (enemyPlaceObject != null)
+        {
+            enemyPlace = enemyPlaceObject.transform;
+        }
+
+        return enemyPlace;
+    }
+
+    private void ClearActiveSandAreaEffect()
+    {
+        if (activeSandAreaEffect == null) return;
+
+        Destroy(activeSandAreaEffect);
+        activeSandAreaEffect = null;
+    }
+
+    private void ApplySortingOrder(GameObject effectObject, int sortingOrder)
+    {
+        SpriteRenderer[] spriteRenderers = effectObject.GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer spriteRenderer in spriteRenderers)
+        {
+            spriteRenderer.sortingOrder = sortingOrder;
+        }
+
+        ParticleSystemRenderer[] particleRenderers = effectObject.GetComponentsInChildren<ParticleSystemRenderer>();
+        foreach (ParticleSystemRenderer particleRenderer in particleRenderers)
+        {
+            particleRenderer.sortingOrder = sortingOrder + 1;
+        }
     }
 
     private void TopUpTargetMarblesForPlayerTurn()

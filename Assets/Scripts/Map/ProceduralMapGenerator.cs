@@ -43,6 +43,7 @@ public class ProceduralMapGenerator : MonoBehaviour
     public Sprite normalNodeSprite;
     public Sprite eliteNodeSprite;
     public Sprite eventNodeSprite;
+    public Sprite shopNodeSprite;
     public bool hideNodeTextWhenSpriteExists = true;
 
     [Header("Map Layout Configuration")]
@@ -503,6 +504,8 @@ public class ProceduralMapGenerator : MonoBehaviour
                 return eliteNodeSprite;
             case MapManager.NodeType.Event:
                 return eventNodeSprite;
+            case MapManager.NodeType.Store:
+                return shopNodeSprite;
             default:
                 return null;
         }

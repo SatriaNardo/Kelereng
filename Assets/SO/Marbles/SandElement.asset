@@ -91,9 +91,11 @@ MonoBehaviour:
   blazeEffectLifetime: 1
   blazeEffectSortingOrder: 20
   sandClashEffectPrefab: {fileID: 8145097525282970294, guid: cb9111ae1c6574b8f81d8f21748eb4d4, type: 3}
+  sandAreaEffectPrefab: {fileID: 8732002467122000454, guid: fa0b5368ba3524fdcb535c77648eefc9, type: 3}
   sandEffectFramesPerSecond: 60
   sandClashEffectScale: 1
-  sandEffectLifetime: 1
+  sandAreaEffectScale: 0.6
+  sandEffectLifetime: 2
   sandEffectSortingOrder: 20
   steamChainCount: 6
   steamSearchRadius: 7

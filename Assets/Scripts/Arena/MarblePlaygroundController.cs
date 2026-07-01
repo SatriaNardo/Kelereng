@@ -18,6 +18,11 @@ public class MarblePlaygroundController : MonoBehaviour
     public List<EnemySO> testEnemies = new List<EnemySO>();
     public int selectedEnemyIndex = 0;
 
+    [Header("Test Emblems")]
+    public List<BaseEmblemSO> testEmblems = new List<BaseEmblemSO>();
+    public int selectedEmblemIndex = 0;
+    public bool includeNoEmblem = true;
+
     [Header("Playground Settings")]
     public int ammoSlots = 12;
     public int targetCount = 12;
@@ -36,6 +41,7 @@ public class MarblePlaygroundController : MonoBehaviour
 
     private readonly List<GameObject> spawnedTargets = new List<GameObject>();
     private Vector2 menuScrollPosition;
+    private CurrentEmblemManager emblemManager;
 
     private void Start()
     {
@@ -54,6 +60,7 @@ public class MarblePlaygroundController : MonoBehaviour
             arenaCenter = arenaManager.arenaCenter;
         }
 
+        EnsureEmblemManager();
         ConfigurePlayground();
         ResetTargets();
     }
@@ -86,6 +93,16 @@ public class MarblePlaygroundController : MonoBehaviour
         if (keyboard.hKey.wasPressedThisFrame)
         {
             ClearHazards();
+        }
+
+        if (keyboard.mKey.wasPressedThisFrame)
+        {
+            ApplySelectedEmblem();
+        }
+
+        if (keyboard.nKey.wasPressedThisFrame)
+        {
+            ClearSelectedEmblem();
         }
 
         Key[] numberKeys =
@@ -145,6 +162,27 @@ public class MarblePlaygroundController : MonoBehaviour
         }
 
         GUILayout.Space(8);
+        GUILayout.Label("Emblems");
+        for (int i = 0; i < GetEmblemChoiceCount(); i++)
+        {
+            string prefix = i == selectedEmblemIndex ? "> " : "";
+            if (GUILayout.Button($"{prefix}{GetEmblemChoiceName(i)}"))
+            {
+                SelectEmblem(i);
+            }
+        }
+
+        if (GUILayout.Button("Equip Emblem (M)"))
+        {
+            ApplySelectedEmblem();
+        }
+
+        if (GUILayout.Button("Clear Emblem (N)"))
+        {
+            ClearSelectedEmblem();
+        }
+
+        GUILayout.Space(8);
         if (GUILayout.Button("Reset Arena (R)"))
         {
             ResetPlayground();
@@ -182,6 +220,7 @@ public class MarblePlaygroundController : MonoBehaviour
         }
 
         FillChamberWithSelectedElement();
+        ApplySelectedEmblem();
     }
 
     private void ApplyFightScenePhysicsSettings()
@@ -227,6 +266,49 @@ public class MarblePlaygroundController : MonoBehaviour
     private void SelectEnemy(int enemyIndex)
     {
         selectedEnemyIndex = Mathf.Clamp(enemyIndex, 0, Mathf.Max(0, testEnemies.Count - 1));
+    }
+
+    private void SelectEmblem(int emblemIndex)
+    {
+        selectedEmblemIndex = Mathf.Clamp(emblemIndex, 0, Mathf.Max(0, GetEmblemChoiceCount() - 1));
+        ApplySelectedEmblem();
+    }
+
+    private void ApplySelectedEmblem()
+    {
+        EnsureEmblemManager();
+        if (emblemManager == null) return;
+
+        BaseEmblemSO selectedEmblem = GetSelectedEmblem();
+        if (selectedEmblem == null)
+        {
+            emblemManager.ClearPlaygroundEmblems();
+            Debug.Log("Playground emblem cleared.");
+            return;
+        }
+
+        if (selectedEmblem.IsPassiveEmblem())
+        {
+            emblemManager.currentEmblem = null;
+            emblemManager.SetPlaygroundPassiveEmblem(selectedEmblem);
+            Debug.Log($"Playground passive emblem active: {GetEmblemName(selectedEmblem)}");
+            return;
+        }
+
+        emblemManager.SetPlaygroundPassiveEmblem(null);
+        emblemManager.SelectEmblem(selectedEmblem);
+        Debug.Log($"Playground active emblem equipped: {GetEmblemName(selectedEmblem)}");
+    }
+
+    private void ClearSelectedEmblem()
+    {
+        EnsureEmblemManager();
+        if (emblemManager != null)
+        {
+            emblemManager.ClearPlaygroundEmblems();
+        }
+
+        selectedEmblemIndex = 0;
     }
 
     private void ExecuteSelectedEnemyAttack()
@@ -277,6 +359,11 @@ public class MarblePlaygroundController : MonoBehaviour
         return testElements.Count + (includeCommonMarble ? 1 : 0);
     }
 
+    private int GetEmblemChoiceCount()
+    {
+        return testEmblems.Count + (includeNoEmblem ? 1 : 0);
+    }
+
     private string GetChoiceName(int choiceIndex)
     {
         if (includeCommonMarble && choiceIndex == 0)
@@ -291,6 +378,47 @@ public class MarblePlaygroundController : MonoBehaviour
         }
 
         return testElements[elementIndex].elementName;
+    }
+
+    private BaseEmblemSO GetSelectedEmblem()
+    {
+        int emblemIndex = includeNoEmblem ? selectedEmblemIndex - 1 : selectedEmblemIndex;
+        if (emblemIndex < 0 || emblemIndex >= testEmblems.Count) return null;
+        return testEmblems[emblemIndex];
+    }
+
+    private string GetEmblemChoiceName(int choiceIndex)
+    {
+        if (includeNoEmblem && choiceIndex == 0)
+        {
+            return "No Emblem";
+        }
+
+        int emblemIndex = includeNoEmblem ? choiceIndex - 1 : choiceIndex;
+        if (emblemIndex < 0 || emblemIndex >= testEmblems.Count)
+        {
+            return "Empty Emblem";
+        }
+
+        return GetEmblemName(testEmblems[emblemIndex]);
+    }
+
+    private string GetEmblemName(BaseEmblemSO emblem)
+    {
+        if (emblem == null) return "No Emblem";
+        if (!string.IsNullOrWhiteSpace(emblem.emblemName)) return emblem.emblemName;
+        return emblem.name;
+    }
+
+    private void EnsureEmblemManager()
+    {
+        if (emblemManager != null) return;
+
+        emblemManager = CurrentEmblemManager.Instance;
+        if (emblemManager != null) return;
+
+        GameObject managerObject = new GameObject("CurrentEmblemManager");
+        emblemManager = managerObject.AddComponent<CurrentEmblemManager>();
     }
 
     private void ApplySelectedElementToStandbyMarble()

@@ -156,7 +156,22 @@ public class ProgressionManager : MonoBehaviour
             }
         }
 
-        int targetSlot = Random.Range(0, equippedChamber.Count);
+        List<int> validSlots = new List<int>();
+        for (int i = 0; i < equippedChamber.Count; i++)
+        {
+            if (!(equippedChamber[i] is CombinedElementSO))
+            {
+                validSlots.Add(i);
+            }
+        }
+
+        if (validSlots.Count == 0)
+        {
+            Debug.LogWarning($"No valid non-combined marble slot available for {element.elementName}.");
+            return;
+        }
+
+        int targetSlot = validSlots[Random.Range(0, validSlots.Count)];
         LoadElementToSlot(targetSlot, element);
     }
 
@@ -276,11 +291,16 @@ public class ProgressionManager : MonoBehaviour
         return gameEvent.name;
     }
 
-    public void LoadElementToSlot(int slotIndex, MarbleElementSO newElement)
+    public bool LoadElementToSlot(int slotIndex, MarbleElementSO newElement)
     {
-        if (slotIndex < 0 || slotIndex >= equippedChamber.Count) return;
+        if (slotIndex < 0 || slotIndex >= equippedChamber.Count) return false;
 
         MarbleElementSO currentElement = equippedChamber[slotIndex];
+        if (currentElement is CombinedElementSO)
+        {
+            Debug.LogWarning($"Slot {slotIndex} already contains a combined element and cannot receive another element.");
+            return false;
+        }
 
         CombinedElementSO fusionResult = GetFusionResult(currentElement, newElement);
         if (fusionResult != null)
@@ -293,6 +313,8 @@ public class ProgressionManager : MonoBehaviour
             equippedChamber[slotIndex] = newElement;
             Debug.Log($"🔮 Slot {slotIndex} diisi elemen: {(newElement != null ? newElement.elementName : "Polos")}");
         }
+
+        return true;
     }
 
     private CombinedElementSO GetFusionResult(MarbleElementSO currentElement, MarbleElementSO newElement)
