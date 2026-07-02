@@ -175,7 +175,7 @@ public class ProgressionManager : MonoBehaviour
         LoadElementToSlot(targetSlot, element);
     }
 
-    public bool ApplyEventReward(EventRewardData reward)
+    public bool ApplyEventReward(EventRewardData reward, bool applyElementRewards = true)
     {
         if (reward == null) return true;
 
@@ -205,18 +205,10 @@ public class ProgressionManager : MonoBehaviour
             AddAmmoToChamber(Random.Range(min, max + 1));
         }
 
-        if (reward.randomElementRewards != null && reward.randomElementRewards.Count > 0)
+        if (applyElementRewards && reward.randomElementRewards != null && reward.randomElementRewards.Count > 0)
         {
-            List<MarbleElementSO> validElements = new List<MarbleElementSO>();
-            foreach (MarbleElementSO element in reward.randomElementRewards)
-            {
-                if (element != null) validElements.Add(element);
-            }
-
-            if (validElements.Count > 0)
-            {
-                GrantElementToChamber(validElements[Random.Range(0, validElements.Count)]);
-            }
+            MarbleElementSO pickedElement = PickRandomEventElementReward(reward);
+            if (pickedElement != null) GrantElementToChamber(pickedElement);
         }
 
         if (reward.randomEmblemRewards != null && reward.randomEmblemRewards.Count > 0)
@@ -234,6 +226,32 @@ public class ProgressionManager : MonoBehaviour
         }
 
         return true;
+    }
+
+    public MarbleElementSO PickRandomEventElementReward(EventRewardData reward)
+    {
+        if (reward == null || reward.randomElementRewards == null || reward.randomElementRewards.Count == 0) return null;
+
+        List<MarbleElementSO> validElements = new List<MarbleElementSO>();
+        foreach (MarbleElementSO element in reward.randomElementRewards)
+        {
+            if (element != null) validElements.Add(element);
+        }
+
+        if (validElements.Count == 0) return null;
+        return validElements[Random.Range(0, validElements.Count)];
+    }
+
+    public bool RewardHasElement(EventRewardData reward)
+    {
+        if (reward == null || reward.randomElementRewards == null) return false;
+
+        foreach (MarbleElementSO element in reward.randomElementRewards)
+        {
+            if (element != null) return true;
+        }
+
+        return false;
     }
 
     public void SetPendingEventFightReward(EventRewardData reward)

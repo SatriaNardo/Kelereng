@@ -181,12 +181,12 @@ TextureImporter:
       name: slime_idle1_0
       rect:
         serializedVersion: 2
-        x: 23
-        y: 455
-        width: 21
-        height: 17
+        x: 0
+        y: 432
+        width: 80
+        height: 72
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -203,12 +203,12 @@ TextureImporter:
       name: slime_idle1_1
       rect:
         serializedVersion: 2
-        x: 102
-        y: 455
-        width: 23
-        height: 16
+        x: 80
+        y: 432
+        width: 80
+        height: 72
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -225,12 +225,12 @@ TextureImporter:
       name: slime_idle1_2
       rect:
         serializedVersion: 2
-        x: 23
-        y: 383
-        width: 21
-        height: 17
+        x: 0
+        y: 360
+        width: 80
+        height: 72
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -247,12 +247,12 @@ TextureImporter:
       name: slime_idle1_3
       rect:
         serializedVersion: 2
-        x: 102
-        y: 383
-        width: 23
-        height: 16
+        x: 80
+        y: 360
+        width: 80
+        height: 72
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -269,12 +269,12 @@ TextureImporter:
       name: slime_idle1_4
       rect:
         serializedVersion: 2
-        x: 23
-        y: 311
-        width: 21
-        height: 17
+        x: 0
+        y: 288
+        width: 80
+        height: 72
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -291,12 +291,12 @@ TextureImporter:
       name: slime_idle1_5
       rect:
         serializedVersion: 2
-        x: 102
-        y: 311
-        width: 23
-        height: 16
+        x: 80
+        y: 288
+        width: 80
+        height: 72
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -313,12 +313,12 @@ TextureImporter:
       name: slime_idle1_6
       rect:
         serializedVersion: 2
-        x: 23
-        y: 239
-        width: 21
-        height: 17
+        x: 0
+        y: 216
+        width: 80
+        height: 72
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -335,12 +335,12 @@ TextureImporter:
       name: slime_idle1_7
       rect:
         serializedVersion: 2
-        x: 102
-        y: 239
-        width: 23
-        height: 16
+        x: 80
+        y: 216
+        width: 80
+        height: 72
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -357,12 +357,12 @@ TextureImporter:
       name: slime_idle1_8
       rect:
         serializedVersion: 2
-        x: 23
-        y: 167
-        width: 21
-        height: 17
+        x: 0
+        y: 144
+        width: 66
+        height: 66
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -379,12 +379,12 @@ TextureImporter:
       name: slime_idle1_9
       rect:
         serializedVersion: 2
-        x: 102
-        y: 167
-        width: 23
-        height: 16
+        x: 80
+        y: 144
+        width: 67
+        height: 66
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -401,12 +401,12 @@ TextureImporter:
       name: slime_idle1_10
       rect:
         serializedVersion: 2
-        x: 23
-        y: 95
-        width: 21
-        height: 17
+        x: 0
+        y: 72
+        width: 80
+        height: 72
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -423,12 +423,12 @@ TextureImporter:
       name: slime_idle1_11
       rect:
         serializedVersion: 2
-        x: 102
-        y: 95
-        width: 23
-        height: 16
+        x: 80
+        y: 72
+        width: 80
+        height: 72
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -445,12 +445,12 @@ TextureImporter:
       name: slime_idle1_12
       rect:
         serializedVersion: 2
-        x: 23
-        y: 23
-        width: 21
-        height: 17
+        x: 0
+        y: 0
+        width: 80
+        height: 72
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -467,12 +467,12 @@ TextureImporter:
       name: slime_idle1_13
       rect:
         serializedVersion: 2
-        x: 102
-        y: 23
-        width: 23
-        height: 16
+        x: 80
+        y: 0
+        width: 80
+        height: 72
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -489,7 +489,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 80941db2f221743d2b344fe1bc2663f8
     internalID: 0
     vertices: []
     indices: 
@@ -497,7 +497,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":2.0,"y":7.0},"gridSpriteSize":{"x":80.0,"y":72.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       slime_idle1_0: -3821141674214079977
       slime_idle1_1: 1189681268827845177

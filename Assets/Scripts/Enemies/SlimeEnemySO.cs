@@ -14,6 +14,8 @@ public class SlimeEnemySO : EnemySO
     public GameObject gooPoolPrefab;
     public int spawnCountPerTurn = 2;
 
+    protected override int EnemyActionSfxSlotCount => 1;
+
     public void ApplyIdleAnimation(EnemySpriteAnimator animator)
     {
         if (animator == null) return;
@@ -30,6 +32,8 @@ public class SlimeEnemySO : EnemySO
 
     public override void ExecuteEnemyAction(ArenaManager arena)
     {
+        PlayActionSfx(arena, 0);
+
         if (arena != null)
         {
             PlayAttackAnimation(arena.GetEnemySpriteAnimator());

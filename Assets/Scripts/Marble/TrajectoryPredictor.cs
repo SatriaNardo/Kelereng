@@ -16,7 +16,10 @@ public static class TrajectoryPredictor
         int bounceCount,
         Collider2D ignoreCollider = null,
         IReadOnlyList<CircleCollider2D> marbleColliders = null,
-        PhysicsMaterial2D shooterMaterial = null)
+        PhysicsMaterial2D shooterMaterial = null,
+        float shooterMass = ShooterMass,
+        bool pierceMarbleCollisions = false,
+        float marblePierceSpeedMultiplier = 1f)
     {
         List<Vector2> points = new List<Vector2> { origin };
 
@@ -62,20 +65,28 @@ public static class TrajectoryPredictor
                 break;
             }
 
-            Vector2 bounceVelocity = ResolveBounceVelocity(currentVelocity, hit);
+            if (hit.isMarbleHit && pierceMarbleCollisions)
+            {
+                currentPos = impactCenter + currentDir * SurfacePushOff;
+                currentVelocity *= Mathf.Clamp01(marblePierceSpeedMultiplier);
+                continue;
+            }
+
+            Vector2 bounceVelocity = ResolveBounceVelocity(currentVelocity, hit, Mathf.Max(0.01f, shooterMass));
             if (bounceVelocity.sqrMagnitude <= MinSegmentSpeed * MinSegmentSpeed)
             {
                 break;
             }
 
-            currentPos = impactCenter + hit.normal * SurfacePushOff;
+            Vector2 nextDirection = bounceVelocity.normalized;
+            currentPos = impactCenter + nextDirection * SurfacePushOff;
             currentVelocity = bounceVelocity;
         }
 
         return points;
     }
 
-    private static Vector2 ResolveBounceVelocity(Vector2 velocity, TrajectoryHit hit)
+    private static Vector2 ResolveBounceVelocity(Vector2 velocity, TrajectoryHit hit, float shooterMass)
     {
         Vector2 relativeVelocity = velocity - hit.targetVelocity;
         float relativeNormalSpeed = Vector2.Dot(relativeVelocity, hit.normal);
@@ -85,9 +96,9 @@ public static class TrajectoryPredictor
             return velocity;
         }
 
-        float inverseMassSum = (1f / ShooterMass) + (hit.isMarbleHit ? 1f / hit.targetMass : 0f);
+        float inverseMassSum = (1f / shooterMass) + (hit.isMarbleHit ? 1f / hit.targetMass : 0f);
         float normalImpulse = -(1f + hit.restitution) * relativeNormalSpeed / inverseMassSum;
-        Vector2 newVelocity = velocity + (normalImpulse / ShooterMass) * hit.normal;
+        Vector2 newVelocity = velocity + (normalImpulse / shooterMass) * hit.normal;
 
         if (hit.friction <= 0f)
         {
@@ -100,7 +111,7 @@ public static class TrajectoryPredictor
         float maxFrictionImpulse = hit.friction * Mathf.Abs(normalImpulse);
         tangentImpulse = Mathf.Clamp(tangentImpulse, -maxFrictionImpulse, maxFrictionImpulse);
 
-        return newVelocity + (tangentImpulse / ShooterMass) * tangent;
+        return newVelocity + (tangentImpulse / shooterMass) * tangent;
     }
 
     private static bool TryGetNextHit(

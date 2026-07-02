@@ -11,16 +11,30 @@ public class UIInventoryManager : MonoBehaviour
     [Header("Status Info Text")]
     public TMP_Text feedbackStatusText;
 
+    [Header("Auto Rebuild")]
+    [Tooltip("Rebuild the inventory slots whenever this panel is opened.")]
+    public bool rebuildOnEnable = true;
+
     private List<UIChamberSlot> activeUISlots = new List<UIChamberSlot>();
     private int selectedSlotIndex = -1; 
 
     // BARU: State kontrol integrasi Toko
     private ShopManager activeShopRef = null;
+    private EventManager activeEventRef = null;
+    private MapManager activeMapRef = null;
     private bool isInInfusionMode = false;
 
     private void Start()
     {
         // Pastikan dipanggil lewat MapManager seperti langkah perbaikan kemarin
+    }
+
+    private void OnEnable()
+    {
+        if (rebuildOnEnable)
+        {
+            BuildDynamicInventoryUI();
+        }
     }
 
     public void BuildDynamicInventoryUI()
@@ -64,6 +78,8 @@ public class UIInventoryManager : MonoBehaviour
     public void EnterInfusionMode(ShopManager shop, string elementName)
     {
         activeShopRef = shop;
+        activeEventRef = null;
+        activeMapRef = null;
         isInInfusionMode = true;
         selectedSlotIndex = -1;
         RefreshAllSlots();
@@ -71,11 +87,37 @@ public class UIInventoryManager : MonoBehaviour
         UpdateFeedbackText($"🔮 INFUSE MODE: Tap 1 of your {activeUISlots.Count} marbles to inject {elementName}!");
     }
 
+    public void EnterEventInfusionMode(EventManager eventManager, string elementName)
+    {
+        activeShopRef = null;
+        activeEventRef = eventManager;
+        activeMapRef = null;
+        isInInfusionMode = true;
+        selectedSlotIndex = -1;
+        RefreshAllSlots();
+
+        UpdateFeedbackText($"Event reward: tap a marble to fuse {elementName}.");
+    }
+
+    public void EnterMapEventInfusionMode(MapManager mapManager, string elementName)
+    {
+        activeShopRef = null;
+        activeEventRef = null;
+        activeMapRef = mapManager;
+        isInInfusionMode = true;
+        selectedSlotIndex = -1;
+        RefreshAllSlots();
+
+        UpdateFeedbackText($"Event fight reward: tap a marble to fuse {elementName}.");
+    }
+
     // BARU: Keluar dari mode infus dan kembali ke mode swap reguler
     public void ExitInfusionMode()
     {
         isInInfusionMode = false;
         activeShopRef = null;
+        activeEventRef = null;
+        activeMapRef = null;
         RefreshAllSlots();
         UpdateFeedbackText("Returned to Map Inventory");
     }
@@ -88,6 +130,18 @@ public class UIInventoryManager : MonoBehaviour
             // Panggil fungsi CompleteInfusionTransaction yang baru kita buat di atas
             activeShopRef.CompleteInfusionTransaction(clickedIndex);
             return; 
+        }
+
+        if (isInInfusionMode && activeEventRef != null)
+        {
+            activeEventRef.CompleteElementRewardInfusion(clickedIndex);
+            return;
+        }
+
+        if (isInInfusionMode && activeMapRef != null)
+        {
+            activeMapRef.CompletePendingEventFightElementInfusion(clickedIndex);
+            return;
         }
 
         // LOGIKA SWAP REGULER (Saat di Map Scene biasa)

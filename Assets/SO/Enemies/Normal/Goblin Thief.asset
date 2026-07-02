@@ -16,7 +16,14 @@ MonoBehaviour:
   enemyType: 0
   baseHP: 50
   enemySprite: {fileID: 0}
-  themeColor: {r: 0.25, g: 0.22, b: 0.18, a: 1}
+  themeColor: {r: 1, g: 1, b: 1, a: 1}
+  enemyVisualScale: 1
+  showEnemyShadow: 1
+  enemyShadowColor: {r: 0, g: 0, b: 0, a: 0.35}
+  enemyShadowWidth: 1.25
+  enemyShadowHeight: 0.35
+  enemyShadowOffset: {x: 0, y: -0.35}
+  enemyShadowSortingOrderOffset: -1
   smokeBombPrefab: {fileID: 9180261011422194471, guid: ca59c04c7dc424d9caa54a1226585b2c, type: 3}
   spawnCountPerTurn: 2
   smokeRadius: 2

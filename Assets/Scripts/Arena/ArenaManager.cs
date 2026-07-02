@@ -227,6 +227,7 @@ public class ArenaManager : MonoBehaviour
         activeGacoanHitTarget = false;
 
         activeEnemyData = null;
+        ApplyActiveEnemyVisual();
         enemyHP = Mathf.Max(1, dummyEnemyHp);
         maxEnemyHP = enemyHP;
         currentAmmo = Mathf.Max(1, availableShots);
@@ -290,6 +291,7 @@ public class ArenaManager : MonoBehaviour
         if (animator == null) return;
 
         animator.SetVisualScale(activeEnemyData != null ? activeEnemyData.enemyVisualScale : 1f);
+        animator.ConfigureShadow(activeEnemyData);
 
         if (activeEnemyData is SlimeEnemySO slimeEnemy)
         {

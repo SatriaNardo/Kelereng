@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class MarblePlaygroundController : MonoBehaviour
 {
+    private static MarblePlaygroundController activePlayground;
+
     [Header("Scene References")]
     public ArenaManager arenaManager;
     public MarbleLauncher marbleLauncher;
@@ -40,8 +42,35 @@ public class MarblePlaygroundController : MonoBehaviour
     [Range(0.1f, 0.5f)] public float fightSceneBottomScreenPercentage = 0.3f;
 
     private readonly List<GameObject> spawnedTargets = new List<GameObject>();
+    private readonly List<MenuButtonHitbox> menuButtonHitboxes = new List<MenuButtonHitbox>();
     private Vector2 menuScrollPosition;
     private CurrentEmblemManager emblemManager;
+    private int lastManualMenuClickFrame = -1;
+
+    private struct MenuButtonHitbox
+    {
+        public Rect screenRect;
+        public System.Action action;
+
+        public MenuButtonHitbox(Rect screenRect, System.Action action)
+        {
+            this.screenRect = screenRect;
+            this.action = action;
+        }
+    }
+
+    private void OnEnable()
+    {
+        activePlayground = this;
+    }
+
+    private void OnDisable()
+    {
+        if (activePlayground == this)
+        {
+            activePlayground = null;
+        }
+    }
 
     private void Start()
     {
@@ -67,6 +96,8 @@ public class MarblePlaygroundController : MonoBehaviour
 
     private void Update()
     {
+        HandleMenuPointerInput();
+
         Keyboard keyboard = Keyboard.current;
         if (keyboard == null) return;
 
@@ -125,81 +156,128 @@ public class MarblePlaygroundController : MonoBehaviour
     private void OnGUI()
     {
         const int width = 240;
-        GUILayout.BeginArea(new Rect(12, 12, width, Screen.height - 24), GUI.skin.box);
-        menuScrollPosition = GUILayout.BeginScrollView(menuScrollPosition);
-        GUILayout.Label("Marble Playground");
-        GUILayout.Label("Drag from bottom screen to shoot.");
-        GUILayout.Space(6);
+        const float padding = 10f;
+        const float buttonHeight = 24f;
+        const float gap = 4f;
+
+        Rect menuRect = new Rect(12, 12, width, Screen.height - 24);
+        Rect viewRect = new Rect(0, 0, width - 24, GetMenuContentHeight(buttonHeight, gap));
+        menuButtonHitboxes.Clear();
+
+        GUI.Box(menuRect, GUIContent.none);
+        menuScrollPosition = GUI.BeginScrollView(menuRect, menuScrollPosition, viewRect);
+
+        float y = padding;
+        DrawMenuLabel("Marble Playground", ref y);
+        DrawMenuLabel("Drag from bottom screen to shoot.", ref y);
+        y += 6f;
 
         for (int i = 0; i < GetChoiceCount(); i++)
         {
+            int capturedIndex = i;
             string prefix = i == selectedElementIndex ? "> " : "";
-            if (GUILayout.Button($"{prefix}{i + 1}. {GetChoiceName(i)}"))
-            {
-                SelectChoice(i);
-            }
+            DrawMenuButton($"{prefix}{i + 1}. {GetChoiceName(i)}", () => SelectChoice(capturedIndex), menuRect, buttonHeight, gap, ref y);
         }
 
-        GUILayout.Space(8);
-        GUILayout.Label("Enemy Attacks");
+        y += 8f;
+        DrawMenuLabel("Enemy Attacks", ref y);
         for (int i = 0; i < testEnemies.Count; i++)
         {
+            int capturedIndex = i;
             string prefix = i == selectedEnemyIndex ? "> " : "";
-            if (GUILayout.Button($"{prefix}{GetEnemyName(i)}"))
-            {
-                SelectEnemy(i);
-            }
+            DrawMenuButton($"{prefix}{GetEnemyName(i)}", () => SelectEnemy(capturedIndex), menuRect, buttonHeight, gap, ref y);
         }
 
-        if (GUILayout.Button("Use Enemy Attack (E)"))
-        {
-            ExecuteSelectedEnemyAttack();
-        }
+        DrawMenuButton("Use Enemy Attack (E)", ExecuteSelectedEnemyAttack, menuRect, buttonHeight, gap, ref y);
+        DrawMenuButton("Clear Hazards (H)", ClearHazards, menuRect, buttonHeight, gap, ref y);
 
-        if (GUILayout.Button("Clear Hazards (H)"))
-        {
-            ClearHazards();
-        }
-
-        GUILayout.Space(8);
-        GUILayout.Label("Emblems");
+        y += 8f;
+        DrawMenuLabel("Emblems", ref y);
         for (int i = 0; i < GetEmblemChoiceCount(); i++)
         {
+            int capturedIndex = i;
             string prefix = i == selectedEmblemIndex ? "> " : "";
-            if (GUILayout.Button($"{prefix}{GetEmblemChoiceName(i)}"))
+            DrawMenuButton($"{prefix}{GetEmblemChoiceName(i)}", () => SelectEmblem(capturedIndex), menuRect, buttonHeight, gap, ref y);
+        }
+
+        DrawMenuButton("Equip Emblem (M)", ApplySelectedEmblem, menuRect, buttonHeight, gap, ref y);
+        DrawMenuButton("Clear Emblem (N)", ClearSelectedEmblem, menuRect, buttonHeight, gap, ref y);
+
+        y += 8f;
+        DrawMenuButton("Reset Arena (R)", ResetPlayground, menuRect, buttonHeight, gap, ref y);
+        DrawMenuButton("Clear Player Marbles (C)", ClearPlayerMarbles, menuRect, buttonHeight, gap, ref y);
+        DrawMenuButton("Spawn Target (T)", SpawnTarget, menuRect, buttonHeight, gap, ref y);
+
+        GUI.EndScrollView();
+    }
+
+    private void DrawMenuLabel(string text, ref float y)
+    {
+        GUI.Label(new Rect(10f, y, 210f, 22f), text);
+        y += 22f;
+    }
+
+    private void DrawMenuButton(string text, System.Action action, Rect menuRect, float buttonHeight, float gap, ref float y)
+    {
+        Rect localRect = new Rect(10f, y, 210f, buttonHeight);
+        Rect screenRect = new Rect(menuRect.x + localRect.x, menuRect.y + localRect.y - menuScrollPosition.y, localRect.width, localRect.height);
+
+        if (screenRect.yMax >= menuRect.y && screenRect.yMin <= menuRect.yMax)
+        {
+            menuButtonHitboxes.Add(new MenuButtonHitbox(screenRect, action));
+        }
+
+        if (GUI.Button(localRect, text) && lastManualMenuClickFrame != Time.frameCount)
+        {
+            action?.Invoke();
+        }
+
+        y += buttonHeight + gap;
+    }
+
+    private float GetMenuContentHeight(float buttonHeight, float gap)
+    {
+        int buttonCount = GetChoiceCount() + testEnemies.Count + GetEmblemChoiceCount() + 7;
+        return 20f + (3 * 22f) + (buttonCount * (buttonHeight + gap)) + 32f;
+    }
+
+    private void HandleMenuPointerInput()
+    {
+        Pointer pointer = Pointer.current;
+        if (pointer == null || !pointer.press.wasPressedThisFrame) return;
+
+        Vector2 pointerPosition = pointer.position.ReadValue();
+        Vector2 guiPosition = new Vector2(pointerPosition.x, Screen.height - pointerPosition.y);
+
+        for (int i = 0; i < menuButtonHitboxes.Count; i++)
+        {
+            if (!menuButtonHitboxes[i].screenRect.Contains(guiPosition)) continue;
+
+            lastManualMenuClickFrame = Time.frameCount;
+            menuButtonHitboxes[i].action?.Invoke();
+            return;
+        }
+    }
+
+    public static bool IsScreenPositionOverMenu(Vector2 screenPosition)
+    {
+        if (activePlayground == null) return false;
+
+        Vector2 guiPosition = new Vector2(screenPosition.x, Screen.height - screenPosition.y);
+        Rect menuRect = new Rect(12, 12, 240, Screen.height - 24);
+        if (!menuRect.Contains(guiPosition)) return false;
+
+        if (activePlayground.menuButtonHitboxes.Count == 0) return true;
+
+        for (int i = 0; i < activePlayground.menuButtonHitboxes.Count; i++)
+        {
+            if (activePlayground.menuButtonHitboxes[i].screenRect.Contains(guiPosition))
             {
-                SelectEmblem(i);
+                return true;
             }
         }
 
-        if (GUILayout.Button("Equip Emblem (M)"))
-        {
-            ApplySelectedEmblem();
-        }
-
-        if (GUILayout.Button("Clear Emblem (N)"))
-        {
-            ClearSelectedEmblem();
-        }
-
-        GUILayout.Space(8);
-        if (GUILayout.Button("Reset Arena (R)"))
-        {
-            ResetPlayground();
-        }
-
-        if (GUILayout.Button("Clear Player Marbles (C)"))
-        {
-            ClearPlayerMarbles();
-        }
-
-        if (GUILayout.Button("Spawn Target (T)"))
-        {
-            SpawnTarget();
-        }
-
-        GUILayout.EndScrollView();
-        GUILayout.EndArea();
+        return true;
     }
 
     private void ConfigurePlayground()

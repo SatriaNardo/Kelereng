@@ -51,6 +51,11 @@ public class UIFightInventory : MonoBehaviour
         RefreshAvailableElementsUI();
     }
 
+    private void OnDisable()
+    {
+        SetLauncherSwapVisibility(false);
+    }
+
     private void Update()
     {
         if (!isPanelOpen || !useCarouselLayout || reserveSlotTransforms.Count <= 1) return;
@@ -279,6 +284,15 @@ public class UIFightInventory : MonoBehaviour
         {
             panelToggleText.text = isPanelOpen ? "Close" : "Swap";
         }
+
+        SetLauncherSwapVisibility(isPanelOpen);
+    }
+
+    private void SetLauncherSwapVisibility(bool swapping)
+    {
+        if (marbleLauncher == null) return;
+
+        marbleLauncher.SetLauncherPreviewActive(!swapping);
     }
 
     private void PositionReserveSlot(RectTransform slotTransform, int reserveIndex, int reserveCount)

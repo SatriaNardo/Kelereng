@@ -18,6 +18,15 @@ MonoBehaviour:
   enemySprite: {fileID: 3905958173420394357, guid: 24ef8350b270349879dfc84efada0d7b, type: 3}
   themeColor: {r: 1, g: 1, b: 1, a: 1}
   enemyVisualScale: 2
+  showEnemyShadow: 1
+  enemyShadowColor: {r: 0, g: 0, b: 0, a: 0.35}
+  enemyShadowWidth: 1.25
+  enemyShadowHeight: 0.35
+  enemyShadowOffset: {x: 0, y: -0.1}
+  enemyShadowSortingOrderOffset: -1
+  enemyActionSfx:
+  - {fileID: 8300000, guid: cd97ce1d25b374d9385857a6909eea57, type: 3}
+  enemyActionSfxVolume: 0.7
   idleAnimationSprites:
   - {fileID: 3905958173420394357, guid: 24ef8350b270349879dfc84efada0d7b, type: 3}
   - {fileID: -6346538416994026631, guid: 24ef8350b270349879dfc84efada0d7b, type: 3}

@@ -78,9 +78,25 @@ MonoBehaviour:
   iceTrailLinearDampingMultiplier: 0.08
   iceTrailAngularDampingMultiplier: 0.15
   iceTrailFriction: 0
+  blazeLaunchSpeedMultiplier: 2
   blazeChainCount: 6
   blazeChainForce: 5
   blazeSearchRadius: 7
+  blazeChainStepDelay: 0.12
+  blazeClashEffectPrefab: {fileID: 0}
+  blazeChainEffectPrefab: {fileID: 0}
+  blazeEffectFramesPerSecond: 18
+  blazeClashEffectScale: 1
+  blazeChainEffectScale: 1
+  blazeEffectLifetime: 1
+  blazeEffectSortingOrder: 20
+  sandClashEffectPrefab: {fileID: 0}
+  sandAreaEffectPrefab: {fileID: 0}
+  sandEffectFramesPerSecond: 18
+  sandClashEffectScale: 1
+  sandAreaEffectScale: 1
+  sandEffectLifetime: 1
+  sandEffectSortingOrder: 20
   steamChainCount: 6
   steamSearchRadius: 7
   steamMassMultiplier: 0.5
@@ -91,3 +107,17 @@ MonoBehaviour:
   lavaLaunchMultiplier: 1.2
   lavaClashForce: 3
   lavaPreserveSpeedMultiplier: 0.95
+  useLavaTrailSpots: 1
+  lavaTrailSpotSpacing: 0.15
+  lavaTrailSpotSize: 0.1
+  lavaTrailSpotLifetime: 1
+  lavaTrailSprites:
+  - {fileID: 8310186071153712410, guid: 0c96d9c85966946438b176ace87e9648, type: 3}
+  - {fileID: -2809868338415190922, guid: 0c96d9c85966946438b176ace87e9648, type: 3}
+  - {fileID: -4353817951681030005, guid: 0c96d9c85966946438b176ace87e9648, type: 3}
+  lavaTrailSpotColor: {r: 1, g: 1, b: 1, a: 1}
+  lavaTrailLinearDampingMultiplier: 1
+  lavaTrailAngularDampingMultiplier: 1
+  lavaTrailFriction: 1
+  mudMaxStickCount: 5
+  mudImmediateVelocityMultiplier: 0.2

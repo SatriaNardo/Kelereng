@@ -21,6 +21,8 @@ public class EntTreeEnemySO : EnemySO
     [Header("Shared Physics")]
     public PhysicsMaterial2D hazardMaterial;
 
+    protected override int EnemyActionSfxSlotCount => 2;
+
     public override void ExecuteEnemyAction(ArenaManager arena)
     {
         ClearEntTreeHazards();
@@ -28,10 +30,12 @@ public class EntTreeEnemySO : EnemySO
         bool useWallRing = arena.EnemyActionCount % 2 == 1;
         if (useWallRing)
         {
+            PlayActionSfx(arena, 0);
             SpawnWallRing(arena);
         }
         else
         {
+            PlayActionSfx(arena, 1);
             SpawnRootVine(arena);
         }
     }

@@ -221,7 +221,7 @@ public class ShopManager : MonoBehaviour
             pendingInfusionOfferIndex = offerIndex;
             pendingInfusionPrice = price;
 
-            if (itemsPanel != null) itemsPanel.SetActive(false);
+            if (itemsPanel != null) itemsPanel.SetActive(true);
             SetInventoryPanelVisible(true);
 
             if (uiInventoryManager != null)

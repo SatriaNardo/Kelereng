@@ -11,8 +11,12 @@ public class GoblinThiefEnemySO : EnemySO
     [Range(0f, 1f)] public float smokeOpacity = 1f;
     public int smokeSortingOrder = 100;
 
+    protected override int EnemyActionSfxSlotCount => 1;
+
     public override void ExecuteEnemyAction(ArenaManager arena)
     {
+        PlayActionSfx(arena, 0);
+
         SmokeBomb[] activeSmokeBombs = Object.FindObjectsByType<SmokeBomb>(FindObjectsSortMode.None);
 
         foreach (SmokeBomb oldSmoke in activeSmokeBombs)

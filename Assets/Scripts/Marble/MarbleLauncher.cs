@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MarbleLauncher : MonoBehaviour
 {
@@ -12,6 +13,15 @@ public class MarbleLauncher : MonoBehaviour
     public float maxDragDistance = 2.5f;
     public float launchForceMultiplier = 15f;
     public LineRenderer trajectoryLine;
+
+    [Header("Shoot Button")]
+    public bool useShootButtonToFire = true;
+    public RectTransform shootButtonHitArea;
+    public string shootButtonObjectName = "Shoot";
+
+    [Header("Power Slider")]
+    public Slider powerSlider;
+    public string powerSliderObjectName = "PowerSlider";
 
     [Header("Aim Preview")]
     public Sprite aimArrowSprite;
@@ -43,7 +53,9 @@ public class MarbleLauncher : MonoBehaviour
     // --- Private State Variables ---
     private Vector2 dragStartPos;
     private Vector2 launchOriginPos;
+    private Vector2 currentAimPullVector;
     private bool isDragging = false;
+    private bool hasAimDirection = false;
     private GameObject currentGacoan;
     private Rigidbody2D currentGacoanRb;
     private LineRenderer dragZoneGuideLine;
@@ -52,6 +64,7 @@ public class MarbleLauncher : MonoBehaviour
     private readonly List<SpriteRenderer> aimDots = new List<SpriteRenderer>();
     private SpriteRenderer aimArrowRenderer;
     private SpriteRenderer standbyArrowRenderer;
+    private bool launcherPreviewActive = true;
     private int lastScreenWidth;
     private int lastScreenHeight;
 
@@ -75,6 +88,8 @@ public class MarbleLauncher : MonoBehaviour
     {
         SetupDragZoneGuide();
         SetupAimPreview();
+        ResolveShootButtonHitArea();
+        ResolvePowerSlider();
         PrepareNextShot();
     }
 
@@ -91,6 +106,7 @@ public class MarbleLauncher : MonoBehaviour
         }
 
         HandleInput();
+        UpdateLockedPowerSliderPreview();
         UpdateStandbyAimArrow();
     }
 
@@ -104,12 +120,17 @@ public class MarbleLauncher : MonoBehaviour
 
         Vector2 screenPosition = Pointer.current.position.ReadValue();
 
+        if (useShootButtonToFire && HandleShootButtonInput(screenPosition))
+        {
+            return;
+        }
+
         if (Pointer.current.press.wasPressedThisFrame)
             TryStartDrag(screenPosition);
         else if (Pointer.current.press.isPressed && isDragging)
             ContinueDrag(screenPosition);
         else if (Pointer.current.press.wasReleasedThisFrame && isDragging)
-            ReleaseAndFire(screenPosition);
+            FinishAimDrag(screenPosition);
     }
 
     // ==========================================
@@ -124,20 +145,17 @@ public class MarbleLauncher : MonoBehaviour
         if (screenPosition.y > Screen.height * bottomScreenPercentage) return;
         if (currentGacoan == null) return;
 
-        MarbleElementHandler handler = currentGacoan.GetComponent<MarbleElementHandler>();
-        if (handler != null && handler.activeElement != null)
+        if (!HasEnoughEnergyForCurrentMarble())
         {
-            int cost = handler.activeElement.energyCost;
-            if (ProgressionManager.Instance.currentEnergy < cost)
-            {
-                Debug.LogWarning($"⚠️ Tembakan Terkunci! Kurang Energi.");
-                return; 
-            }
+            Debug.LogWarning($"⚠️ Tembakan Terkunci! Kurang Energi.");
+            return;
         }
 
         dragStartPos = Camera.main.ScreenToWorldPoint(screenPosition);
         launchOriginPos = dragStartPos;
         currentGacoan.transform.position = launchOriginPos;
+        currentAimPullVector = Vector2.zero;
+        hasAimDirection = false;
         
         isDragging = true;
         if (trajectoryLine != null) trajectoryLine.enabled = false;
@@ -150,20 +168,129 @@ public class MarbleLauncher : MonoBehaviour
         if (currentGacoan == null) return;
 
         Vector2 currentTouchWorld = Camera.main.ScreenToWorldPoint(screenPosition);
-        Vector2 pullVector = ClampPullVector(currentTouchWorld - dragStartPos);
+        Vector2 rawPullVector = currentTouchWorld - dragStartPos;
+        Vector2 pullVector = GetAimPullVector(rawPullVector);
+
+        currentAimPullVector = pullVector;
+        hasAimDirection = pullVector.magnitude > 0.2f;
 
         // Kelereng tetap diam; hanya garis bidik yang memanjang mengikuti tarikan jari.
-        if (HasEagleEyePreview())
-        {
-            UpdateRicochetTrajectory(-pullVector);
-        }
-        else
-        {
-            UpdateTrajectoryLine(-pullVector);
-        }
+        UpdateAimPreview(useShootButtonToFire ? GetPowerSliderPullVector() : pullVector);
     }
 
-    private void ReleaseAndFire(Vector2 screenPosition)
+    private bool HasEnoughEnergyForCurrentMarble()
+    {
+        if (currentGacoan == null || ProgressionManager.Instance == null) return false;
+
+        MarbleElementHandler handler = currentGacoan.GetComponent<MarbleElementHandler>();
+        if (handler == null || handler.activeElement == null) return true;
+
+        int cost = handler.activeElement.energyCost;
+        return ProgressionManager.Instance.currentEnergy >= cost;
+    }
+
+    private bool HandleShootButtonInput(Vector2 screenPosition)
+    {
+        if (Pointer.current == null) return false;
+
+        if (!Pointer.current.press.wasPressedThisFrame || !IsScreenPositionOverShootButton(screenPosition))
+        {
+            return false;
+        }
+
+        FireWithPowerSlider();
+        return true;
+    }
+
+    private void FireWithPowerSlider()
+    {
+        if (currentGacoan == null || !hasAimDirection) return;
+
+        if (!HasEnoughEnergyForCurrentMarble())
+        {
+            Debug.LogWarning($"⚠️ Tembakan Terkunci! Kurang Energi.");
+            return;
+        }
+
+        isDragging = false;
+        SetStandbyArrowVisible(false);
+        ReleaseAndFire(GetPowerSliderPullVector());
+    }
+
+    public void OnShootButtonPressed()
+    {
+        if (!useShootButtonToFire) return;
+
+        FireWithPowerSlider();
+    }
+
+    public void OnShootButtonReleased()
+    {
+    }
+
+    private void UpdateLockedPowerSliderPreview()
+    {
+        if (!useShootButtonToFire || isDragging || currentGacoan == null || !hasAimDirection) return;
+
+        UpdateAimPreview(GetPowerSliderPullVector());
+    }
+
+    private float GetPowerSliderValue01()
+    {
+        if (powerSlider == null)
+        {
+            ResolvePowerSlider();
+        }
+
+        if (powerSlider == null)
+        {
+            return 1f;
+        }
+
+        if (Mathf.Approximately(powerSlider.minValue, powerSlider.maxValue))
+        {
+            return Mathf.Clamp01(powerSlider.value);
+        }
+
+        return Mathf.Clamp01(Mathf.InverseLerp(powerSlider.minValue, powerSlider.maxValue, powerSlider.value));
+    }
+
+    private Vector2 GetPowerSliderPullVector()
+    {
+        if (!hasAimDirection || currentAimPullVector.sqrMagnitude <= 0.0001f) return Vector2.zero;
+
+        float power = GetPowerSliderValue01();
+        return currentAimPullVector.normalized * GetEffectiveMaxDragDistance() * power;
+    }
+
+    private void FinishAimDrag(Vector2 screenPosition)
+    {
+        isDragging = false;
+
+        if (currentGacoan == null) return;
+
+        Vector2 currentTouchWorld = Camera.main.ScreenToWorldPoint(screenPosition);
+        Vector2 pullVector = GetAimPullVector(currentTouchWorld - dragStartPos);
+        currentAimPullVector = pullVector;
+        hasAimDirection = pullVector.magnitude > 0.2f;
+
+        if (!useShootButtonToFire)
+        {
+            ReleaseAndFire(pullVector);
+            return;
+        }
+
+        if (hasAimDirection)
+        {
+            UpdateAimPreview(GetPowerSliderPullVector());
+            return;
+        }
+
+        // Jika tarikan terlalu pendek (cancel aim), kelereng tetap di titik awal tembakan.
+        CancelLockedAim();
+    }
+
+    private void ReleaseAndFire(Vector2 pullVector)
     {
         isDragging = false;
         HideAimPreview();
@@ -171,19 +298,31 @@ public class MarbleLauncher : MonoBehaviour
 
         if (currentGacoan == null) return;
 
-        Vector2 currentTouchWorld = Camera.main.ScreenToWorldPoint(screenPosition);
-        Vector2 pullVector = ClampPullVector(currentTouchWorld - dragStartPos);
-
-        if (pullVector.magnitude > 0.2f)
+        if (pullVector.magnitude > 0.2f && HasEnoughEnergyForCurrentMarble())
         {
             ExecutePhysicsLaunch(pullVector);
+            hasAimDirection = false;
+            currentAimPullVector = Vector2.zero;
+            return;
         }
-        else
+
+        CancelLockedAim();
+    }
+
+    private void CancelLockedAim()
+    {
+        isDragging = false;
+        hasAimDirection = false;
+        currentAimPullVector = Vector2.zero;
+        HideAimPreview();
+        if (trajectoryLine != null) trajectoryLine.enabled = false;
+
+        if (currentGacoan != null)
         {
-            // Jika tarikan terlalu pendek (cancel shot), kelereng tetap di titik awal tembakan.
             currentGacoan.transform.position = launchOriginPos;
-            UpdateStandbyAimArrow();
         }
+
+        UpdateStandbyAimArrow();
     }
 
     // ==========================================
@@ -193,6 +332,10 @@ public class MarbleLauncher : MonoBehaviour
     private void PrepareNextShot()
     {
         if (gacoanPrefab == null || launchPoint == null) return;
+
+        isDragging = false;
+        hasAimDirection = false;
+        currentAimPullVector = Vector2.zero;
 
         List<MarbleElementSO> chamber = ProgressionManager.Instance.equippedChamber;
         MarbleElementSO nextElement = null;
@@ -338,7 +481,7 @@ public class MarbleLauncher : MonoBehaviour
     public bool ForceSwapActiveMarble(int targetIndexInChamber)
 
     {
-        if (isDragging || currentGacoan == null) return false;
+        if (isDragging || hasAimDirection || currentGacoan == null) return false;
 
         List<MarbleElementSO> chamber = ProgressionManager.Instance.equippedChamber;
         
@@ -379,6 +522,33 @@ public class MarbleLauncher : MonoBehaviour
         return pullVector;
     }
 
+    private Vector2 GetAimPullVector(Vector2 rawPullVector)
+    {
+        if (!useShootButtonToFire)
+        {
+            return ClampPullVector(rawPullVector);
+        }
+
+        if (rawPullVector.magnitude <= 0.001f)
+        {
+            return Vector2.zero;
+        }
+
+        return rawPullVector.normalized * GetEffectiveMaxDragDistance();
+    }
+
+    private void UpdateAimPreview(Vector2 pullVector)
+    {
+        if (HasEagleEyePreview())
+        {
+            UpdateRicochetTrajectory(-pullVector);
+        }
+        else
+        {
+            UpdateTrajectoryLine(-pullVector);
+        }
+    }
+
     private void UpdateTrajectoryLine(Vector2 launchDirection)
     {
         if (trajectoryLine != null)
@@ -403,7 +573,10 @@ public class MarbleLauncher : MonoBehaviour
             ricochetPreviewCount,
             ignoreCollider,
             GetMarbleCollidersForPrediction(ignoreCollider),
-            marblePhysicsMaterial);
+            marblePhysicsMaterial,
+            GetCurrentMarbleMass(),
+            IsCurrentMarbleLava(out float lavaPreserveSpeedMultiplier),
+            lavaPreserveSpeedMultiplier);
 
         DrawDottedAimPreview(points, launchDirection);
     }
@@ -462,7 +635,7 @@ public class MarbleLauncher : MonoBehaviour
     {
         HideAimDots();
 
-        if (!isDragging || points == null || points.Count < 2 || launchDirection.sqrMagnitude <= 0.0001f)
+        if ((!isDragging && !hasAimDirection) || points == null || points.Count < 2 || launchDirection.sqrMagnitude <= 0.0001f)
         {
             SetAimArrowVisible(false);
             return;
@@ -563,7 +736,7 @@ public class MarbleLauncher : MonoBehaviour
 
     private void UpdateStandbyAimArrow()
     {
-        if (isDragging || currentGacoan == null)
+        if (!launcherPreviewActive || isDragging || hasAimDirection || currentGacoan == null)
         {
             SetStandbyArrowVisible(false);
             return;
@@ -591,6 +764,36 @@ public class MarbleLauncher : MonoBehaviour
             standbyArrowRenderer.enabled = visible && standbyArrowRenderer.sprite != null;
         }
     }
+
+    public void SetLauncherPreviewActive(bool active)
+    {
+        launcherPreviewActive = active;
+
+        if (currentGacoan != null)
+        {
+            SpriteRenderer[] renderers = currentGacoan.GetComponentsInChildren<SpriteRenderer>(true);
+            foreach (SpriteRenderer renderer in renderers)
+            {
+                renderer.enabled = active;
+            }
+
+            Collider2D[] colliders = currentGacoan.GetComponentsInChildren<Collider2D>(true);
+            foreach (Collider2D collider in colliders)
+            {
+                collider.enabled = active;
+            }
+        }
+
+        if (!active)
+        {
+            HideAimPreview();
+            SetStandbyArrowVisible(false);
+            return;
+        }
+
+        UpdateStandbyAimArrow();
+    }
+
     private void UpdateRicochetTrajectory(Vector2 launchDirection)
     {
         Collider2D ignoreCollider = currentGacoan != null
@@ -608,7 +811,10 @@ public class MarbleLauncher : MonoBehaviour
             ricochetPreviewCount,
             ignoreCollider,
             GetMarbleCollidersForPrediction(ignoreCollider),
-            marblePhysicsMaterial);
+            marblePhysicsMaterial,
+            GetCurrentMarbleMass(),
+            IsCurrentMarbleLava(out float lavaPreserveSpeedMultiplier),
+            lavaPreserveSpeedMultiplier);
 
         if (trajectoryLine != null)
         {
@@ -622,34 +828,148 @@ public class MarbleLauncher : MonoBehaviour
     private List<CircleCollider2D> GetMarbleCollidersForPrediction(Collider2D ignoreCollider)
     {
         List<CircleCollider2D> marbleColliders = new List<CircleCollider2D>();
+        HashSet<CircleCollider2D> addedColliders = new HashSet<CircleCollider2D>();
 
-        if (ArenaManager.Instance == null)
+        if (ArenaManager.Instance != null)
         {
-            return marbleColliders;
+            foreach (Rigidbody2D marbleBody in ArenaManager.Instance.allMarblesInArena)
+            {
+                if (marbleBody == null)
+                {
+                    continue;
+                }
+
+                AddMarbleColliderForPrediction(
+                    marbleBody.GetComponent<CircleCollider2D>(),
+                    ignoreCollider,
+                    marbleColliders,
+                    addedColliders);
+            }
         }
 
-        foreach (Rigidbody2D marbleBody in ArenaManager.Instance.allMarblesInArena)
+        CircleCollider2D[] sceneCircleColliders = Object.FindObjectsByType<CircleCollider2D>(FindObjectsSortMode.None);
+        foreach (CircleCollider2D circleCollider in sceneCircleColliders)
         {
-            if (marbleBody == null)
-            {
-                continue;
-            }
-
-            CircleCollider2D circleCollider = marbleBody.GetComponent<CircleCollider2D>();
-            if (circleCollider == null || circleCollider == ignoreCollider || !circleCollider.enabled)
-            {
-                continue;
-            }
-
-            marbleColliders.Add(circleCollider);
+            AddMarbleColliderForPrediction(circleCollider, ignoreCollider, marbleColliders, addedColliders);
         }
 
         return marbleColliders;
     }
 
+    private void AddMarbleColliderForPrediction(
+        CircleCollider2D circleCollider,
+        Collider2D ignoreCollider,
+        List<CircleCollider2D> marbleColliders,
+        HashSet<CircleCollider2D> addedColliders)
+    {
+        if (circleCollider == null || circleCollider == ignoreCollider || !circleCollider.enabled)
+        {
+            return;
+        }
+
+        if (!IsPredictableMarble(circleCollider.gameObject))
+        {
+            return;
+        }
+
+        if (addedColliders.Add(circleCollider))
+        {
+            marbleColliders.Add(circleCollider);
+        }
+    }
+
+    private bool IsPredictableMarble(GameObject marbleObject)
+    {
+        if (marbleObject == null) return false;
+
+        return marbleObject.CompareTag("TargetMarble")
+            || marbleObject.CompareTag("PlayerMarble")
+            || marbleObject.CompareTag("Gacoan")
+            || marbleObject.GetComponent<TargetMarble>() != null
+            || marbleObject.GetComponent<MarbleElementHandler>() != null;
+    }
+
+    private bool IsCurrentMarbleLava(out float preserveSpeedMultiplier)
+    {
+        preserveSpeedMultiplier = 1f;
+        if (currentGacoan == null) return false;
+
+        MarbleElementHandler handler = currentGacoan.GetComponent<MarbleElementHandler>();
+        if (handler == null || handler.activeElement == null) return false;
+
+        if (handler.activeElement is CombinedElementSO combinedElement
+            && combinedElement.fusionType == CombinedElementSO.FusionType.Lava)
+        {
+            preserveSpeedMultiplier = combinedElement.lavaPreserveSpeedMultiplier;
+            return true;
+        }
+
+        return false;
+    }
+
+    private float GetCurrentMarbleMass()
+    {
+        if (currentGacoanRb != null)
+        {
+            return Mathf.Max(0.01f, currentGacoanRb.mass);
+        }
+
+        if (currentGacoan != null && currentGacoan.TryGetComponent(out Rigidbody2D rb))
+        {
+            return Mathf.Max(0.01f, rb.mass);
+        }
+
+        return 1f;
+    }
+
     private bool IsPointerOverUI()
     {
-        return EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        {
+            return true;
+        }
+
+        return Pointer.current != null && MarblePlaygroundController.IsScreenPositionOverMenu(Pointer.current.position.ReadValue());
+    }
+
+    private void ResolveShootButtonHitArea()
+    {
+        if (shootButtonHitArea != null || string.IsNullOrEmpty(shootButtonObjectName)) return;
+
+        GameObject shootButtonObject = GameObject.Find(shootButtonObjectName);
+        if (shootButtonObject == null) return;
+
+        shootButtonHitArea = shootButtonObject.GetComponent<RectTransform>();
+    }
+
+    private void ResolvePowerSlider()
+    {
+        if (powerSlider != null || string.IsNullOrEmpty(powerSliderObjectName)) return;
+
+        GameObject sliderObject = GameObject.Find(powerSliderObjectName);
+        if (sliderObject == null) return;
+
+        powerSlider = sliderObject.GetComponent<Slider>();
+    }
+
+    private bool IsScreenPositionOverShootButton(Vector2 screenPosition)
+    {
+        if (shootButtonHitArea == null)
+        {
+            ResolveShootButtonHitArea();
+        }
+
+        if (shootButtonHitArea == null || !shootButtonHitArea.gameObject.activeInHierarchy)
+        {
+            return false;
+        }
+
+        Canvas canvas = shootButtonHitArea.GetComponentInParent<Canvas>();
+        Camera eventCamera = canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay
+            ? canvas.worldCamera
+            : null;
+
+        return RectTransformUtility.RectangleContainsScreenPoint(shootButtonHitArea, screenPosition, eventCamera);
     }
 
     private void SetupDragZoneGuide()

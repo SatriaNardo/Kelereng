@@ -10,12 +10,30 @@ public class EventManager : MonoBehaviour
     public TMP_Text bodyText;
     public Button[] choiceButtons = new Button[3];
     public TMP_Text[] choiceLabels = new TMP_Text[3];
+    [Tooltip("Optional clue text shown under each choice, e.g. 'Lose marble, gain element'.")]
+    public TMP_Text[] choiceClueLabels = new TMP_Text[3];
+    [Tooltip("Inventory panel to show when an event gives an element reward.")]
+    public GameObject inventoryPanel;
+    public GameObject inventoryPanelPrefab;
+    public Transform inventoryPanelParent;
+    public UIInventoryManager uiInventoryManager;
 
     private GameEventSO activeEvent;
     private int currentNodeIndex = 0;
+    private MarbleElementSO pendingElementRewardElement;
+    private System.Action pendingAfterElementReward;
+
+    private void OnValidate()
+    {
+        EnsureChoiceClueLabelArray();
+    }
 
     private void Start()
     {
+        EnsureChoiceClueLabelArray();
+        EnsureInventoryPanelReady();
+        if (inventoryPanel != null) inventoryPanel.SetActive(false);
+
         activeEvent = ProgressionManager.Instance != null ? ProgressionManager.Instance.selectedEventForEventScene : null;
 
         if (activeEvent == null || activeEvent.conversationNodes.Count == 0)
@@ -65,6 +83,13 @@ public class EventManager : MonoBehaviour
             choiceLabels[index].text = hasChoice ? choice.choiceText : "";
         }
 
+        TMP_Text clueLabel = GetChoiceClueLabel(index, button, hasChoice && !string.IsNullOrEmpty(choice.clueText));
+        if (clueLabel != null)
+        {
+            clueLabel.gameObject.SetActive(hasChoice && !string.IsNullOrEmpty(choice.clueText));
+            clueLabel.text = hasChoice ? choice.clueText : "";
+        }
+
         if (hasChoice)
         {
             EventChoiceData capturedChoice = choice;
@@ -81,9 +106,12 @@ public class EventManager : MonoBehaviour
                 break;
 
             case EventChoiceAction.ApplyRewardAndEnd:
-                if (TryApplyReward(choice.reward))
+                if (TryApplyReward(choice.reward, true))
                 {
-                    EndEvent();
+                    if (!TryOpenElementRewardInfusion(choice.reward, EndEvent))
+                    {
+                        EndEvent();
+                    }
                 }
                 else
                 {
@@ -126,9 +154,12 @@ public class EventManager : MonoBehaviour
                 break;
 
             case EventChoiceAction.ApplyRewardAndEnd:
-                if (TryApplyReward(outcome.reward))
+                if (TryApplyReward(outcome.reward, true))
                 {
-                    ShowOutcomeMessageOrEnd(outcome.outcomeText);
+                    if (!TryOpenElementRewardInfusion(outcome.reward, () => ShowOutcomeMessageOrEnd(outcome.outcomeText)))
+                    {
+                        ShowOutcomeMessageOrEnd(outcome.outcomeText);
+                    }
                 }
                 else
                 {
@@ -202,11 +233,179 @@ public class EventManager : MonoBehaviour
         return validEnemies[Random.Range(0, validEnemies.Count)];
     }
 
-    private bool TryApplyReward(EventRewardData reward)
+    private bool TryApplyReward(EventRewardData reward, bool deferElementRewards)
     {
         if (ProgressionManager.Instance == null) return false;
 
-        return ProgressionManager.Instance.ApplyEventReward(reward);
+        return ProgressionManager.Instance.ApplyEventReward(reward, !deferElementRewards);
+    }
+
+    private bool TryOpenElementRewardInfusion(EventRewardData reward, System.Action fallbackAfterReward)
+    {
+        if (ProgressionManager.Instance == null || reward == null) return false;
+
+        MarbleElementSO element = ProgressionManager.Instance.PickRandomEventElementReward(reward);
+        if (element == null) return false;
+
+        EnsureInventoryPanelReady();
+
+        if (uiInventoryManager == null)
+        {
+            Debug.LogWarning("Event has an element reward, but EventManager.uiInventoryManager is not assigned. Falling back to automatic element placement.");
+            ProgressionManager.Instance.GrantElementToChamber(element);
+            fallbackAfterReward?.Invoke();
+            return true;
+        }
+
+        pendingElementRewardElement = element;
+        pendingAfterElementReward = fallbackAfterReward;
+        ProgressionManager.Instance.pendingElementFromShop = element;
+
+        if (inventoryPanel != null) inventoryPanel.SetActive(true);
+        uiInventoryManager.BuildDynamicInventoryUI();
+        uiInventoryManager.EnterEventInfusionMode(this, element.elementName);
+        SetChoiceButtonsInteractable(false);
+        return true;
+    }
+
+    private void EnsureInventoryPanelReady()
+    {
+        if (uiInventoryManager != null)
+        {
+            if (inventoryPanel == null)
+            {
+                inventoryPanel = uiInventoryManager.gameObject;
+            }
+
+            return;
+        }
+
+        if (inventoryPanel == null && inventoryPanelPrefab != null)
+        {
+            Canvas canvas = FindFirstObjectByType<Canvas>();
+            Transform parent = inventoryPanelParent != null
+                ? inventoryPanelParent
+                : (canvas != null ? canvas.transform : transform.root);
+            inventoryPanel = Instantiate(inventoryPanelPrefab, parent);
+        }
+
+        if (inventoryPanel != null)
+        {
+            uiInventoryManager = inventoryPanel.GetComponent<UIInventoryManager>();
+            if (uiInventoryManager == null)
+            {
+                uiInventoryManager = inventoryPanel.GetComponentInChildren<UIInventoryManager>(true);
+            }
+
+            if (uiInventoryManager != null && inventoryPanel == null)
+            {
+                inventoryPanel = uiInventoryManager.gameObject;
+            }
+        }
+    }
+
+    public void CompleteElementRewardInfusion(int selectedSlotIndex)
+    {
+        if (ProgressionManager.Instance == null || pendingElementRewardElement == null)
+        {
+            FinishElementRewardInfusion();
+            EndEvent();
+            return;
+        }
+
+        if (!ProgressionManager.Instance.LoadElementToSlot(selectedSlotIndex, pendingElementRewardElement))
+        {
+            if (uiInventoryManager != null)
+            {
+                uiInventoryManager.ShowFeedback("This marble is already combined. Pick another marble.");
+            }
+            return;
+        }
+
+        System.Action afterElementReward = pendingAfterElementReward;
+        FinishElementRewardInfusion();
+        afterElementReward?.Invoke();
+    }
+
+    private void FinishElementRewardInfusion()
+    {
+        pendingElementRewardElement = null;
+        pendingAfterElementReward = null;
+        if (ProgressionManager.Instance != null) ProgressionManager.Instance.pendingElementFromShop = null;
+        if (uiInventoryManager != null) uiInventoryManager.ExitInfusionMode();
+        if (inventoryPanel != null) inventoryPanel.SetActive(false);
+    }
+
+    private void SetChoiceButtonsInteractable(bool interactable)
+    {
+        foreach (Button button in choiceButtons)
+        {
+            if (button != null) button.interactable = interactable;
+        }
+    }
+
+    private TMP_Text GetChoiceClueLabel(int index, Button button, bool createIfMissing)
+    {
+        EnsureChoiceClueLabelArray();
+
+        if (index >= 0 && index < choiceClueLabels.Length && choiceClueLabels[index] != null)
+        {
+            return choiceClueLabels[index];
+        }
+
+        Transform existing = button.transform.Find("ChoiceClueText");
+        if (existing != null && existing.TryGetComponent(out TMP_Text existingText))
+        {
+            AssignChoiceClueLabel(index, existingText);
+            ConfigureChoiceClueLabel(existingText);
+            return existingText;
+        }
+
+        if (!createIfMissing) return null;
+
+        GameObject clueObject = new GameObject("ChoiceClueText", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+        clueObject.transform.SetParent(button.transform, false);
+        TMP_Text clueText = clueObject.GetComponent<TMP_Text>();
+        clueText.raycastTarget = false;
+        clueText.fontSize = 12f;
+        clueText.color = new Color(0.22f, 0.22f, 0.22f, 0.85f);
+        clueText.alignment = TextAlignmentOptions.Center;
+        clueText.textWrappingMode = TextWrappingModes.Normal;
+        ConfigureChoiceClueLabel(clueText);
+        AssignChoiceClueLabel(index, clueText);
+        return clueText;
+    }
+
+    private void AssignChoiceClueLabel(int index, TMP_Text clueText)
+    {
+        if (index < 0 || index >= choiceClueLabels.Length) return;
+        choiceClueLabels[index] = clueText;
+    }
+
+    private void ConfigureChoiceClueLabel(TMP_Text clueText)
+    {
+        if (clueText == null) return;
+
+        RectTransform rectTransform = clueText.rectTransform;
+        rectTransform.anchorMin = new Vector2(0f, -0.85f);
+        rectTransform.anchorMax = new Vector2(1f, 0f);
+        rectTransform.pivot = new Vector2(0.5f, 1f);
+        rectTransform.anchoredPosition = new Vector2(0f, -2f);
+        rectTransform.sizeDelta = new Vector2(0f, 24f);
+    }
+
+    private void EnsureChoiceClueLabelArray()
+    {
+        if (choiceClueLabels == null || choiceClueLabels.Length != choiceButtons.Length)
+        {
+            TMP_Text[] oldLabels = choiceClueLabels;
+            choiceClueLabels = new TMP_Text[choiceButtons.Length];
+
+            for (int i = 0; i < choiceClueLabels.Length; i++)
+            {
+                choiceClueLabels[i] = oldLabels != null && i < oldLabels.Length ? oldLabels[i] : null;
+            }
+        }
     }
 
     private void ShowMessageAndEnd(string message)
@@ -226,6 +425,12 @@ public class EventManager : MonoBehaviour
             if (i < choiceLabels.Length && choiceLabels[i] != null)
             {
                 choiceLabels[i].text = isContinueButton ? "Lanjut" : "";
+            }
+
+            if (i < choiceClueLabels.Length && choiceClueLabels[i] != null)
+            {
+                choiceClueLabels[i].gameObject.SetActive(false);
+                choiceClueLabels[i].text = "";
             }
 
             if (isContinueButton)

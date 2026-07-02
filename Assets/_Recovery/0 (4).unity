@@ -1161,6 +1161,7 @@ MonoBehaviour:
   slotPrefab: {fileID: 7367897254266103207, guid: 737803f29c5a043b8b7398814b199d0a, type: 3}
   slotsContainer: {fileID: 7566274136753861001}
   feedbackStatusText: {fileID: 0}
+  rebuildOnEnable: 1
 --- !u!1 &1797610795
 GameObject:
   m_ObjectHideFlags: 0

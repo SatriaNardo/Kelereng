@@ -31,15 +31,76 @@ public class MapManager : MonoBehaviour
     public List<EnemySO> normalFightPool = new List<EnemySO>();
     public List<EnemySO> eliteFightPool = new List<EnemySO>();
 
+    private MarbleElementSO pendingEventFightElementReward;
+
     private void Start()
     {
-        if (ProgressionManager.Instance != null)
-        {
-            ProgressionManager.Instance.ClaimPendingEventFightReward();
-        }
-
         if (uiInventoryManager != null)
         {
+            uiInventoryManager.BuildDynamicInventoryUI();
+        }
+
+        if (ProgressionManager.Instance != null)
+        {
+            ClaimPendingEventFightReward();
+        }
+
+        UpdateMapUI();
+    }
+
+    private void ClaimPendingEventFightReward()
+    {
+        if (!ProgressionManager.Instance.hasPendingEventFightReward) return;
+
+        EventRewardData reward = ProgressionManager.Instance.pendingEventFightReward;
+        ProgressionManager.Instance.hasPendingEventFightReward = false;
+        ProgressionManager.Instance.pendingEventFightReward = null;
+        ProgressionManager.Instance.selectedEventForEventScene = null;
+
+        ProgressionManager.Instance.ApplyEventReward(reward, false);
+        if (uiInventoryManager != null)
+        {
+            uiInventoryManager.BuildDynamicInventoryUI();
+        }
+
+        pendingEventFightElementReward = ProgressionManager.Instance.PickRandomEventElementReward(reward);
+
+        if (pendingEventFightElementReward == null) return;
+
+        if (uiInventoryManager == null)
+        {
+            Debug.LogWarning("MapManager has an event fight element reward, but uiInventoryManager is not assigned. Falling back to automatic element placement.");
+            ProgressionManager.Instance.GrantElementToChamber(pendingEventFightElementReward);
+            pendingEventFightElementReward = null;
+            return;
+        }
+
+        ProgressionManager.Instance.pendingElementFromShop = pendingEventFightElementReward;
+        uiInventoryManager.EnterMapEventInfusionMode(this, pendingEventFightElementReward.elementName);
+    }
+
+    public void CompletePendingEventFightElementInfusion(int selectedSlotIndex)
+    {
+        if (ProgressionManager.Instance == null || pendingEventFightElementReward == null)
+        {
+            pendingEventFightElementReward = null;
+            return;
+        }
+
+        if (!ProgressionManager.Instance.LoadElementToSlot(selectedSlotIndex, pendingEventFightElementReward))
+        {
+            if (uiInventoryManager != null)
+            {
+                uiInventoryManager.ShowFeedback("This marble is already combined. Pick another marble.");
+            }
+            return;
+        }
+
+        pendingEventFightElementReward = null;
+        ProgressionManager.Instance.pendingElementFromShop = null;
+        if (uiInventoryManager != null)
+        {
+            uiInventoryManager.ExitInfusionMode();
             uiInventoryManager.BuildDynamicInventoryUI();
         }
 

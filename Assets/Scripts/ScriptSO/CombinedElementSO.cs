@@ -117,6 +117,15 @@ public class CombinedElementSO : MarbleElementSO
     public float lavaLaunchMultiplier = 1.2f;
     public float lavaClashForce = 5f;
     public float lavaPreserveSpeedMultiplier = 0.95f;
+    public bool useLavaTrailSpots = true;
+    public float lavaTrailSpotSpacing = 0.18f;
+    public float lavaTrailSpotSize = 0.28f;
+    public float lavaTrailSpotLifetime = 2.5f;
+    public Sprite[] lavaTrailSprites = new Sprite[3];
+    public Color lavaTrailSpotColor = new Color(1f, 0.28f, 0f, 0.75f);
+    [Range(0f, 1f)] public float lavaTrailLinearDampingMultiplier = 1f;
+    [Range(0f, 1f)] public float lavaTrailAngularDampingMultiplier = 1f;
+    [Range(0f, 1f)] public float lavaTrailFriction = 1f;
 
     [Header("Mud")]
     public int mudMaxStickCount = 5;
@@ -150,6 +159,7 @@ public class CombinedElementSO : MarbleElementSO
 
             trail.spotSpacing = iceTrailSpotSpacing;
             trail.spotSize = iceTrailSpotSize;
+            trail.spotLifetime = 0f;
             trail.iceColor = elementColor;
             trail.spotSprites = iceTrailSprites;
             trail.spotLinearDampingMultiplier = iceTrailLinearDampingMultiplier;
@@ -162,6 +172,22 @@ public class CombinedElementSO : MarbleElementSO
             if (pierce == null) pierce = marble.gameObject.AddComponent<LavaPierceEffect>();
 
             pierce.preserveSpeedMultiplier = lavaPreserveSpeedMultiplier;
+
+            if (useLavaTrailSpots)
+            {
+                IceTrailEffect trail = marble.gameObject.GetComponent<IceTrailEffect>();
+                if (trail == null) trail = marble.gameObject.AddComponent<IceTrailEffect>();
+
+                trail.spotName = "LavaTrailSpot";
+                trail.spotSpacing = lavaTrailSpotSpacing;
+                trail.spotSize = lavaTrailSpotSize;
+                trail.spotLifetime = lavaTrailSpotLifetime;
+                trail.iceColor = lavaTrailSpotColor;
+                trail.spotSprites = lavaTrailSprites;
+                trail.spotLinearDampingMultiplier = lavaTrailLinearDampingMultiplier;
+                trail.spotAngularDampingMultiplier = lavaTrailAngularDampingMultiplier;
+                trail.spotFriction = lavaTrailFriction;
+            }
         }
     }
 

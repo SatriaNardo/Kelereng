@@ -43,6 +43,8 @@ public class CorruptedGolemEnemySO : EnemySO
     [Header("Shared Physics")]
     public PhysicsMaterial2D hazardMaterial;
 
+    protected override int EnemyActionSfxSlotCount => 4;
+
     public override void ExecuteEnemyAction(ArenaManager arena)
     {
         ClearGolemHazards();
@@ -89,6 +91,8 @@ public class CorruptedGolemEnemySO : EnemySO
 
     private void ExecuteMove(GolemMove move, ArenaManager arena)
     {
+        PlayActionSfx(arena, (int)move);
+
         switch (move)
         {
             case GolemMove.Quicksand:

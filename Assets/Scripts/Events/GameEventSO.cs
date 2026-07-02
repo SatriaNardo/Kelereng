@@ -39,6 +39,7 @@ public class EventRandomOutcomeData
 public class EventChoiceData
 {
     public string choiceText;
+    [TextArea(1, 3)] public string clueText;
     public EventChoiceAction action = EventChoiceAction.EndEvent;
     public int nextNodeIndex = -1;
     public EventRewardData reward = new EventRewardData();

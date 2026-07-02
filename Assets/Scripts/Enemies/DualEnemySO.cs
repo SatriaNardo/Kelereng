@@ -7,6 +7,8 @@ public class DualEnemySO : EnemySO
     public EnemySO firstEnemy;
     public EnemySO secondEnemy;
 
+    protected override int EnemyActionSfxSlotCount => 0;
+
     public override void ExecuteEnemyAction(ArenaManager arena)
     {
         if (firstEnemy != null)

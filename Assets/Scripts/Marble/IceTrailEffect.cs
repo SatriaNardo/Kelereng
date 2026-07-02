@@ -4,7 +4,10 @@ public class IceTrailEffect : MonoBehaviour
 {
     public float spotSpacing = 0.25f;
     public float spotSize = 0.45f;
+    [Tooltip("Seconds before spawned trail spots disappear. Set to 0 or less to keep them forever.")]
+    public float spotLifetime = 0f;
     public float stopSpeed = 0.08f;
+    public string spotName = "IceTrailSpot";
     public Color iceColor = new Color(0.55f, 0.9f, 1f, 0.45f);
     public Sprite[] spotSprites;
     [Range(0f, 1f)] public float spotLinearDampingMultiplier = 0.08f;
@@ -50,7 +53,7 @@ public class IceTrailEffect : MonoBehaviour
 
     private void SpawnSpot(Vector2 position)
     {
-        GameObject spot = new GameObject("IceTrailSpot");
+        GameObject spot = new GameObject(string.IsNullOrEmpty(spotName) ? "IceTrailSpot" : spotName);
         spot.transform.position = position;
         spot.transform.localScale = Vector3.one * spotSize;
 
@@ -61,6 +64,11 @@ public class IceTrailEffect : MonoBehaviour
 
         IceTrailSpot iceSpot = spot.AddComponent<IceTrailSpot>();
         iceSpot.Configure(0.5f, spotLinearDampingMultiplier, spotAngularDampingMultiplier, spotFriction, rb);
+
+        if (spotLifetime > 0f)
+        {
+            Destroy(spot, spotLifetime);
+        }
     }
 
     private Sprite GetRandomSpotSprite()
